@@ -32,6 +32,18 @@ const router = new Router({
         import('../views/Register.vue')
     },
     {
+      path: '/contract',
+      name: '订单',
+      component: () =>
+        import('../views/Contract.vue')
+    },
+    {
+      path: '/house',
+      name: '房源',
+      component: () =>
+        import('../views/House.vue')
+    },
+    {
       path: '/user0',
       name: 'User0',
       redirect: '/user0/info',
@@ -46,7 +58,7 @@ const router = new Router({
         },
         {
           path:'/user0/query',
-          name: '合同查询',
+          name: '订单查询',
           component: ()=> import('../views/user0/Query.vue')
         },
         {

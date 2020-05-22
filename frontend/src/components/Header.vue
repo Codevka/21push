@@ -46,7 +46,8 @@ export default {
     computed : {
         userType() {
             //return this.$store.getters.userType
-            return this.$store.getters.userType
+            console.log(this.$store.state.userInfo.userType)
+            return this.$store.state.userInfo.userType
             //return -1;
         }
     },

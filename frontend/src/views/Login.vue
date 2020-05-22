@@ -9,8 +9,8 @@
       <h3>用户登录</h3>
       <el-form-item prop="userType">
         <el-radio v-model="LoginForm.userType" label="0">租户</el-radio>
-        <el-radio v-model="LoginForm.userType" label="1">维修人员</el-radio>
-        <el-radio v-model="LoginForm.userType" label="2">客服</el-radio>
+        <el-radio v-model="LoginForm.userType" label="2">维修人员</el-radio>
+        <el-radio v-model="LoginForm.userType" label="1">客服</el-radio>
       </el-form-item>
       <el-form-item prop="username">
         <el-input 
@@ -115,6 +115,7 @@ export default {
             let userInfo = {
               userType: LoginParams.userType,
               username: LoginParams.username,
+              password: LoginParams.password,
             }
             console.log('loginuif--')
             console.log(userInfo)
@@ -140,9 +141,9 @@ export default {
         }
       })
     },
-    reset () {
+    /*reset () {
       this.$refs.LoginForm.resetFields()
-    },
+    },*/
     toRegister () {
       this.$router.push('/register')
     }

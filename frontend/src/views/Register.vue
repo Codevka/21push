@@ -8,10 +8,6 @@
       label-width="80px">
 
       <h3>用户注册</h3>
-      <el-form-item label="用户类型" prop="userType">
-          <el-radio v-model="RegisterForm.userType" label="0">租户</el-radio>
-          <el-radio v-model="RegisterForm.userType" label="1">维修人员</el-radio>
-      </el-form-item>
       <el-form-item label="用户名" prop="username">
         <el-input 
           type="text"
@@ -57,6 +53,17 @@
           placeholder="手机号">
         </el-input>
       </el-form-item>
+      <el-form-item label="地区" prop="city">
+        <v-distpicker 
+          :province="RegisterForm.province" 
+          :city="RegisterForm.city" 
+          :area="RegisterForm.area"
+          @province="onChangeProvince"
+          @city="onChangeCity"
+          @area="onChangeArea"
+          @selected="onSelected">
+        </v-distpicker>
+      </el-form-item>
       <el-form-item >
         <el-button 
           type="success" 
@@ -79,6 +86,7 @@
 </template>
 <script>
 //import {RegisterUser} from '../main'
+
 export default {
   data () {
     let confirmpasswordCheck = (rule, value, callback) => {
@@ -100,6 +108,12 @@ export default {
         callback()
       }
     }
+    let cityCheck = (rule, value, callback) => {
+      if(this.RegisterForm.province===''||value===''|| this.RegisterForm.area==='')
+        return callback(new Error('省市地不能为空'))
+      else
+        callback()
+    }
     return {
       RegisterForm: {
         userType: '',
@@ -108,30 +122,27 @@ export default {
         confirmpassword: '',
         tel: '',
         email: '',
-        name: ''
+        name: '',
+        province:'',
+        city: '',
+        area: ''
       },
       registering: false,
       rule: {
-        userType: [
-          {
-            required: true,
-            message: '用户类型不能为空',
-            trigger: 'blur'
-          }
-        ],
         username: [
           {
             required: true,
             max: 14,
-            min: 7,
-            message: '用户名不可为空，长度为7-14位',
+            min: 3,
+            message: '用户名不可为空，长度为3-14位',
             trigger: 'blur'
           }
         ],
         password: [
           {
             required: true,
-            message: '密码不能为空',
+            min: 6,
+            message: '密码不能为空,长度最少6位',
             trigger: 'blur'
           }
         ],
@@ -160,9 +171,14 @@ export default {
         name: [
           {
             required: true,
-            max: 12,
-            min: 2,
             message: '昵称不能为空',
+            trigger: 'blur'
+          }
+        ],
+        city: [
+          {
+            required: true,
+            validator: cityCheck,
             trigger: 'blur'
           }
         ]
@@ -176,12 +192,14 @@ export default {
           this.registering = true
           //console.log('submitting')
           let RegisterParams = {
-            userType: this.RegisterForm.userType,
             username: this.RegisterForm.username,
             password: this.RegisterForm.password,
             tel: this.RegisterForm.tel,
             email: this.RegisterForm.email,
             name: this.RegisterForm.name,
+            city: this.RegisterForm.city,
+            area: this.RegisterForm.area,
+            province: this.RegisterForm.province
           }
           /*RegisterUser(RegisterParams)
           .then(res => {
@@ -196,18 +214,23 @@ export default {
               message: '注册成功'
             })
             //let userInfo = res.data
-            let userInfo = {
-              userType: RegisterParams.userType,
-              username: RegisterParams.username,
-            }
-            console.log(userInfo)
-            //sessionStorage.setItem('userInfo', JSON.stringify(userInfo)
+            console.log(RegisterParams)
+            //sessionStorage.setItem('userInfo', JSON.stringify(RegisterParams)
             this.$router.push('/login')
           //})
         } else {
           console.log('registerSubmit err')
         }
       })
+    },
+    onChangeProvince(data) {
+      this.RegisterForm.province=data.value
+    },
+    onChangeCity(data) {
+      this.RegisterForm.city=data.value
+    },
+    onChangeArea(data) {
+      this.RegisterForm.area=data.value
     },
     tologin () {
       this.$router.push('/login')
@@ -219,7 +242,7 @@ export default {
 <style scoped>
 .regform {
   margin: 20px auto;
-  width: 500px;
+  width: 700px;
   background: #fff;
   box-shadow: 0 0 10px #B4BCCC;
   padding: 30px 30px 30px 30px;

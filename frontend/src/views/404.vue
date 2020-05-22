@@ -1,8 +1,10 @@
 <template>
-  <h1 style>PAGE NOT FOUND</h1>
+<el-main>
+  <p class="Message" align="center">PAGE NOT FOUND</p>
+</el-main>
 </template>
 <style>
-h1 {
+.Message {
   font-size: 100px;
   text-align: center
 }
