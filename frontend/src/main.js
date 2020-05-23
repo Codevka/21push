@@ -12,32 +12,38 @@ Vue.component('v-distpicker', VDistpicker);
 export default {
   components: { VDistpicker }
 }
+
 Vue.config.productionTip = false;
 
 Vue.prototype.$http = axios;
 
-axios.defaults.baseURL = 'http://.';
+axios.defaults.baseURL = 'http://localhost:18888';
 
-//后端接口未知
-//该处为与后端通信
-let base = ''
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
+//与后端通信
 export const RegisterUser = (params) => {
-  return axios.post(`${base}/register`, params)
+  return axios.post('/register', params)
 }
 export const LoginUser = (params) => {
-  return axios.post(`${base}/login`, params)
+  return axios.post('/login', params)
 }
 export const changeUserInfo = (params) => {
-  return axios.post(`${base}/changeUserInfo`, params)
+  return axios.post('/changeUserInfo', params)
 }
 export const getUserContract = (params) => {
-  return axios.get(`${base}/getUserContract`,params)
+  return axios.get('/getUserContract',params)
 }
 export const getContract = (params) => {
-  return axios.get(`${base}/getContract`,params)
+  return axios.get('/getContract',params)
 }
 export const getHouse = (params) => {
-  return axios.get(`${base}/getHouse`,params)
+  return axios.get('/getHouse',params)
+}
+export const leaseBack = (params) => {
+  return axios.get('/leaseBack',params)
+}
+export const leaseRenew = (params) => {
+  return axios.get('/leaseRenew',params)
 }
 //导航守卫
 //无效

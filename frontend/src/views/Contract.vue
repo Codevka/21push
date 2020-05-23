@@ -5,19 +5,39 @@
         <p v-for="(item,key,index) in contractInfo" :key="key">
             {{contractLabel[index]}}:{{item}}
         </p>  
-        <el-button v-if="contractInfo.contractStatus=='1'">缴费
+        <el-button v-if="contractInfo.contractStatus=='1'" >缴费
         </el-button>
-        <el-button v-if="contractInfo.contractStatus=='0'">退租
+        <el-button v-if="contractInfo.contractStatus=='0'" @click="leaseBack">退租
         </el-button>
-        <el-button v-if="contractInfo.contractStatus=='0'">续租
+        <el-button v-if="contractInfo.contractStatus=='0'" @click="dialogFormVisible = true">续租
         </el-button>
+        <el-dialog title="续租时间" :visible.sync="dialogFormVisible">
+            <el-form v-model="leaseRenewForm">
+                <el-form-item label='月数' label-width="50px">
+                    <el-input-number 
+                        v-model="leaseRenewForm.month"
+                        :min='0'>
+                    </el-input-number>
+                </el-form-item>
+                <el-form-item label='天数' label-width="50px">
+                    <el-input-number 
+                        v-model="leaseRenewForm.day"
+                        :min='0'>
+                    </el-input-number>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="leaseRenew">确定</el-button>
+            </div>
+        </el-dialog>
     </el-main>
 </template>
 <script>
-//import {getContract} from '../main'
+//import {getContract},{leaseBack},{leaseRenew} from '../main'
 export default {
     data() {
         return {
+            dialogFormVisible :false,
             contractInfo:{
                 contractId:'',
                 username:'',
@@ -27,9 +47,18 @@ export default {
                 ownerTel:'',
                 price:'',
                 houseStatus:'',
-                contractStatus:'',
+                contractStatus:'0',
+            },
+            leaseBackForm:{
+                contractId:''
+            },
+            leaseRenewForm:{
+                contractId:'',
+                month:'',
+                day:''
             },
             //暂定订单状态: 0:已缴费 1:未缴费
+
             /*contractLabel:{
                 contractId:'订单编号',
                 username:'用户名',
@@ -57,6 +86,17 @@ export default {
     methods: {
         goBack() {
             this.$router.push('/user0/query')
+        },
+        leaseBack(){
+
+        },
+        leaseRenew(){
+           this.leaseRenewForm.contractId=this.contractInfo.contractId
+           console.log(this.leaseRenewForm)
+            /*leaseRenew(this.leaseRenewForm)
+            .then(res=> {
+
+            })*/
         }
     },
     mounted() {
@@ -67,12 +107,19 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style>
 .info {
-  margin: 40px 200px;
+  margin: 40px 400px;
   width: 500px;
   background: #fff;
   box-shadow: 0 0 35px #B4BCCC;
+  padding: 30px 30px 30px 30px;
+  border-radius: 30px; 
+}
+.el-dialog {
+  margin: 40px auto;
+  width: 500px;
+  background: #fff;
   padding: 30px 30px 30px 30px;
   border-radius: 30px; 
 }
