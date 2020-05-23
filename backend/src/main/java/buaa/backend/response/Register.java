@@ -6,11 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class Login {
+public class Register {
     @ResponseBody
     @CrossOrigin("http://localhost:8080")
-    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public Map<String, Object> login(@RequestBody Map<String, Object> body) {
+    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map<String, Object> register(@RequestBody Map<String, Object> body) {
         Object[] objects = body.values().toArray();
         for (Object o : objects) {
             System.out.println(o);
