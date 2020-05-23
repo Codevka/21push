@@ -12,27 +12,27 @@
       <el-table-column
         prop="contractId"
         label="订单编号"
-        width="100">
+        width="150">
       </el-table-column>
       <el-table-column
         prop="houseId"
         label="房源编号"
-        width="100">
+        width="150">
       </el-table-column>
       <el-table-column
         prop="rentTime"
         label="租房时间"
-        width="100">
+        width="150">
       </el-table-column>
       <el-table-column
         prop="contractTime"
         label="订单生成时间"
-        width="100">
+        width="150">
       </el-table-column>
       <el-table-column
         prop="contractDuration"
         label="订单持续时间"
-        width="100">
+        width="150">
       </el-table-column>
       <el-table-column
         prop="price"
@@ -47,7 +47,7 @@
       <el-table-column
         fixed="right"
         label="操作"
-        width="100">
+        width="150">
         <template slot-scope="scope">
             <el-button
                 @click.native.prevent="toContract(scope.$index)"
@@ -100,7 +100,7 @@ export default {
 <style scoped>
 .info {
   margin: 40px auto;
-  width: 500px;
+  width: 1250px;
   background: #fff;
   box-shadow: 0 0 35px #B4BCCC;
   padding: 30px 30px 30px 30px;
