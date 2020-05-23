@@ -7,7 +7,7 @@
       class="regform"
       label-width="80px">
 
-      <h3>用户注册</h3>
+      <h3>租客注册</h3>
       <el-form-item label="用户名" prop="username">
         <el-input 
           type="text"
@@ -85,8 +85,7 @@
   </el-main>
 </template>
 <script>
-//import {RegisterUser} from '../main'
-
+import {RegisterUser} from '../main'
 export default {
   data () {
     let confirmpasswordCheck = (rule, value, callback) => {
@@ -132,9 +131,9 @@ export default {
         username: [
           {
             required: true,
-            max: 14,
-            min: 3,
-            message: '用户名不可为空，长度为3-14位',
+            max: 9,
+            min: 9,
+            message: '用户名不可为空，长度为9位',
             trigger: 'blur'
           }
         ],
@@ -201,23 +200,25 @@ export default {
             area: this.RegisterForm.area,
             province: this.RegisterForm.province
           }
-          /*RegisterUser(RegisterParams)
+          RegisterUser(RegisterParams)
           .then(res => {
             this.logining = false
-            this.$message({
-              type: 'success',
-              message: '注册成功'
-            })*/
-            this.logining = false
-            this.$message({
-              type: 'success',
-              message: '注册成功'
-            })
-            //let userInfo = res.data
             console.log(RegisterParams)
-            //sessionStorage.setItem('userInfo', JSON.stringify(RegisterParams)
-            this.$router.push('/login')
-          //})
+            if(res.data.result == '0') {
+              this.$message({
+                type: 'success',
+                message: '注册成功'
+              })
+              sessionStorage.setItem('userInfo', JSON.stringify(RegisterParams))
+              this.$router.push('/login')
+            }
+            else{
+              this.$message.error({
+                message: '注册失败'
+              })
+            }
+            
+          })
         } else {
           console.log('registerSubmit err')
         }

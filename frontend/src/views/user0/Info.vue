@@ -18,12 +18,11 @@
             class="changeform"
             label-width="80px"
             v-if="!dis">
-
-            <el-form-item label="用户名" prop="username">
-                <el-input v-model="changeUserInfoForm.username" placeholder="用户名" :disabled="dis"></el-input>
-            </el-form-item>
             <el-form-item label="密码" prop="password">
                 <el-input v-model="changeUserInfoForm.password" placeholder="密码" :disabled="dis"></el-input>
+            </el-form-item>
+            <el-form-item label="确认密码" prop="confirmpassword">
+                <el-input v-model="changeUserInfoForm.confirmpassword" placeholder="确认密码" :disabled="dis"></el-input>
             </el-form-item>
             <el-form-item label="手机" prop="tel">
                 <el-input v-model.number="changeUserInfoForm.tel" placeholder="手机" :disabled="dis"></el-input>
@@ -62,6 +61,16 @@ export default {
         
     },
     data() {
+        let confirmpasswordCheck = (rule, value, callback) => {
+                console.log(value)
+            if (value === '') {
+                return callback(new Error('密码不能为空'))
+            } else if (value !== this.changeUserInfoForm.password) {
+                return callback(new Error('密码不一致'))
+            } else {
+                return callback()
+            }
+        }
         let telCheck = (rule, value, callback) => {
             if (value === '' || value == undefined) {
                 return callback(new Error('手机号不能为空'))
@@ -84,20 +93,18 @@ export default {
             dis: true,
             submiting: false,
             rule: {
-            username: [
-            {
-                required: true,
-                max: 14,
-                min: 3,
-                message: '用户名不可为空，长度为3-14位',
-                trigger: 'blur'
-            }
-            ],
             password: [
                 {
                     required: true,
                     min: 6,
                     message: '密码不能为空,长度最少6位',
+                    trigger: 'blur'
+                }
+            ],
+            confirmpassword: [
+                {
+                    required: true,
+                    validator: confirmpasswordCheck,
                     trigger: 'blur'
                 }
             ],
@@ -132,15 +139,16 @@ export default {
             ]
             },
             changeUserInfoForm: {
-            userType:'',
-            username:'',
-            password:'',
-            tel:'',
-            email:'',
-            name:'',
-            province:'',
-            city:'',
-            area:''
+                userType:'',
+                username:'',
+                password:'',
+                confirmpassword:'',
+                tel:'',
+                email:'',
+                name:'',
+                province:'',
+                city:'',
+                area:''
             }
         }
     },
@@ -230,19 +238,17 @@ export default {
 <style scoped>
 
 .info {
-  margin: auto auto;
+  margin: auto 200px;
   width: 600px;
   background: #fff;
   box-shadow: 0 0 35px #B4BCCC;
   padding: 30px 30px 30px 30px;
   border-radius: 30px; 
 }
-.regform {
+.changeform {
   margin: auto auto;
   width: 700px;
   background: #fff;
-  box-shadow: 0 0 10px #B4BCCC;
   padding: 30px 30px 30px 30px;
-  border-radius: 25px; 
 }
 </style>

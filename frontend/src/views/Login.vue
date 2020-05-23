@@ -51,7 +51,7 @@
 </template>
 
 <script>
-//import { LoginUser } from '../main'
+import { LoginUser } from '../main'
 export default {
   // ....
   data () {
@@ -99,43 +99,45 @@ export default {
             username: this.LoginForm.username,
             password: this.LoginForm.password,
           }
-          /*LoginUser(LoginParams)
+          LoginUser(LoginParams)
           .then(res => {
+            console.log(res)
             this.logining = false
-            this.$message({
-              type: 'success',
-              message: '登录成功'
-            })*/
-            this.logining = false
-            this.$message({
-              type: 'success',
-              message: '登录成功'
-            })
-            //let userInfo = res.data
-            let userInfo = {
-              userType: LoginParams.userType,
-              username: LoginParams.username,
-              password: LoginParams.password,
+            if(res.result=='0') {
+              this.$message({
+                type: 'success',
+                message: '登录成功'
+              })
+              let userInfo = res.data
+              delete userInfo.result
+              sessionStorage.setItem('userInfo', JSON.stringify(userInfo))
+              console.log(sessionStorage.getItem('userInfo'))
+              this.$store.dispatch('commitLogin')
+              switch(userInfo.userType) {
+                case "0":
+                  this.$router.push('/user0')
+                  break;
+                case "1":
+                  this.$router.push('/user1')
+                  break;
+                case "2":
+                  this.$router.push('/user2')
+              }
             }
-            console.log('loginuif--')
-            console.log(userInfo)
-            sessionStorage.setItem('userInfo', JSON.stringify(userInfo))
-            console.log(sessionStorage.getItem('userInfo'))
-            this.$store.dispatch('commitLogin')
-            switch(userInfo.userType) {
-              case "0":
-                this.$router.push('/user0')
-                break;
-              case "1":
-                this.$router.push('/user1')
-                break;
-              case "2":
-                this.$router.push('/user2')
+            else if(res.result=='1') {
+              this.$message.error({
+                message: '用户名或密码错误'
+              })
             }
-          //})
+            else {
+              this.$message.error({
+                message: '登录失败，请稍后再试'
+              })
+            }
+          })
         } else {
           this.$message.error({
-              message: '登录失败'
+              message: '输入项不能为空'
           })
           console.log('loginSubmit err')
         }

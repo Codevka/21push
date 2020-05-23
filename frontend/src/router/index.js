@@ -11,13 +11,6 @@ const router = new Router({
       redirect: '/login'
     },
     {
-      path: '/home',
-      name: '首页',
-      type: "-1",
-      component: () =>
-        import('../views/Home.vue')
-    },
-    {
       path: '/login',
       name: '登录',
       type: "-1",

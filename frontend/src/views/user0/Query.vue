@@ -65,24 +65,26 @@ import {getUserContract} from '../../main'
 export default {
     data() {
         return {
-            userContract:[{
-                contractId:'',
+          userContract:[],
+            /*userContract:[{
+                contractId:'1',
                 houseId:'',
                 rentTime:'',
                 contractTime:'',
                 contractDuration:'',
                 price:'',
                 status:''
-            }],
+            }],*/
             //默认0,调试>0
             contractNum:1
         }
     },
     methods: {
         toContract(index) {
+          console.log(this.userContract[index].contractId)
             this.$router.push({
                     path:'/contract',
-                    params:{
+                    query:{
                         contractId: this.userContract[index].contractId
                     }
                 })

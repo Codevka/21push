@@ -5,11 +5,11 @@
         <p v-for="(item,key,index) in contractInfo" :key="key">
             {{contractLabel[index]}}:{{item}}
         </p>  
-        <el-button v-if="contractInfo.contractStatus=='1'" >缴费
+        <p v-if="contractInfo.contractStatus=='1'">请尽快进行线下缴费
+        </p>
+        <el-button v-if="contractInfo.contractStatus=='0'&&contractInfo.rentType=='1'" @click="lBack">退租
         </el-button>
-        <el-button v-if="contractInfo.contractStatus=='0'" @click="leaseBack">退租
-        </el-button>
-        <el-button v-if="contractInfo.contractStatus=='0'" @click="dialogFormVisible = true">续租
+        <el-button v-if="contractInfo.contractStatus=='0'&&contractInfo.rentType=='1'" @click="dialogFormVisible = true">续租
         </el-button>
         <el-dialog title="续租时间" :visible.sync="dialogFormVisible">
             <el-form v-model="leaseRenewForm">
@@ -27,13 +27,15 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="leaseRenew">确定</el-button>
+                <el-button type="primary" @click="lRenew">确定</el-button>
             </div>
         </el-dialog>
     </el-main>
 </template>
 <script>
-//import {getContract},{leaseBack},{leaseRenew} from '../main'
+import {getContract} from '../main'
+import {leaseBack} from '../main'
+import {leaseRenew} from '../main'
 export default {
     data() {
         return {
@@ -48,6 +50,7 @@ export default {
                 price:'',
                 houseStatus:'',
                 contractStatus:'0',
+                rentType:'1'
             },
             leaseBackForm:{
                 contractId:''
@@ -58,6 +61,7 @@ export default {
                 day:''
             },
             //暂定订单状态: 0:已缴费 1:未缴费
+            //租房形式: 0:短租 1:长租
 
             /*contractLabel:{
                 contractId:'订单编号',
@@ -79,7 +83,8 @@ export default {
                 '户主手机号',
                 '价格',
                 '房源状态',
-                '订单状态'
+                '订单状态',
+                '租房形式'
             ]
         }
     },
@@ -87,23 +92,49 @@ export default {
         goBack() {
             this.$router.push('/user0/query')
         },
-        leaseBack(){
-
+        lBack(){
+            let params={contractId:this.contractInfo.contractId}
+            leaseBack(params)
+            .then(res=> {
+                if(res.data.result==true) {
+                    this.$message({
+                        type: 'success',
+                        message: '退租成功'
+                    })
+                }
+                else {
+                    this.$message.error({
+                        message: '退租失败，请稍后再试'
+                    })
+                }
+                this.$router.push('/user0/query')
+            })
         },
-        leaseRenew(){
+        lRenew(){
            this.leaseRenewForm.contractId=this.contractInfo.contractId
            console.log(this.leaseRenewForm)
-            /*leaseRenew(this.leaseRenewForm)
+            leaseRenew(this.leaseRenewForm)
             .then(res=> {
-
-            })*/
+                if(res.data.result==true) {
+                    this.$message({
+                        type: 'success',
+                        message: '续租成功,请查看邮箱，尽快完成缴费'
+                    })
+                }
+                else {
+                    this.$message.error({
+                        message: '续租失败，请稍后再试'
+                    })
+                }
+                this.$router.push('/user0/query')
+            })
         }
     },
     mounted() {
-        /*getContract(this.$router.params.contractId)
+        getContract(this.$route.query.contractId)
         .then(res=> {
             this.contractInfo = res.data;
-        })*/
+        })
     }
 }
 </script>
