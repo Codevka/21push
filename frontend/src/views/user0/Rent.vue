@@ -1,9 +1,15 @@
 <template>
     <el-container>
-        <el-main class='info'>
-            <el-input v-model='keyword' placeholder="请输入搜索关键词">
-                <el-button slot="append" icon="el-icon-search" circle @click='sHouses'></el-button>
-            </el-input>
+        <el-main class='infoR'>
+            <p class="input">
+                <el-form>
+                    <el-form-item label-width="100" label='搜索房源:'>
+                        <el-input style="width:400px;" v-model='keyword' placeholder="请输入搜索关键词">
+                            <el-button slot="append" icon="el-icon-search" circle @click.native.prevent='sHouses'></el-button>
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+            </p>
             <el-table
             border
             :data="houseData"
@@ -93,12 +99,16 @@ export default {
 }
 </script>
 <style>
-.info {
+.infoR {
   margin: 40px auto;
   width: 1000px;
   background: #fff;
   box-shadow: 0 0 35px #B4BCCC;
   padding: 30px 30px 30px 30px;
-  border-radius: 30px; 
+  border-radius: 10px; 
+}
+.input {
+  width: 500px;
+  float: right;
 }
 </style>

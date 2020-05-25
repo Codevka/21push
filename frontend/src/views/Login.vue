@@ -103,13 +103,14 @@ export default {
           .then(res => {
             console.log(res)
             this.logining = false
-            if(res.result=='0') {
+            if(res.data.result=='0'||res.data.result==true) {
               this.$message({
                 type: 'success',
                 message: '登录成功'
               })
-              let userInfo = res.data
-              delete userInfo.result
+              //let userInfo = res.data
+              //delete userInfo.result
+              let userInfo = LoginParams
               sessionStorage.setItem('userInfo', JSON.stringify(userInfo))
               console.log(sessionStorage.getItem('userInfo'))
               this.$store.dispatch('commitLogin')
@@ -124,7 +125,7 @@ export default {
                   this.$router.push('/user2')
               }
             }
-            else if(res.result=='1') {
+            else if(res.data.result=='1') {
               this.$message.error({
                 message: '用户名或密码错误'
               })

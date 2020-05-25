@@ -1,33 +1,27 @@
 <template>
-    <el-main class="info">
+    <el-main class="infoC">
         <el-page-header @back="goBack" content="订单详情">
         </el-page-header>
         <p v-for="(item,key,index) in contractInfo" :key="key">
             {{contractLabel[index]}}:{{item}}
         </p>  
-        <p v-if="contractInfo.contractStatus=='1'">请尽快进行线下缴费
+        <p v-if="contractInfo.contractStatus=='未缴费'">请尽快进行线下缴费
         </p>
-        <el-button v-if="contractInfo.contractStatus=='0'&&contractInfo.rentType=='1'" @click="lBack">退租
+        <el-button v-if="contractInfo.contractStatus=='已缴费'&&contractInfo.rentType=='长租'" @click.native.prevent="lBack">退租
         </el-button>
-        <el-button v-if="contractInfo.contractStatus=='0'&&contractInfo.rentType=='1'" @click="dialogFormVisible = true">续租
+        <el-button v-if="contractInfo.contractStatus=='已缴费'&&contractInfo.rentType=='长租'" @click.native.prevent="dialogFormVisible = true">续租
         </el-button>
         <el-dialog title="续租时间" :visible.sync="dialogFormVisible">
             <el-form v-model="leaseRenewForm">
                 <el-form-item label='月数' label-width="50px">
                     <el-input-number 
                         v-model="leaseRenewForm.month"
-                        :min='0'>
-                    </el-input-number>
-                </el-form-item>
-                <el-form-item label='天数' label-width="50px">
-                    <el-input-number 
-                        v-model="leaseRenewForm.day"
-                        :min='0'>
+                        :min='1'>
                     </el-input-number>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="lRenew">确定</el-button>
+                <el-button type="primary" @click.native.prevent="lRenew">确定</el-button>
             </div>
         </el-dialog>
     </el-main>
@@ -49,8 +43,8 @@ export default {
                 ownerTel:'',
                 price:'',
                 houseStatus:'',
-                contractStatus:'0',
-                rentType:'1'
+                contractStatus:'已缴费',
+                rentType:'长租'
             },
             leaseBackForm:{
                 contractId:''
@@ -60,8 +54,8 @@ export default {
                 month:'',
                 day:''
             },
-            //暂定订单状态: 0:已缴费 1:未缴费
-            //租房形式: 0:短租 1:长租
+            //暂定订单状态: 已缴费 未缴费
+            //租房形式: 短租 长租
 
             /*contractLabel:{
                 contractId:'订单编号',
@@ -139,7 +133,7 @@ export default {
 }
 </script>
 <style>
-.info {
+.infoC {
   margin: 40px 400px;
   width: 500px;
   background: #fff;

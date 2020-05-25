@@ -1,10 +1,9 @@
 <template>
-<el-main class="info">
+<el-main class="infoQ">
     <el-table
       border
       :data="userContract"
-      style="width: 100%"
-      v-if='contractNum>0'>
+      style="width: 100%">
       <el-table-column
         type="index"
         width="50">
@@ -57,7 +56,6 @@
         </template>
       </el-table-column>
     </el-table>
-    <p v-if="contractNum==0">请先创建订单</p>
 </el-main>
 </template>
 <script>
@@ -65,8 +63,8 @@ import {getUserContract} from '../../main'
 export default {
     data() {
         return {
-          userContract:[],
-            /*userContract:[{
+          //userContract:[]
+            userContract:[{
                 contractId:'1',
                 houseId:'',
                 rentTime:'',
@@ -74,25 +72,23 @@ export default {
                 contractDuration:'',
                 price:'',
                 status:''
-            }],*/
-            //默认0,调试>0
-            contractNum:1
+            }]
         }
     },
     methods: {
         toContract(index) {
           console.log(this.userContract[index].contractId)
             this.$router.push({
-                    path:'/contract',
-                    query:{
-                        contractId: this.userContract[index].contractId
-                    }
-                })
+                path:'/contract',
+                query:{
+                    contractId: this.userContract[index].contractId
+                }
+            })
         }
     },
     mounted() {
-      let username = this.$store.state.userInfo.username;
-      getUserContract(username)
+      let user = {username: this.$store.state.userInfo.username}
+      getUserContract(user)
       .then(res=> {
         this.userContract = res.data;
       })
@@ -100,12 +96,12 @@ export default {
 }
 </script>
 <style scoped>
-.info {
+.infoQ {
   margin: 40px auto;
   width: 1250px;
   background: #fff;
   box-shadow: 0 0 35px #B4BCCC;
   padding: 30px 30px 30px 30px;
-  border-radius: 30px; 
+  border-radius: 10px; 
 }
 </style>
