@@ -96,7 +96,7 @@ export default {
             dialogVisible:false,
             repairForm:{
                 houseId:'',
-                userId:'',
+                username:'',
                 content:'',
                 pic:[]
             },
@@ -136,15 +136,22 @@ export default {
         submitRepair() {
             this.$refs.repairForm.validate(valid =>{
                 if(valid) {
-                    this.repairForm.userId = this.$store.state.userInfo.userId
+                    this.repairForm.username = this.$store.state.userInfo.username
                     submitRepair(this.repairForm)
-                    .then(()=>{
-                        this.$message({
-                            type:'success',
-                            message:'报修提交成功,请等待处理'
-                        })
-                        this.dialogVisible=false
-                        this.$router.push('/user0/repair')
+                    .then((res)=>{
+                        if(res.data.result==true) {
+                            this.$message({
+                                type:'success',
+                                message:'报修提交成功,请等待处理'
+                            })
+                            this.dialogVisible=false
+                            this.$router.push('/user0/repair')
+                        }
+                        else {
+                            this.$message.error({
+                                message:'投诉提交失败,请稍后再试'
+                            })
+                        }
                     })
                 }
                 else {

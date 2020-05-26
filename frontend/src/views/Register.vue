@@ -204,7 +204,7 @@ export default {
           .then(res => {
             this.logining = false
             console.log(RegisterParams)
-            if(res.data.result == '0') {
+            if(res.data.result == true) {
               this.$message({
                 type: 'success',
                 message: '注册成功'

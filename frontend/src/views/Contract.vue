@@ -51,8 +51,7 @@ export default {
             },
             leaseRenewForm:{
                 contractId:'',
-                month:'',
-                day:''
+                month:''
             },
             //暂定订单状态: 已缴费 未缴费
             //租房形式: 短租 长租

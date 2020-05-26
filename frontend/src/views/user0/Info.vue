@@ -56,6 +56,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import {changeUserInfo} from '../../main'
 export default {
     components: {
         
@@ -194,28 +195,28 @@ export default {
             area: this.changeUserInfoForm.area,
             province: this.changeUserInfoForm.province
           }
-          /*changeUserInfo(changeParams)
+          changeUserInfo(changeParams)
           .then(res => {
-            this.logining = false
-            this.$message({
-              type: 'success',
-              message: '信息修改成功'
-            })*/
-            this.submiting = false
-            this.$message({
-              type: 'success',
-              message: '信息修改成功'
+              this.submiting = false
+              if(res.data.result==true) {
+                this.$message({
+                    type: 'success',
+                    message: '信息修改成功'
+                })
+                console.log(changeParams)
+                sessionStorage.setItem('userInfo', JSON.stringify(changeParams))
+                this.$store.dispatch('commitLogin')
+                this.dis=true
+                this.$router.push('/user0/info')
+              }
+              else {
+                  this.$message.error({
+                    message: '信息修改失败'
+                })
+              }
             })
-            //let userInfo = res.data
-
-            console.log(changeParams)
-            sessionStorage.setItem('userInfo', JSON.stringify(changeParams))
-            this.$store.dispatch('commitLogin')
-            this.dis=true
-            this.$router.push('/user0/info')
-          //})
         } else {
-          console.log('registerSubmit err')
+          console.log('changeInfoSubmit err')
         }
       })
     },

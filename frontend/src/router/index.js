@@ -49,6 +49,12 @@ const router = new Router({
         import('../views/ComplaintInfo.vue')
     },
     {
+      path: '/repairWorkInfo',
+      name: '维修工单',
+      component: () =>
+        import('../views/RepairWorkInfo.vue')
+    },
+    {
       path: '/user0',
       name: 'User0',
       redirect: '/user0/info',
@@ -137,9 +143,9 @@ const router = new Router({
           component: ()=> import('../views/user2/Info.vue')
         },
         {
-          path:'/user2/repair',
+          path:'/user2/repairWork',
           name: '维修任务',
-          component: ()=> import('../views/user0/Repair.vue')
+          component: ()=> import('../views/user2/RepairWork.vue')
         }
       ]
     },

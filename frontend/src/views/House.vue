@@ -76,6 +76,12 @@ export default {
             rentHouse(this.rentHouseForm)
             .then(res =>{
                 console.log(res)
+                if(res.data.result==true)
+                this.$message({
+                    type:'success',
+                    message:'订单提交成功'
+                })
+                this.methods.goBack()
             })
         }
     },

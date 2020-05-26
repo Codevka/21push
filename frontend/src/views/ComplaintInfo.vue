@@ -82,13 +82,20 @@ export default {
                 if(valid) {
                     this.commentForm.complaintId = this.complaintInfo.complaintId
                     submitComplaintComment(this.commentForm)
-                    .then(()=> {
-                        this.$message({
-                            type:'success',
-                            message:'评价成功'
-                        })
-                        this.dialogVisible = false
-                        this.$router.push('/user0/complaint')
+                    .then((res)=> {
+                            if(res.data.result==true) {
+                            this.$message({
+                                type:'success',
+                                message:'评价成功'
+                            })
+                            this.dialogVisible = false
+                            this.$router.push('/user0/complaint')
+                        }
+                        else {
+                            this.$message.error({
+                                message:'评价失败,请稍后再试'
+                            })
+                        }
                     })
                 }
                 else {

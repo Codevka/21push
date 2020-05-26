@@ -94,7 +94,7 @@ export default {
         return {
             //userComplaint:[],
             userComplaint:[{
-                repairId:'',
+                complaitId:'',
                 houseId:'',
                 status:'',
                 adminId:''
@@ -102,7 +102,7 @@ export default {
             dialogVisible:false,
             complaintForm:{
                 houseId:'',
-                userId:'',
+                username:'',
                 content:'',
                 pic:[]
             },
@@ -141,15 +141,22 @@ export default {
         makeComplaint() {
             this.$refs.complaintForm.validate(valid =>{
                 if(valid) {
-                    this.complaintForm.userId = this.$store.state.userInfo.userId
+                    this.complaintForm.username = this.$store.state.userInfo.username
                     submitComplaint(this.complaintForm)
-                    .then(()=>{
-                        this.$message({
-                            type:'success',
-                            message:'投诉提交成功,请等待处理'
-                        })
-                        this.dialogVisible=false
-                        this.$router.push('/user0/complaint')
+                    .then((res)=>{
+                        if(res.data.result==true) {
+                            this.$message({
+                                type:'success',
+                                message:'投诉提交成功,请等待处理'
+                            })
+                            this.dialogVisible=false
+                            this.$router.push('/user0/complaint')
+                        }
+                        else {
+                            this.$message.error({
+                                message:'投诉提交失败,请稍后再试'
+                            })
+                        }
                     })
                 }
                 else {
