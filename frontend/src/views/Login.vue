@@ -8,7 +8,7 @@
         <el-radio v-model="LoginForm.userType" label="1">客服</el-radio>
       </el-form-item>
       <el-form-item prop="username">
-        <el-input type="text" v-model="LoginForm.username" placeholder="用户名"></el-input>
+        <el-input type="text" v-model="LoginForm.username" placeholder="账号或手机"></el-input>
       </el-form-item>
 
       <el-form-item prop="password">
@@ -52,7 +52,7 @@ export default {
         username: [
           {
             required: true,
-            message: "用户名不能为空",
+            message: "账号或手机不能为空",
             trigger: "blur"
           }
         ],
@@ -81,7 +81,7 @@ export default {
           LoginUser(LoginParams).then(res => {
             console.log(res);
             this.logining = false;
-            if (res.data.result == "0" || res.data.result == true) {
+            if (res.data.result == true) {
               this.$message({
                 type: "success",
                 message: "登录成功"
@@ -102,9 +102,9 @@ export default {
                 case "2":
                   this.$router.push("/user2");
               }
-            } else if (res.data.result == "1") {
+            } else if (res.data.result == false) {
               this.$message.error({
-                message: "用户名或密码错误"
+                message: "账号、手机号或密码错误"
               });
             } else {
               this.$message.error({

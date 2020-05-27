@@ -26,7 +26,6 @@
         <el-form-item label="图片">
           <el-upload
             action="https://jsonplaceholder.typicode.com/posts/"
-            multiple
             :limit="3"
             :on-exceed="handleExceed"
             :file-list="complaintForm.pic"

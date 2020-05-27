@@ -5,8 +5,8 @@
     <el-button @click.native.prevent="dialogVisible = true" v-if="complaintInfo.status=='未评价'">评价</el-button>
     <el-dialog title="评价" :visible.sync="dialogVisible">
       <el-form :model="commentForm" ref="commentForm" :rules="rule">
-        <el-form-item label="评价内容" label-width="100px" prop="evalution">
-          <el-input placeholder="请输入评价" v-model="commentForm.evalution"></el-input>
+        <el-form-item label="评价内容" label-width="100px" prop="evaluation">
+          <el-input placeholder="请输入评价" v-model="commentForm.evaluation"></el-input>
         </el-form-item>
         <el-form-item label="评分" label-width="100px" prop="score">
           <el-rate v-model.number="commentForm.score"></el-rate>
@@ -30,8 +30,9 @@ export default {
         houseId: "",
         content: "",
         status: "未评价",
+        adminId:"",
         reply: "",
-        evalution: "",
+        evaluation: "",
         score: ""
       },
       complaintLabel: [
@@ -39,17 +40,18 @@ export default {
         "房源编号",
         "投诉内容",
         "处理状态",
+        '客服编号',
         "客服回复",
         "评价内容",
         "评分"
       ],
       commentForm: {
         complaintId: "",
-        evalution: "",
+        evaluation: "",
         score: ""
       },
       rule: {
-        evalution: [
+        evaluation: [
           {
             required: true,
             message: "评价内容不能为空",
@@ -98,7 +100,7 @@ export default {
   },
   mounted() {
     getComplaint({ complaintId: this.$route.query.complaintId }).then(res => {
-      this.complaitInfo = res.data;
+      this.complaintInfo = res.data;
     });
   }
 };

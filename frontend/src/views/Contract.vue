@@ -39,7 +39,7 @@ export default {
         houseType: "",
         ownerTel: "",
         price: "",
-        houseStatus: "",
+        housestatus: "",
         contractStatus: "已缴费",
         rentType: "长租"
       },
@@ -55,18 +55,18 @@ export default {
 
       /*contractLabel:{
                 contractId:'订单编号',
-                username:'用户名',
+                username:'账号',
                 houseId:'房源编号',
                 houseLocation:'房源地址',
                 houseType:'房源类型',
                 ownerTel:'户主手机号',
                 price:'价格',
-                houseStatus:'房源状态',
+                housestatus:'房源状态',
                 contractStatus:'订单状态'
             }*/
       contractLabel: [
         "订单编号",
-        "用户名",
+        "账号",
         "房源编号",
         "房源地址",
         "房源类型",

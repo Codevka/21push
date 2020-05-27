@@ -31,7 +31,7 @@ export default {
         pic: "",
         status: "未处理",
         callback: "",
-        evalution: "",
+        evaluation: "",
         tel: ""
       },
       repairWorkLabel: [

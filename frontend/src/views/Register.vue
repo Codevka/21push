@@ -8,9 +8,9 @@
       label-width="80px"
     >
       <h3>租客注册</h3>
-      <el-form-item label="用户名" prop="username">
-        <el-input type="text" v-model="RegisterForm.username" placeholder="用户名"></el-input>
-      </el-form-item>
+      <!--<el-form-item label="账号" prop="username">
+        <el-input type="text" v-model="RegisterForm.username" placeholder="账号"></el-input>
+      </el-form-item>-->
       <el-form-item label="昵称" prop="name">
         <el-input type="text" v-model="RegisterForm.name" placeholder="昵称"></el-input>
       </el-form-item>
@@ -100,15 +100,15 @@ export default {
       },
       registering: false,
       rule: {
-        username: [
+        /*username: [
           {
             required: true,
             max: 9,
             min: 9,
-            message: "用户名不可为空，长度为9位",
+            message: "账号不可为空，长度为9位",
             trigger: "blur"
           }
-        ],
+        ],*/
         password: [
           {
             required: true,
@@ -163,14 +163,14 @@ export default {
           this.registering = true;
           //console.log('submitting')
           let RegisterParams = {
-            username: this.RegisterForm.username,
+            //username: this.RegisterForm.username,
             password: this.RegisterForm.password,
             tel: this.RegisterForm.tel,
             email: this.RegisterForm.email,
             name: this.RegisterForm.name,
+            province: this.RegisterForm.province,
             city: this.RegisterForm.city,
-            area: this.RegisterForm.area,
-            province: this.RegisterForm.province
+            area: this.RegisterForm.area
           };
           RegisterUser(RegisterParams).then(res => {
             this.logining = false;
@@ -180,10 +180,16 @@ export default {
                 type: "success",
                 message: "注册成功"
               });
+              RegisterParams.username = res.data.username;
               sessionStorage.setItem(
                 "userInfo",
                 JSON.stringify(RegisterParams)
               );
+              this.$notify({
+                title: "您的账号是",
+                message: res.data.username,
+                duration: 0
+              });
               this.$router.push("/login");
             } else {
               this.$message.error({

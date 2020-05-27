@@ -2,6 +2,9 @@
   <el-main class="info">
     <el-page-header @back="goBack" content="房源详情"></el-page-header>
     <p v-for="(item,key,index) in houseInfo" :key="key">{{houseLabel[index]}}:{{item}}</p>
+    <div class="demo-image__lazy">
+      <el-image v-for="url in pic" :key="url" :src="url" lazy></el-image>
+    </div>
     <el-button @click.native.prevent="dialogFormVisible = true">租房</el-button>
     <el-dialog title="租房时间" :visible.sync="dialogFormVisible">
       <el-form v-model="rentHouseForm">
@@ -52,7 +55,10 @@ export default {
         username: "",
         rentType: "",
         rentDuration: ""
-      }
+      },
+      pic: [
+        "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"
+      ]
     };
   },
   methods: {
@@ -77,6 +83,8 @@ export default {
   mounted() {
     getHouse({ houseId: this.route.query.houseId }).then(res => {
       this.houseInfo = res.data;
+      delete this.houseInfo.pic;
+      this.pic = res.data.pic;
     });
   }
 };
