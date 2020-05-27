@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
- 
+
 Vue.use(Router);
- 
+
 const router = new Router({
-  mode :'history',
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -59,33 +59,33 @@ const router = new Router({
       name: 'User0',
       redirect: '/user0/info',
       type: "0",
-      component: ()=>import('../views/User0.vue'),
+      component: () => import('../views/User0.vue'),
       hasChild: true,
       children: [
         {
-          path:'/user0/info',
+          path: '/user0/info',
           name: '个人信息',
-          component: ()=> import('../views/user0/Info.vue')
+          component: () => import('../views/user0/Info.vue')
         },
         {
-          path:'/user0/query',
+          path: '/user0/query',
           name: '订单查询',
-          component: ()=> import('../views/user0/Query.vue')
+          component: () => import('../views/user0/Query.vue')
         },
         {
-          path:'/user0/rent',
+          path: '/user0/rent',
           name: '租房',
-          component: ()=> import('../views/user0/Rent.vue')
+          component: () => import('../views/user0/Rent.vue')
         },
         {
-          path:'/user0/repair',
+          path: '/user0/repair',
           name: '报修',
-          component: ()=> import('../views/user0/Repair.vue')
+          component: () => import('../views/user0/Repair.vue')
         },
         {
-          path:'/user0/complaint',
+          path: '/user0/complaint',
           name: '投诉',
-          component: ()=> import('../views/user0/Complaint.vue')
+          component: () => import('../views/user0/Complaint.vue')
         }
       ]
     },
@@ -94,38 +94,38 @@ const router = new Router({
       name: 'User1',
       redirect: '/user1/info',
       type: "1",
-      component: ()=>import('../views/User1.vue'),
+      component: () => import('../views/User1.vue'),
       hasChild: true,
       children: [
         {
-          path:'/user1/info',
+          path: '/user1/info',
           name: '个人信息',
-          component: ()=> import('../views/user1/Info.vue')
+          component: () => import('../views/user1/Info.vue')
         },
         {
-          path:'/user1/usermanage',
+          path: '/user1/usermanage',
           name: '用户管理',
-          component: ()=> import('../views/user1/UserManage.vue')
+          component: () => import('../views/user1/UserManage.vue')
         },
         {
-          path:'/user1/rentmanage',
+          path: '/user1/rentmanage',
           name: '租房管理',
-          component: ()=> import('../views/user1/RentManage.vue')
+          component: () => import('../views/user1/RentManage.vue')
         },
         {
-          path:'/user1/housemanage',
+          path: '/user1/housemanage',
           name: '房屋管理',
-          component: ()=> import('../views/user1/HouseManage.vue')
+          component: () => import('../views/user1/HouseManage.vue')
         },
         {
-          path:'/user1/complaintmanage',
+          path: '/user1/complaintmanage',
           name: '投诉管理',
-          component: ()=> import('../views/user1/ComplaintManage.vue')
+          component: () => import('../views/user1/ComplaintManage.vue')
         },
         {
-          path:'/user1/repairmanage',
+          path: '/user1/repairmanage',
           name: '维修管理',
-          component: ()=> import('../views/user1/RepairManage.vue')
+          component: () => import('../views/user1/RepairManage.vue')
         }
       ]
     },
@@ -134,25 +134,25 @@ const router = new Router({
       name: 'User2',
       redirect: '/user2/info',
       type: "2",
-      component: ()=>import('../views/User2.vue'),
+      component: () => import('../views/User2.vue'),
       hasChild: true,
       children: [
         {
-          path:'/user2/info',
+          path: '/user2/info',
           name: '个人信息',
-          component: ()=> import('../views/user2/Info.vue')
+          component: () => import('../views/user2/Info.vue')
         },
         {
-          path:'/user2/repairWork',
+          path: '/user2/repairWork',
           name: '维修任务',
-          component: ()=> import('../views/user2/RepairWork.vue')
+          component: () => import('../views/user2/RepairWork.vue')
         }
       ]
     },
     {
       path: '*',
-      hidden:true,
-      component: ()=> import('../views/404.vue')
+      hidden: true,
+      component: () => import('../views/404.vue')
     }
   ]
 });

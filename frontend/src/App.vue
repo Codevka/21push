@@ -1,5 +1,5 @@
 <template>
-  <div id="app" >
+  <div id="app">
     <el-container>
       <el-header>
         <headerly v-if="showHeader"></headerly>
@@ -17,10 +17,10 @@
 </template>
 <script>
 //todo:footer加,header加登录，注册，退出登录按钮
-import headerly from '@/components/Header.vue'
-import footerly from '@/components/Footer.vue'
+import headerly from "@/components/Header.vue";
+import footerly from "@/components/Footer.vue";
 export default {
-  name: 'app',
+  name: "app",
   components: {
     headerly,
     footerly
@@ -28,14 +28,14 @@ export default {
   data() {
     return {
       showHeader: true,
-      showFooter: true   
-    }
+      showFooter: true
+    };
   }
-}
+};
 </script>
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
