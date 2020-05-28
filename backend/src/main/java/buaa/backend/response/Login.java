@@ -1,5 +1,6 @@
 package buaa.backend.response;
 
+import buaa.backend.metadata.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -17,6 +18,15 @@ public class Login {
         }
         Map<String, Object> result = new HashMap<>();
         result.put("result", true);
+        result.put("userType","");
+        result.put("username","");
+        result.put("password","");
+        result.put("tel","");
+        result.put("email","");
+        result.put("name","");
+        result.put("province","");
+        result.put("city","");
+        result.put("area","");
         return result;
     }
 }
