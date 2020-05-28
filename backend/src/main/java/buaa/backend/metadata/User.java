@@ -1,6 +1,19 @@
 package buaa.backend.metadata;
 
 public class User {
+    int userType;
+    String username;
+    String password;
+    String tel;
+    String email;
+    String name;
+    String province;
+    String city;
+    String area;
+
+    public User() {
+    }
+
     public int getUserType() {
         return userType;
     }
@@ -71,18 +84,5 @@ public class User {
 
     public void setArea(String area) {
         this.area = area;
-    }
-
-    int userType;
-    String username;
-    String password;
-    String tel;
-    String email;
-    String name;
-    String province;
-    String city;
-    String area;
-
-    public User() {
     }
 }
