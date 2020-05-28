@@ -24,14 +24,18 @@
         </el-form-item>
         <el-form-item label="图片">
           <el-upload
-            action="https://jsonplaceholder.typicode.com/posts/"
+            action="https://upload-z1.qiniup.com"
+            :on-success="handleSuccess"
+            :on-remove="handleRemove"
+            :before-upload="beforeUpload"
+            :on-error="handleError"
+            :file-list="fileList"
+            :limit="2"
+            :data="uploadToken"
             multiple
-            :limit="3"
-            :on-exceed="handleExceed"
-            :file-list="repairForm.pic"
           >
             <el-button size="small" type="primary">上传图片</el-button>
-            <div slot="tip">最多上传3个图片</div>
+            <div slot="tip">只能上传jpg/png/jpeg图片,最多上传3个图片,图片大小不能超过2mb</div>
           </el-upload>
         </el-form-item>
       </el-form>
@@ -44,9 +48,15 @@
 <script>
 import { getUserRepair } from "../../main";
 import { submitRepair } from "../../main";
+import { getToken } from '../../main';
 export default {
   data() {
     return {
+      addr:'http://qazuhxgj2.bkt.clouddn.com',
+      uploadToken: {
+        ket:'',
+        token:''
+      },
       //userRepair:[],
       userRepair: [
         {
@@ -60,7 +70,7 @@ export default {
         houseId: "",
         username: "",
         content: "",
-        pic: []
+        pic: ""
       },
       rule: {
         houseId: [
@@ -81,6 +91,46 @@ export default {
     };
   },
   methods: {
+    handleError() {
+      this.$message.error({
+        message:'图片上传出错,请稍后再试',
+        center: true
+      })
+    },
+    handleSuccess(response) {
+        this.complaintForm.pic= `${this.addr}/${response.key}`
+    },
+    handleRemove() {
+      this.complaintForm.pic = ""
+    },
+    beforeUpload(file) {
+      if(file.type!='image/png' && file.type!='image/jpg' && file.type!='image/jpeg') {
+        this.$message.error({
+          message:'图片格式错误'
+        })
+        return false
+      }
+      if(file.size/1024/1024 >2) {
+        this.$message.error({
+          message:'图片过大'
+        })
+        return false
+      }
+      this.uploadToken.key = `upload_pic_${file.name}`
+    },
+    goodsToken() {
+      getToken()
+      .then(res =>{
+        this.uploadToken.token = res.data
+      })
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(
+        `当前限制选择 3 个文件，本次选择了 ${
+          files.length
+        } 个文件，共选择了 ${files.length + fileList.length} 个文件`
+      );
+    },
     toRepairInfo(index) {
       console.log(this.userRepair[index].repairId);
       this.$router.push({
@@ -89,13 +139,6 @@ export default {
           repairId: this.userRepair[index].repairId
         }
       });
-    },
-    handleExceed(files, fileList) {
-      this.$message.warning(
-        `当前限制选择 3 个文件，本次选择了 ${
-          files.length
-        } 个文件，共选择了 ${files.length + fileList.length} 个文件`
-      );
     },
     submitRepair() {
       this.$refs.repairForm.validate(valid => {
@@ -122,6 +165,7 @@ export default {
     }
   },
   mounted() {
+    this.goodsToken();
     let user = { username: this.$store.state.userInfo.username };
     getUserRepair(user).then(res => {
       this.userRepair = res.data;

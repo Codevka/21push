@@ -24,6 +24,18 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 /*
   
 */
+
+export /**
+ * @returns token 七牛云token
+            以下是你需要的东西 
+            AK: K96MCAU7eCnSWz4XUbxIBe9Q9PUm_gBHfacmsAEf
+            SK: g0eagx-yjztmAo0iVi-Nj8QrsCRGrKhdGKIjpVr9
+            bucketName: 21push
+            官方文档: https://developer.qiniu.com/kodo/manual/1208/upload-token
+ */
+const getToken = () => {
+  return axios.post('/getToken')
+}
 export /**
  * @param {username, password, tel, email, name, province, city, area} params 账号, 密码, 手机, 邮箱, 昵称, 省, 市, 地
  * @returns {result,username} result:true为成功 username:账号

@@ -25,13 +25,18 @@
         </el-form-item>
         <el-form-item label="图片">
           <el-upload
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :limit="3"
-            :on-exceed="handleExceed"
-            :file-list="complaintForm.pic"
+            action="https://upload-z1.qiniup.com"
+            :on-success="handleSuccess"
+            :on-remove="handleRemove"
+            :before-upload="beforeUpload"
+            :on-error="handleError"
+            :file-list="fileList"
+            :limit="2"
+            :data="uploadToken"
+            multiple
           >
             <el-button size="small" type="primary">上传图片</el-button>
-            <div slot="tip">最多上传3个图片</div>
+            <div slot="tip">只能上传jpg/png/jpeg图片,最多上传3个图片,图片大小不能超过2mb</div>
           </el-upload>
         </el-form-item>
       </el-form>
@@ -44,9 +49,15 @@
 <script>
 import { getUserComplaint } from "../../main";
 import { submitComplaint } from "../../main";
+import { getToken } from '../../main';
 export default {
   data() {
     return {
+      addr:'http://qazuhxgj2.bkt.clouddn.com',
+      uploadToken: {
+        ket:'',
+        token:''
+      },
       //userComplaint:[],
       userComplaint: [
         {
@@ -61,7 +72,7 @@ export default {
         houseId: "",
         username: "",
         content: "",
-        pic: []
+        pic:""
       },
       rule: {
         houseId: [
@@ -82,13 +93,38 @@ export default {
     };
   },
   methods: {
-    toComplaintInfo(index) {
-      this.$router.push({
-        path: "/complaintInfo",
-        query: {
-          complaintId: this.userComplaint[index].complaintId
-        }
-      });
+    handleError() {
+      this.$message.error({
+        message:'图片上传出错,请稍后再试',
+        center: true
+      })
+    },
+    handleSuccess(response) {
+        this.complaintForm.pic= `${this.addr}/${response.key}`
+    },
+    handleRemove() {
+      this.complaintForm.pic = ""
+    },
+    beforeUpload(file) {
+      if(file.type!='image/png' && file.type!='image/jpg' && file.type!='image/jpeg') {
+        this.$message.error({
+          message:'图片格式错误'
+        })
+        return false
+      }
+      if(file.size/1024/1024 >2) {
+        this.$message.error({
+          message:'图片过大'
+        })
+        return false
+      }
+      this.uploadToken.key = `upload_pic_${file.name}`
+    },
+    goodsToken() {
+      getToken()
+      .then(res =>{
+        this.uploadToken.token = res.data
+      })
     },
     handleExceed(files, fileList) {
       this.$message.warning(
@@ -96,6 +132,14 @@ export default {
           files.length
         } 个文件，共选择了 ${files.length + fileList.length} 个文件`
       );
+    },
+    toComplaintInfo(index) {
+      this.$router.push({
+        path: "/complaintInfo",
+        query: {
+          complaintId: this.userComplaint[index].complaintId
+        }
+      });
     },
     makeComplaint() {
       this.$refs.complaintForm.validate(valid => {
@@ -122,6 +166,7 @@ export default {
     }
   },
   mounted() {
+    this.goodsToken()
     let user = { username: this.$store.state.userInfo.username };
     getUserComplaint(user).then(res => {
       this.userComplaint = res.data;
