@@ -7,7 +7,7 @@ import java.util.Map;
 
 @RestController
 public class Register {
-    @ResponseBody
+
     @CrossOrigin("http://localhost:8080")
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> register(@RequestBody Map<String, Object> body) {

@@ -8,7 +8,7 @@ import java.util.Map;
 
 @RestController
 public class ChangeUserInfo {
-    @ResponseBody
+
     @CrossOrigin("http://localhost:8080")
     @RequestMapping(value = "/changeUserInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> changeUserInfo(@RequestBody Map<String, Object> body) {
