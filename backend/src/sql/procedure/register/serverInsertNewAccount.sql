@@ -16,8 +16,7 @@ begin
         select LAST_INSERT_ID();
         select 1 into status;
     end if;
-end;
-
+en
 
 -- -1 表示帐号用的手机号重复了
 -- 1 表示正常插入
