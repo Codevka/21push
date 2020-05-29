@@ -68,3 +68,10 @@ create procedure allGetSelfInfo(out status int ,in ID int)
 
 返回1表示 正常插入，目前没有其他返回值
 
+```mysql
+allUpdateSelfInfo(OUT status int, in ID int, IN Passwor varchar(30), IN Te char(11),IN Emai varchar(64), IN Nam varchar(30), IN Provinc varchar(20),IN Cit varchar(20), IN Are varchar(30))
+```
+
+功能：修改自身信息
+
+返回1表示 正常插入，目前没有其他返回值
