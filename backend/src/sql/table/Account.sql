@@ -16,8 +16,6 @@ create table Account
 
 alter table Account
     add primary key (username);
-
-
 alter table Account AUTO_INCREMENT =100000000 -- 把这自增主键起始值设置为9位数 
 
 --暂时的想法是 用户名像qq号一样，然后权限用int值判断，等大家讨论决定//update: 已确定
