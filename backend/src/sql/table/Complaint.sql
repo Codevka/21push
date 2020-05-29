@@ -11,9 +11,9 @@ create table Complaint
     evaluation    text        null,
     score         int         null,
     adminID       int         null,
-    constraint UIDreference
+    constraint Complaint_Account_username_fk
         foreign key (username) references Account (username),
-    constraint report_Account_UID_fk
+    constraint Complaint_Account_username_fk_2
         foreign key (adminID) references Account (username),
     constraint report_house_HID_fk
         foreign key (houseId) references House (houseId)

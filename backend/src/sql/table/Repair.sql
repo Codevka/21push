@@ -10,13 +10,11 @@ create table Repair
     adminId    int         null,
     evaluation text        null,
     score      int         not null,
-    constraint fix_Account_UID_fk
-        foreign key (username) references Account (username),
-    constraint fix_Account_UID_fk_2
+    constraint Repair_Account_username_fk
         foreign key (adminId) references Account (username),
+    constraint Repair_Account_username_fk_2
+        foreign key (username) references Account (username),
     constraint fix_House_HID_fk
         foreign key (houseId) references House (houseId)
 );
-
-
 

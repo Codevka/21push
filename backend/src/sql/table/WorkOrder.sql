@@ -6,7 +6,7 @@ create table WorkOrder
     username     int  not null,
     status       int  not null,
     callback     text null,
-    constraint WorkOrder_Account_UID_fk
+    constraint WorkOrder_Account_username_fk
         foreign key (username) references Account (username),
     constraint WorkOrder_Fix_FID_fk
         foreign key (repairId) references Repair (repairId)

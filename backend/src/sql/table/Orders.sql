@@ -10,9 +10,9 @@ create table Orders
     status            int  not null,
     price             int  not null,
     comment           text null,
-    constraint Order_Account_UID_fk
-        foreign key (username) references Account (username),
     constraint Order_house_HID_fk
-        foreign key (houseId) references House (houseId)
+        foreign key (houseId) references House (houseId),
+    constraint Orders_Account_username_fk
+        foreign key (username) references Account (username)
 );
 
