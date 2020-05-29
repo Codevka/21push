@@ -17,5 +17,7 @@ begin
         select 1 into status;
     end if;
 end;
+
+
 -- -1 表示帐号用的手机号重复了
 -- 1 表示正常插入
