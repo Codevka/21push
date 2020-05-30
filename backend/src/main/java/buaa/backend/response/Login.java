@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.interfaces.RSAKey;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,8 +27,35 @@ public class Login {
         System.out.println(body);
         Map<String, Object> result = new HashMap<>();
 
-        // login with username
+        //login with tel
         Boolean ok = jdbcTemplate.execute((CallableStatementCreator) con -> {
+            String storedProc = "{call allGetPasswordAndTypeByTel(?,?)}";
+            CallableStatement cs = con.prepareCall(storedProc);
+            cs.setString(2, (String) body.get("username"));
+            cs.registerOutParameter(1, Types.INTEGER);
+            return cs;
+        }, cs -> callLogin(cs, body));
+        assert ok != null;
+        System.out.println("tel:" + ok);
+        if (ok) {
+            return jdbcTemplate.execute((CallableStatementCreator) con -> {
+                String storedProc = "select * from Account where tel = ?";
+                CallableStatement cs = con.prepareCall(storedProc);
+                cs.setString(1, (String) body.get("username"));
+                return cs;
+            }, cs -> {
+                cs.execute();
+                return getInfo(cs.getResultSet());
+            });
+        }
+        try {
+            Integer.parseInt((String) body.get("username"));
+        } catch (Exception e) {
+            result.put("result", false);
+            return result;
+        }
+        // login with username
+        ok = jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "{call allGetPasswordAndTypeById(?,?)}";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(2, Integer.parseInt((String) body.get("username")));
@@ -50,27 +76,7 @@ public class Login {
             });
         }
 
-        //login with tel
-        ok = jdbcTemplate.execute((CallableStatementCreator) con -> {
-            String storedProc = "{call allGetPasswordAndTypeByTel(?,?)}";
-            CallableStatement cs = con.prepareCall(storedProc);
-            cs.setString(2, (String) body.get("username"));
-            cs.registerOutParameter(1, Types.INTEGER);
-            return cs;
-        }, cs -> callLogin(cs, body));
-        assert ok != null;
-        System.out.println("tel:" + ok);
-        if (ok) {
-            return jdbcTemplate.execute((CallableStatementCreator) con -> {
-                String storedProc = "select * from Account where tel = ?";
-                CallableStatement cs = con.prepareCall(storedProc);
-                cs.setString(1, (String) body.get("username"));
-                return cs;
-            }, cs -> {
-                cs.execute();
-                return getInfo(cs.getResultSet());
-            });
-        }
+
         result.put("result", false);
         return result;
     }
@@ -93,8 +99,8 @@ public class Login {
         Map<String, Object> result = new HashMap<>();
         while (rs.next()) {
             result.put("result", true);
-            result.put("userType", rs.getInt("userType"));
-            result.put("username", rs.getInt("username"));
+            result.put("userType", String.valueOf(rs.getInt("userType")));
+            result.put("username", String.valueOf(rs.getInt("username")));
             result.put("password", rs.getString("password"));
             result.put("tel", rs.getString("tel"));
             result.put("email", rs.getString("email"));
