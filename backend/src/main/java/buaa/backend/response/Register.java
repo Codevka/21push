@@ -1,12 +1,21 @@
 package buaa.backend.response;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.CallableStatementCreator;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 public class Register {
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     /**
      * @param body {username, password, tel, email, name, province, city, area} params 账号, 密码, 手机, 邮箱, 昵称, 省, 市, 地
      * @return {result,username} result:true为成功 username:账号
@@ -14,14 +23,34 @@ public class Register {
     @CrossOrigin("http://localhost:8080")
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        Object[] objects = body.values().toArray();
-        for (Object o : objects) {
-            System.out.println(o);
-        }
-        Map<String, Object> result = new HashMap<>();
-        result.put("result", true);
-        result.put("username", String.valueOf(10));
-        //TODO
+        System.out.println(body);
+        Map<String, Object> result = jdbcTemplate.execute((CallableStatementCreator) con -> {
+            String storedProc = "{call serverInsertNewAccount(?,?,?,?,?,?,?,?,?,?)}";
+            CallableStatement cs = con.prepareCall(storedProc);
+            cs.registerOutParameter(1, Types.INTEGER);
+            cs.setString(2, (String) body.get("password"));
+            cs.setInt(3, 0);
+            cs.setString(4, (String) body.get("name"));
+            cs.setString(5, ((Long) body.get("tel")).toString());
+            cs.setString(6, (String) body.get("area"));
+            cs.setString(7, "nouse");
+            cs.setString(8, (String) body.get("province"));
+            cs.setString(9, (String) body.get("city"));
+            cs.setString(10, (String) body.get("email"));
+            return cs;
+        }, cs -> {
+            cs.execute();
+            Map<String, Object> res = new HashMap<>();
+            if (cs.getInt(1) == 1) {
+                res.put("result", true);
+                ResultSet rs = cs.getResultSet();
+                while (rs.next()) {
+                    res.put("username", String.valueOf(rs.getInt(1)));
+                }
+                System.out.println(res);
+            }
+            return res;
+        });
         return result;
     }
 }
