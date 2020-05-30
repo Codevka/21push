@@ -74,4 +74,44 @@ allUpdateSelfInfo(OUT status int, in ID int, IN Passwor varchar(30), IN Te char(
 
 功能：修改自身信息
 
-返回1表示 正常插入，目前没有其他返回值
+返回1表示 正常插入，目前没有其他返回值断删除
+
+### 用户管理页面：userManage
+
+```mysql
+procedure adminExportRepairer(OUT status int, IN Passwor varchar(30),IN Nam varchar(30), IN Te char(11), IN Are varchar(30),IN IdNumbe char(18), IN Provinc varchar(20),N Cit varchar(20))
+```
+
+功能 ：单个插入师傅信息，并返回帐号
+
+返回1表示正常插入并且返回了帐号，返回-1表示该手机号已有人使用了
+
+```mysql
+adminSelectUserInfoByID (out status int, IN ID int)
+```
+
+功能：查询用户，并返回除了密码，身份证之外的信息
+
+返回： 1 正常返回
+
+​			 -1 查无此人
+
+```mysql
+adminSelectUserInfoByTel (out status int, IN Te  varchar(11))
+```
+
+功能：查询用户，并返回除了密码，身份证之外的信息
+
+返回： 1 正常返回
+
+​			 -1 查无此人
+
+```mysql
+ rootExportAdmin(OUT status int,IN Passwor varchar(30), IN Nam varchar(30),IN Te char(11), IN Are varchar(30), IN IdNumbe char(18),IN Provinc varchar(20), IN Cit varchar(20))
+```
+
+功能：root用户插入admin权限的账户
+
+返回-1表示电话重复，返回1表示正常插入
+
+（ps：这里是不是该做个鉴权机制啊？）

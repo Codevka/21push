@@ -4,7 +4,7 @@ create
                                                               IN IdNumbe char(18), IN Provinc varchar(20),
                                                               IN Cit varchar(20), IN emai varchar(64))
 begin
-    if exists(select tel from Account i where i.tel = Te)
+    if exists(select tel from Account i where i.tel = Te) or exists(select email from  Account g where  g.email =emai)
     then
         BEGIN
             SELECT -1 into status;
@@ -16,7 +16,8 @@ begin
         select LAST_INSERT_ID();
         select 1 into status;
     end if;
-en
+end;
 
--- -1 表示帐号用的手机号重复了
+
+-- -1 表示帐号用的手机号或邮箱重复了
 -- 1 表示正常插入

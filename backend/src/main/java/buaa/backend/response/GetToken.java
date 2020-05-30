@@ -15,7 +15,7 @@ public class GetToken {
      * 官方文档: https://developer.qiniu.com/kodo/manual/1208/upload-token
      */
     @CrossOrigin("http://localhost:8080")
-    @RequestMapping(value = "/getHouse", method = RequestMethod.POST,
+    @RequestMapping(value = "/getToken", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         Map<String, Object> result = new HashMap<>();
