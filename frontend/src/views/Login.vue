@@ -30,9 +30,8 @@
 </template>
 
 <script>
-//import { LoginUser } from "../main";
+import { LoginUser } from "../main";
 export default {
-  // ....
   data() {
     return {
       LoginForm: {
@@ -77,7 +76,6 @@ export default {
             username: this.LoginForm.username,
             password: this.LoginForm.password
           };
-          /*
           LoginUser(LoginParams).then(res => {
             console.log(res);
             this.logining = false;
@@ -111,8 +109,8 @@ export default {
                 message: "登录失败，请稍后再试"
               });
             }
-          });*/
-          sessionStorage.setItem("userInfo", JSON.stringify(LoginParams));
+          });
+          /*sessionStorage.setItem("userInfo", JSON.stringify(LoginParams));
           this.$store.dispatch("commitLogin");
           switch (LoginParams.userType) {
                 case "0":
@@ -123,7 +121,7 @@ export default {
                   break;
                 case "2":
                   this.$router.push("/user2");
-              }
+              }*/
         } else {
           this.$message.error({
             message: "输入项不能为空"
