@@ -1,15 +1,15 @@
 <template>
   <el-container>
     <el-main class="info">
-      <h3>用户信息</h3>
-      <p v-bind:username="username">账号: {{username}}</p>
-      <p v-bind:password="password">密码: {{password}}</p>
-      <p v-bind:tel="tel">手机: {{tel}}</p>
-      <p v-bind:email="email">邮箱: {{email}}</p>
-      <p v-bind:name="name">昵称: {{name}}</p>
-      <p v-bind:province="province">省份: {{province}}</p>
-      <p v-bind:city="city">城市: {{city}}</p>
-      <p v-bind:area="area">地区: {{area}}</p>
+      <el-page-header @back="goBack" content="用户详情"></el-page-header>
+      <p v-bind:username="userInfo.username">账号: {{username}}</p>
+      <p v-bind:password="userInfo.password">密码: {{password}}</p>
+      <p v-bind:tel="userInfo.tel">手机: {{tel}}</p>
+      <p v-bind:email="userInfo.email">邮箱: {{email}}</p>
+      <p v-bind:name="userInfo.name">昵称: {{name}}</p>
+      <p v-bind:province="userInfo.province">省份: {{province}}</p>
+      <p v-bind:city="userInfo.city">城市: {{city}}</p>
+      <p v-bind:area="userInfo.area">地区: {{area}}</p>
       <el-button @click.native.prevent="change">修改个人信息</el-button>
       <el-form
         :model="changeUserInfoForm"
@@ -52,8 +52,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { changeUserInfo } from "../../main";
+import { changeUserInfo } from "../main";
 export default {
   components: {},
   data() {
@@ -91,6 +90,17 @@ export default {
     return {
       dis: true,
       submiting: false,
+      userInfo: {
+        userType: "-1",
+        name: "",
+        username: "",
+        password: "",
+        email: "",
+        tel: "",
+        province: "",
+        city: "",
+        area: ""
+      },
       rule: {
         password: [
           {
@@ -151,20 +161,10 @@ export default {
       }
     };
   },
-  computed: {
-    ...mapState({
-      usertype: state => state.userInfo.usertype,
-      username: state => state.userInfo.username,
-      password: state => state.userInfo.password,
-      tel: state => state.userInfo.tel,
-      email: state => state.userInfo.email,
-      name: state => state.userInfo.name,
-      province: state => state.userInfo.province,
-      city: state => state.userInfo.city,
-      area: state => state.userInfo.area
-    })
-  },
   methods: {
+    goBack() {
+      this.$router.push("/user1/userManage");
+    },
     change() {
       this.dis = this.dis == true ? false : true;
     },
@@ -181,7 +181,6 @@ export default {
       this.$refs.changeUserInfoForm.validate(valid => {
         if (valid) {
           this.submiting = true;
-          //console.log('submitting')
           let changeParams = {
             userType: this.changeUserInfoForm.userType,
             username: this.changeUserInfoForm.username,
@@ -201,16 +200,11 @@ export default {
                 message: "信息修改成功"
               });
               this.submiting = false;
-              /*this.$message({
-            type: "success",
-            message: "信息修改成功"
-          });*/
-              //let userInfo = res.data
               console.log(changeParams);
               sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
               this.$store.dispatch("commitLogin");
               this.dis = true;
-              this.$router.push("/user2/info");
+              this.goBack();
             } else {
               this.$message.error({
                 message: "信息修改失败,请稍后再试"
@@ -218,7 +212,7 @@ export default {
             }
           });
         } else {
-          console.log("registerSubmit err");
+          console.log("changeInfoSubmit err");
         }
       });
     }

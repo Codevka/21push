@@ -55,6 +55,18 @@ const router = new Router({
         import('../views/RepairWorkInfo.vue')
     },
     {
+      path: '/userInfo',
+      name: '用户信息',
+      component: () =>
+        import('../views/UserInfo.vue')
+    },
+    {
+      path: '/newUser',
+      name: '导入用户',
+      component: () =>
+        import('../views/NewUser.vue')
+    },
+    {
       path: '/user0',
       name: 'User0',
       redirect: '/user0/info',

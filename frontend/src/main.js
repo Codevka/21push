@@ -28,15 +28,15 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 export /**
  * @returns token 七牛云token
-            以下是你需要的东西 
+
             AK: K96MCAU7eCnSWz4XUbxIBe9Q9PUm_gBHfacmsAEf
             SK: g0eagx-yjztmAo0iVi-Nj8QrsCRGrKhdGKIjpVr9
             bucketName: 21push
             官方文档: https://developer.qiniu.com/kodo/manual/1208/upload-token
  */
-const getToken = () => {
-  return axios.post('/getToken')
-}
+  const getToken = () => {
+    return axios.post('/getToken')
+  }
 export /**
  * @param {username, password, tel, email, name, province, city, area} params 账号, 密码, 手机, 邮箱, 昵称, 省, 市, 地
  * @returns {result,username} result:true为成功 username:账号
@@ -91,6 +91,23 @@ export /**
     return axios.post('/getUserComplaint', params)
   }
 export /**
+ * @param {username} params 账号
+ * @returns [{repairWorkId, repairId, status, callback}]
+ *           维修工单编号, 报修编号, 状态, 回复内容
+ *           状态: '未处理' '已处理' 
+ */
+  const getUserRepairWork = (params) => {
+    return axios.post('/getUserRepairWork', params)
+  }
+export /**
+  * @param {username} params 账号
+  * @returns isSuperAdmin: true为当前用户是超级管理员
+  */
+  const isSuperAdmin = (params) => {
+    return axios.post('/isSuperAdmin', params)
+  }
+//按关键词找
+export /**
  * @param {keyword} params 关键词
  * @returns [{houseId, area, address, rentType, houseType}]
  *           房源编号, 地区, 具体地址, 租房类型, 房间类型
@@ -101,13 +118,13 @@ export /**
     return axios.post('/searchHouses', params)
   }
 export /**
- * @param {username} params 账号
- * @returns [{repairWorkId, repairId, status, callback}]
- *           维修工单编号, 报修编号, 状态, 回复内容
- *           状态: '未处理' '已处理' 
- */
-  const getUserRepairWork = (params) => {
-    return axios.post('/getUserRepairWork', params)
+  * @param {keyword} params 关键词为账号或手机号
+  * @returns [{username, userType, name}]
+  *           账号, 用户类型, 昵称
+  *           用户类型: '租户' '客服' '维修人员'
+  */
+  const searchUsers = (params) => {
+    return axios.post('/searchUsers', params)
   }
 //按主键找
 export /**
@@ -234,7 +251,6 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
-
 Vue.use(ElementUI);
 
 new Vue({

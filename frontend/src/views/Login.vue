@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { LoginUser } from "../main";
+//import { LoginUser } from "../main";
 export default {
   // ....
   data() {
@@ -67,7 +67,6 @@ export default {
     };
   },
   methods: {
-    // ...
     submit() {
       this.$refs.LoginForm.validate(valid => {
         if (valid) {
@@ -78,6 +77,7 @@ export default {
             username: this.LoginForm.username,
             password: this.LoginForm.password
           };
+          /*
           LoginUser(LoginParams).then(res => {
             console.log(res);
             this.logining = false;
@@ -86,9 +86,9 @@ export default {
                 type: "success",
                 message: "登录成功"
               });
-              //let userInfo = res.data
-              //delete userInfo.result
-              let userInfo = LoginParams;
+              let userInfo = res.data
+              delete userInfo.result
+              //let userInfo = LoginParams;
               sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
               console.log(sessionStorage.getItem("userInfo"));
               this.$store.dispatch("commitLogin");
@@ -111,12 +111,25 @@ export default {
                 message: "登录失败，请稍后再试"
               });
             }
-          });
+          });*/
+          sessionStorage.setItem("userInfo", JSON.stringify(LoginParams));
+          this.$store.dispatch("commitLogin");
+          switch (LoginParams.userType) {
+                case "0":
+                  this.$router.push("/user0");
+                  break;
+                case "1":
+                  this.$router.push("/user1");
+                  break;
+                case "2":
+                  this.$router.push("/user2");
+              }
         } else {
           this.$message.error({
             message: "输入项不能为空"
           });
           console.log("loginSubmit err");
+
         }
       });
     },

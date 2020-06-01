@@ -55,7 +55,7 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style>
 .infoQ {
   margin: 40px auto;
   width: 1250px;
