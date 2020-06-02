@@ -38,15 +38,15 @@ import { submitComplaint } from "../../main";
 export default {
   data() {
     return {
-      //userComplaint:[],
-      userComplaint: [
+      userComplaint:[],
+      /*userComplaint: [
         {
           complaitId: "",
           houseId: "",
           status: "",
           adminId: ""
         }
-      ],
+      ],*/
       dialogVisible: false,
       complaintForm: {
         houseId: "",

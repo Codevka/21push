@@ -142,7 +142,7 @@ export default {
         username: "",
         password: "",
         confirmpassword: "",
-        tel: "",
+        tel: null,
         email: "",
         name: "",
         province: "",
@@ -210,7 +210,7 @@ export default {
               sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
               this.$store.dispatch("commitLogin");
               this.dis = true;
-              this.$router.push("/user2/info");
+              this.$router.push("/user0/info");
             } else {
               this.$message.error({
                 message: "信息修改失败,请稍后再试"

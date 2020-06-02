@@ -234,6 +234,7 @@ export /**
   const submitRepairWorkCallback = (params) => {
     return axios.post('/submitRepairWorkCallback', params)
   }
+
 //导航守卫
 router.beforeEach((to, from, next) => {
   if (to.path == '/login' || to.path == '/register') {
@@ -251,6 +252,8 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+
+
 Vue.use(ElementUI);
 
 new Vue({
