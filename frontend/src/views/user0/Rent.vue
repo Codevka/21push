@@ -16,6 +16,7 @@
       <el-table-column prop="address" label="地址" width="400"></el-table-column>
       <el-table-column prop="rentType" label="租房形式" width="150"></el-table-column>
       <el-table-column prop="houseType" label="房间类型" width="150"></el-table-column>
+      <el-table-column prop="status" label="房源状态" width="150"></el-table-column>
       <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
           <el-button @click.native.prevent="toHouse(scope.$index)" size="small">详细信息</el-button>
@@ -37,7 +38,8 @@ export default {
           area: "",
           address: "",
           rentType: "",
-          houseType: ""
+          houseType: "",
+          status:"未租满"
         }
       ]*/
     };
@@ -67,7 +69,7 @@ export default {
 <style>
 .infoR {
   margin: 40px auto;
-  width: 1350px;
+  width: 1500px;
   background: #fff;
   box-shadow: 0 0 35px #b4bccc;
   padding: 30px 30px 30px 30px;

@@ -163,7 +163,7 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/user1/userManage");
+      this.$router.push("/user1/usermanage");
     },
     change() {
       this.dis = this.dis == true ? false : true;

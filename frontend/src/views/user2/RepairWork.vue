@@ -19,15 +19,15 @@ import { getUserRepairWork } from "../../main";
 export default {
   data() {
     return {
-      //userRepairWork:[]
-      userRepairWork: [
+      userRepairWork:[]
+      /*userRepairWork: [
         {
           repairWorkId: "",
           repairId: "",
           status: "",
           callback: ""
         }
-      ]
+      ]*/
     };
   },
   methods: {

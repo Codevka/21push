@@ -2,6 +2,7 @@
   <el-main class="infoC">
     <el-page-header @back="goBack" content="订单详情"></el-page-header>
     <p v-for="(item,key,index) in contractInfo" :key="key">{{contractLabel[index]}}:{{item}}</p>
+    <p v-if="contractInfo.contractStatus=='未审核'">请等待审核通过</p>
     <p v-if="contractInfo.contractStatus=='未缴费'">请尽快进行线下缴费</p>
     <el-button
       v-if="contractInfo.contractStatus=='已缴费'&&contractInfo.rentType=='长租'"

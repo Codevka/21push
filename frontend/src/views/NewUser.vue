@@ -216,7 +216,7 @@ export default {
       this.$router.push("/login");
     },
     goBack() {
-      this.$router.push("user1/userManage");
+      this.$router.push("user1/usermanage");
     }
   },
   mounted() {

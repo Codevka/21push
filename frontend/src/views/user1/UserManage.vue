@@ -39,13 +39,14 @@ export default {
     return {
       isSAdmin: false,
       keyword: "",
-      userData: [
+      userData: []
+      /*userData: [
         {
           username: "",
           userType: "",
           name: ""
         }
-      ]
+      ]*/
     };
   },
   methods: {

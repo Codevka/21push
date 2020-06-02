@@ -1,26 +1,23 @@
 <template>
-  <el-main class="infoCi">
+  <el-main class="infoC">
     <el-page-header @back="goBack" content="投诉详情"></el-page-header>
     <p v-for="(item,key,index) in complaintInfo" :key="key">{{complaintLabel[index]}}:{{item}}</p>
-    <el-button @click.native.prevent="dialogVisible = true" v-if="complaintInfo.status=='未评价'">评价</el-button>
-    <el-dialog title="评价" :visible.sync="dialogVisible">
-      <el-form :model="commentForm" ref="commentForm" :rules="rule">
-        <el-form-item label="评价内容" label-width="100px" prop="evaluation">
-          <el-input placeholder="请输入评价" v-model="commentForm.evaluation"></el-input>
-        </el-form-item>
-        <el-form-item label="评分" label-width="100px" prop="score">
-          <el-rate v-model.number="commentForm.score"></el-rate>
+    <el-button @click.native.prevent="dialogVisible = true" v-if="complaintInfo.status=='未处理'">处理</el-button>
+    <el-dialog title="处理" :visible.sync="dialogVisible">
+      <el-form :model="replyForm" ref="replyForm" :rules="rule">
+        <el-form-item label="回复内容" label-width="100px" prop="reply">
+          <el-input placeholder="请输入回复内容" v-model="replyForm.reply"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click.native.prevent="makeComplaintComment">确认</el-button>
+        <el-button type="primary" @click.native.prevent="makeComplaintReply">确认</el-button>
       </div>
     </el-dialog>
   </el-main>
 </template>
 <script>
 import { getComplaint } from "../main";
-import { submitComplaintComment } from "../main";
+import { submitComplaintReply } from "../main";
 export default {
   data() {
     return {
@@ -30,7 +27,7 @@ export default {
         houseId: "",
         username:"",
         content: "",
-        status: "未评价",
+        status: "未处理",
         adminId:"",
         reply: "",
         evaluation: "",
@@ -47,24 +44,16 @@ export default {
         "评价内容",
         "评分"
       ],
-      commentForm: {
+      replyForm: {
         complaintId: "",
-        evaluation: "",
-        score: ""
+        reply: "",
+        username:""
       },
       rule: {
-        evaluation: [
+        reply: [
           {
             required: true,
-            message: "评价内容不能为空",
-            trigger: "blur"
-          }
-        ],
-        score: [
-          {
-            required: true,
-            range: [1, 5],
-            message: "评分不能为空",
+            message: "回复内容不能为空",
             trigger: "blur"
           }
         ]
@@ -73,29 +62,29 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/user0/complaint");
+      this.$router.push("/user1/complaintmanage");
     },
-    makeComplaintComment() {
-      console.log(this.commentForm);
+    makeComplaintReply() {
       this.$refs.commentForm.validate(valid => {
         if (valid) {
-          this.commentForm.complaintId = this.complaintInfo.complaintId;
-          submitComplaintComment(this.commentForm).then(res => {
+          this.replyForm.complaintId = this.complaintInfo.complaintId;
+          this.replyForm.username = this.$store.state.userInfo.username;
+          submitComplaintReply(this.replyForm).then(res => {
             if (res.data.result == true) {
               this.$message({
                 type: "success",
-                message: "评价成功"
+                message: "处理成功"
               });
               this.dialogVisible = false;
-              this.$router.push("/user0/complaint");
+              this.goBack();
             } else {
               this.$message.error({
-                message: "评价失败,请稍后再试"
+                message: "处理失败,请稍后再试"
               });
             }
           });
         } else {
-          console.log("commentSubmit err");
+          console.log("replySubmit err");
         }
       });
     }
@@ -108,7 +97,7 @@ export default {
 };
 </script>
 <style>
-.infoCi {
+.infoC {
   margin: 40px 400px;
   width: 500px;
   background: #fff;

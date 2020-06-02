@@ -37,14 +37,14 @@ import { submitRepair } from "../../main";
 export default {
   data() {
     return {
-      //userRepair:[],
-      userRepair: [
+      userRepair:[],
+      /*userRepair: [
         {
           repairId: "",
           houseId: "",
           status: ""
         }
-      ],
+      ],*/
       dialogVisible: false,
       repairForm: {
         houseId: "",

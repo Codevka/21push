@@ -2,28 +2,18 @@
   <el-main class="info">
     <el-page-header @back="goBack" content="房源详情"></el-page-header>
     <p v-for="(item,key,index) in houseInfo" :key="key">{{houseLabel[index]}}:{{item}}</p>
-    <el-button @click.native.prevent="dialogFormVisible = true">租房</el-button>
-    <el-dialog title="租房时间" :visible.sync="dialogFormVisible">
-      <el-form v-model="rentHouseForm">
-        <el-form-item label="月数" label-width="50px" v-if="houseInfo.rentType=='长租'">
-          <el-input-number v-model="rentHouseForm.rentDuration" :min="1"></el-input-number>
-        </el-form-item>
-        <el-form-item label="天数" label-width="50px" v-if="houseInfo.rentType=='短租'">
-          <el-input-number v-model="rentHouseForm.rentDuration" :min="1"></el-input-number>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click.native.prevent="rHouse">确定</el-button>
-      </div>
-    </el-dialog>
+    <el-button @click.prevent.native="changeVisible=true"></el-button>
+    <el-button @click.prevent.native=""></el-button>
   </el-main>
 </template>
 <script>
+//todo: 房源信息修改 房源删除
 import { getHouse } from "../main";
-import { rentHouse } from "../main";
+import { changeHouse } from "../main";
 export default {
   data() {
     return {
+      changeVisible:false,
       dialogFormVisible: false,
       houseInfo: {
         houseId: "",
@@ -34,7 +24,7 @@ export default {
         intro: "",
         tel: "",
         price: "",
-        housestatus: ""
+        housestatus: "暂停出租"
       },
       pic:[],
       houseLabel: [
@@ -48,31 +38,17 @@ export default {
         "价格",
         "房源状态"
       ],
-      rentHouseForm: {
+      changeHouseForm: {
         houseId: "",
         username: "",
         rentType: "",
         rentDuration: ""
-      },
+      }
     };
   },
   methods: {
     goBack() {
-      this.$router.push("/user0/rent");
-    },
-    rHouse() {
-      this.rentHouseForm.username = this.$store.state.userInfo.username;
-      this.rentHouseForm.rentType = this.houseInfo.rentType;
-      this.rentHouseForm.houseId = this.houseInfo.houseId;
-      rentHouse(this.rentHouseForm).then(res => {
-        console.log(res);
-        if (res.data.result == true)
-          this.$message({
-            type: "success",
-            message: "订单提交成功"
-          });
-        this.methods.goBack();
-      });
+      this.$router.push("/user1/housemanage");
     }
   },
   mounted() {

@@ -20,13 +20,17 @@ Vue.prototype.$http = axios;
 axios.defaults.baseURL = 'http://localhost:18888';
 axios.defaults.timeout = 2000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
-//会有注释的
-/*
-  K96MCAU7eCnSWz4XUbxIBe9Q9PUm_gBHfacmsAEf:Z0z9yJQwGzFW0rrFLZG65MMhLSA=:eyJzY29wZSI6IjIxcHVzaCIsImRlYWRsaW5lIjoxNTkwNjU3MjM5fQ==
-  K96MCAU7eCnSWz4XUbxIBe9Q9PUm_gBHfacmsAEf:ZswpTcXyLn--JFe8kWAgg8CkLdA=:eyJzY29wZSI6IjIxcHVzaCIsImRlYWRsaW5lIjoxNTkwNjk2ODcxfQ==
+/*原有内容改动和解释:
+  6月2日:
+    关键词搜索均为模糊搜索,如果关键词为空，应该返回所有结果,
+    getComplaint现在还要返回投诉人编号 username,
+    租房订单状态新增'未审核',
+    房源状态为 '暂停出租' '未租满' '已租满',
+    searchHouses参数关键词为房源编号或具体地址
 */
 
 export /**
+发起投诉和发起报修里的上传图片交给ZRQ了，我在对应位置留了注释,在user0的complaint和repair里
  * @returns token 七牛云token
 
             AK: K96MCAU7eCnSWz4XUbxIBe9Q9PUm_gBHfacmsAEf
@@ -67,7 +71,7 @@ export /**
  * @param {username} params 账号
  * @returns [{contractId, houseId, rentTime, contractTime,contractDuration, price, status}]
  *          订单编号,房源编号,租房时间,订单时间,订单持续时间,价格,状态 
- *          状态:'已缴费' '未缴费'
+ *          状态:'已审核' '未缴费' '已缴费'
  */
   const getUserContract = (params) => {
     return axios.post('/getUserContract', params)
@@ -108,6 +112,7 @@ export /**
   }
 //按关键词找
 export /**
+ * 租户搜房源，只返回状态为'未租满'的房源
  * @param {keyword} params 关键词
  * @returns [{houseId, area, address, rentType, houseType}]
  *           房源编号, 地区, 具体地址, 租房类型, 房间类型
@@ -118,6 +123,18 @@ export /**
     return axios.post('/searchHouses', params)
   }
 export /**
+ * 客服搜房源，三种状态的房源都返回
+ * @param {keyword} params 关键词
+ * @returns [{houseId, area, address, rentType, houseType, status}]
+ *           房源编号, 地区, 具体地址, 租房类型, 房间类型, 状态
+ *           租房类型: '短租' '长租'
+ *           房间类型: '二人间' '三人间' '四人间'...
+ *           状态: '暂停出租' '未租满' '已租满'
+ */
+  const searchAllHouses = (params) => {
+    return axios.post('/searchAllHouses', params)
+  }
+export /**
   * @param {keyword} params 关键词为账号或手机号
   * @returns [{username, userType, name}]
   *           账号, 用户类型, 昵称
@@ -125,6 +142,15 @@ export /**
   */
   const searchUsers = (params) => {
     return axios.post('/searchUsers', params)
+  }
+export /**
+  * @param {keyword} params 关键词为投诉编号、房源编号或用户账号
+  * @returns [{complaintId, houseId, username,status}]
+  *           投诉编号, 房源编号, 用户账号, 处理状态
+  *           处理状态: '未处理' '未评价' '已评价'
+  */
+  const searchComplaints = (params) => {
+    return axios.post('/searchComplaints', params)
   }
 //按主键找
 export /**
@@ -145,10 +171,11 @@ export /**
   const getHouse = (params) => {
     return axios.post('/getHouse', params)
   }
+
 export /**
  * @param {complaintId} params 投诉编号
- * @returns {complaintId,houseId,content,status,adminId,reply,evaluation,score}
- *          投诉编号, 房源编号, 投诉内容, 状态, 客服编号, 回复, 评价内容, 评分
+ * @returns {complaintId,houseId,username,content,status,adminId,reply,evaluation,score}
+ *          投诉编号, 房源编号, 投诉人账号, 投诉内容, 状态, 客服编号, 回复, 评价内容, 评分
  *          状态: '未处理' '未评价' '已评价'
  *          评分: range[1,5]
  */
@@ -217,6 +244,13 @@ export /**
   const submitComplaintComment = (params) => {
     return axios.post('/submitComplaintComment', params)
   }
+export /**
+ * @param {complaintd, reply, username} params 投诉编号, 回复内容, 客服账号
+ * @returns result: true为成功
+ */
+  const submitComplaintReply = (params) => {
+    return axios.post('/submitComplaintReply', params)
+  }
 //维修相关
 export /**
  * @param {repairWorkId} params 维修工单编号
@@ -236,6 +270,7 @@ export /**
   }
 
 //导航守卫
+/*
 router.beforeEach((to, from, next) => {
   if (to.path == '/login' || to.path == '/register') {
     sessionStorage.removeItem('userInfo')
@@ -252,7 +287,7 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
-
+*/
 
 Vue.use(ElementUI);
 

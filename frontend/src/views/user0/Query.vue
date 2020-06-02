@@ -22,8 +22,8 @@ import { getUserContract } from "../../main";
 export default {
   data() {
     return {
-      //userContract:[]
-      userContract: [
+      userContract:[]
+      /*userContract: [
         {
           contractId: "1",
           houseId: "",
@@ -33,7 +33,7 @@ export default {
           price: "",
           status: ""
         }
-      ]
+      ]*/
     };
   },
   methods: {
