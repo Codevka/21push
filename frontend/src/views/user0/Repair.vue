@@ -37,7 +37,7 @@ import { submitRepair } from "../../main";
 export default {
   data() {
     return {
-      userRepair:[],
+      userRepair: [],
       /*userRepair: [
         {
           repairId: "",
@@ -99,7 +99,9 @@ export default {
             }
           });
         } else {
-          console.log("submitRepair err.");
+          this.$message.error({
+            message: "请检查输入信息"
+          });
         }
       });
     }

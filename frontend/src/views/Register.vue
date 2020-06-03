@@ -37,7 +37,6 @@
           @province="onChangeProvince"
           @city="onChangeCity"
           @area="onChangeArea"
-          @selected="onSelected"
         ></v-distpicker>
       </el-form-item>
       <el-form-item>
@@ -173,7 +172,7 @@ export default {
             area: this.RegisterForm.area
           };
           RegisterUser(RegisterParams).then(res => {
-            this.logining = false;
+            this.regitering = false;
             console.log(RegisterParams);
             if (res.data.result == true) {
               this.$message({
@@ -198,7 +197,9 @@ export default {
             }
           });
         } else {
-          console.log("registerSubmit err");
+          this.$message.error({
+            message: "请检查输入信息"
+          });
         }
       });
     },

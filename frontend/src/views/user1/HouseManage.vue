@@ -22,14 +22,13 @@
       <el-table-column prop="status" label="房源状态" width="150"></el-table-column>
       <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
-          <el-button @click.native.prevent="toHouse(scope.$index)" size="small">详细信息</el-button>
+          <el-button @click.native.prevent="toHouseInfo(scope.$index)" size="small">详细信息</el-button>
         </template>
       </el-table-column>
     </el-table>
   </el-main>
 </template>
 <script>
-//todo: 导入房源
 import { searchAllHouses } from "../../main";
 export default {
   data() {
@@ -50,7 +49,7 @@ export default {
   },
   methods: {
     newHouse() {
-        this.$router.push('/newhouse')
+      this.$router.push("/newHouse");
     },
     sHouses() {
       let params = { keyword: this.keyword };

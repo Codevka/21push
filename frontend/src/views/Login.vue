@@ -84,8 +84,8 @@ export default {
                 type: "success",
                 message: "登录成功"
               });
-              let userInfo = res.data
-              delete userInfo.result
+              let userInfo = res.data;
+              delete userInfo.result;
               //let userInfo = LoginParams;
               sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
               console.log(sessionStorage.getItem("userInfo"));
@@ -124,10 +124,8 @@ export default {
               }*/
         } else {
           this.$message.error({
-            message: "输入项不能为空"
+            message: "请检查输入信息"
           });
-          console.log("loginSubmit err");
-
         }
       });
     },

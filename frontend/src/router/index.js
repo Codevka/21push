@@ -73,10 +73,16 @@ const router = new Router({
         import('../views/Complaint.vue')
     },
     {
-      path: '/newhouse',
+      path: '/newHouse',
       name: '导入房源',
       component: () =>
         import('../views/NewHouse.vue')
+    },
+    {
+      path: '/houseInfo',
+      name: '房源详情',
+      component: () =>
+        import('../views/HouseInfo.vue')
     },
     {
       path: '/user0',
@@ -127,27 +133,27 @@ const router = new Router({
           component: () => import('../views/user1/Info.vue')
         },
         {
-          path: '/user1/usermanage',
+          path: '/user1/userManage',
           name: '用户管理',
           component: () => import('../views/user1/UserManage.vue')
         },
         {
-          path: '/user1/rentmanage',
+          path: '/user1/rentManage',
           name: '租房管理',
           component: () => import('../views/user1/RentManage.vue')
         },
         {
-          path: '/user1/housemanage',
+          path: '/user1/houseManage',
           name: '房屋管理',
           component: () => import('../views/user1/HouseManage.vue')
         },
         {
-          path: '/user1/complaintmanage',
+          path: '/user1/complaintManage',
           name: '投诉管理',
           component: () => import('../views/user1/ComplaintManage.vue')
         },
         {
-          path: '/user1/repairmanage',
+          path: '/user1/repairManage',
           name: '维修管理',
           component: () => import('../views/user1/RepairManage.vue')
         }

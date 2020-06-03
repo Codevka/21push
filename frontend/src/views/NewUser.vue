@@ -1,11 +1,11 @@
 <template>
   <el-main>
-    <el-page-header @back="goBack" v-bind:content="cont"></el-page-header>
+    <el-page-header class="infoNu" @back="goBack" v-bind:content="cont"></el-page-header>
     <el-form
       :model="RegisterForm"
       ref="RegisterForm"
       :rules="rule"
-      class="regform"
+      class="userform"
       label-width="80px"
     >
       <!--<el-form-item label="账号" prop="username">
@@ -37,7 +37,6 @@
           @province="onChangeProvince"
           @city="onChangeCity"
           @area="onChangeArea"
-          @selected="onSelected"
         ></v-distpicker>
       </el-form-item>
       <el-form-item>
@@ -53,7 +52,6 @@
   </el-main>
 </template>
 <script>
-//todo
 import { RegisterUser } from "../main";
 export default {
   data() {
@@ -199,7 +197,9 @@ export default {
             }
           });
         } else {
-          console.log("newUserSubmit err");
+          this.$message.error({
+            message: "请检查输入信息"
+          });
         }
       });
     },
@@ -216,7 +216,7 @@ export default {
       this.$router.push("/login");
     },
     goBack() {
-      this.$router.push("user1/usermanage");
+      this.$router.push("user1/userManage");
     }
   },
   mounted() {
@@ -227,8 +227,12 @@ export default {
 };
 </script>
 
-<style scoped>
-.regform {
+<style>
+.infoNu {
+  margin: 20px auto;
+  width: 1200px;
+}
+.userform {
   margin: 20px auto;
   width: 700px;
   background: #fff;

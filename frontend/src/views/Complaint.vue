@@ -25,10 +25,10 @@ export default {
       complaintInfo: {
         complaintId: "",
         houseId: "",
-        username:"",
+        username: "",
         content: "",
         status: "未处理",
-        adminId:"",
+        adminId: "",
         reply: "",
         evaluation: "",
         score: ""
@@ -39,7 +39,7 @@ export default {
         "投诉人账号",
         "投诉内容",
         "处理状态",
-        '客服编号',
+        "客服编号",
         "客服回复",
         "评价内容",
         "评分"
@@ -47,7 +47,7 @@ export default {
       replyForm: {
         complaintId: "",
         reply: "",
-        username:""
+        username: ""
       },
       rule: {
         reply: [
@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/user1/complaintmanage");
+      this.$router.push("/user1/complaintManage");
     },
     makeComplaintReply() {
       this.$refs.commentForm.validate(valid => {
@@ -84,13 +84,16 @@ export default {
             }
           });
         } else {
-          console.log("replySubmit err");
+          this.$message.error({
+            message: "请检查输入信息"
+          });
         }
       });
     }
   },
   mounted() {
     getComplaint({ complaintId: this.$route.query.complaintId }).then(res => {
+      //console.log(res.data)
       this.complaintInfo = res.data;
     });
   }

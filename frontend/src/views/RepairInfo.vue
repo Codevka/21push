@@ -89,7 +89,9 @@ export default {
             }
           });
         } else {
-          console.log("commentSubmit err");
+          this.$message.error({
+            message: "请检查输入信息"
+          });
         }
       });
     }

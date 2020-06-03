@@ -28,10 +28,10 @@ export default {
       complaintInfo: {
         complaintId: "",
         houseId: "",
-        username:"",
+        username: "",
         content: "",
         status: "未评价",
-        adminId:"",
+        adminId: "",
         reply: "",
         evaluation: "",
         score: ""
@@ -42,7 +42,7 @@ export default {
         "投诉人账号",
         "投诉内容",
         "处理状态",
-        '客服编号',
+        "客服编号",
         "客服回复",
         "评价内容",
         "评分"
@@ -95,7 +95,9 @@ export default {
             }
           });
         } else {
-          console.log("commentSubmit err");
+          this.$message.error({
+            message: "请检查输入信息"
+          });
         }
       });
     }

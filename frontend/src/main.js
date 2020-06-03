@@ -20,17 +20,20 @@ Vue.prototype.$http = axios;
 axios.defaults.baseURL = 'http://localhost:18888';
 axios.defaults.timeout = 2000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
-/*原有内容改动和解释:
+/*
+原有内容改动和解释:
+  发起投诉、发起报修和导入房源里的上传图片交给ZRQ了，我在对应位置留了注释<!--上传图片-->,在user0的Complaint、Repair和views的NewHouse里
   6月2日:
     关键词搜索均为模糊搜索,如果关键词为空，应该返回所有结果,
     getComplaint现在还要返回投诉人编号 username,
     租房订单状态新增'未审核',
     房源状态为 '暂停出租' '未租满' '已租满',
     searchHouses参数关键词为房源编号或具体地址
+  6月3日:
+    getHouse原先返回值里的area改为province,city,area
 */
 
 export /**
-发起投诉和发起报修里的上传图片交给ZRQ了，我在对应位置留了注释,在user0的complaint和repair里
  * @returns token 七牛云token
 
             AK: K96MCAU7eCnSWz4XUbxIBe9Q9PUm_gBHfacmsAEf
@@ -117,7 +120,7 @@ export /**
  * @returns [{houseId, area, address, rentType, houseType}]
  *           房源编号, 地区, 具体地址, 租房类型, 房间类型
  *           租房类型: '短租' '长租'
- *           房间类型: '二人间' '三人间' '四人间'...
+ *           房间类型: '单人间' '双人间' '三人间' '四人间'
  */
   const searchHouses = (params) => {
     return axios.post('/searchHouses', params)
@@ -128,7 +131,7 @@ export /**
  * @returns [{houseId, area, address, rentType, houseType, status}]
  *           房源编号, 地区, 具体地址, 租房类型, 房间类型, 状态
  *           租房类型: '短租' '长租'
- *           房间类型: '二人间' '三人间' '四人间'...
+ *           房间类型: '单人间' '双人间' '三人间' '四人间'
  *           状态: '暂停出租' '未租满' '已租满'
  */
   const searchAllHouses = (params) => {
@@ -164,8 +167,8 @@ export /**
   }
 export /**
  * @param {houseId} params 房源编号
- * @returns {houseId, area, address, rentType, houseType, intro, tel, price, housestatus, pic}
- *          房源编号,地区,具体地址,租房类型,房间类型,介绍,户主手机号,价格,房源状态, 图片
+ * @returns {houseId, province, city, area, address, rentType, houseType, intro, tel, price, housestatus, pic}
+ *          房源编号,省份,城市,地区,具体地址,租房类型,房间类型,介绍,户主手机号,价格,房源状态, 图片
  *          图片是url数组
  */
   const getHouse = (params) => {
@@ -268,9 +271,51 @@ export /**
   const submitRepairWorkCallback = (params) => {
     return axios.post('/submitRepairWorkCallback', params)
   }
-
+//房源相关
+export /**
+ * 暂停出租房源
+ * @param {houseId} params 房源编号
+ * @returns result: true为成功
+ */
+  const stopRent = (params) => {
+    return axios.post('/stopRent', params)
+  }
+export /**
+ * 恢复出租房源
+ * @param {houseId} params 房源编号
+ * @returns result: true为成功
+ */
+  const restoreRent = (params) => {
+    return axios.post('/restoreRent', params)
+  }
+export /**
+ * 删除房源
+ * @param {houseId} params 房源编号
+ * @returns result: true为成功
+ */
+  const deleteRent = (params) => {
+    return axios.post('/deleteRent', params)
+  }
+export /**
+  * 修改房源信息
+  * @param {houseId, province, city, area, address, rentType, houseType, intro, tel, price, housestatus}
+  *          房源编号,省份,城市,地区,具体地址,租房类型,房间类型,介绍,户主手机号,价格,房源状态
+  * @returns result: true为成功
+  */
+  const changeHouseInfo = (params) => {
+    return axios.post('/changeHouseInfo', params)
+  }
+export /**
+  * 导入
+  * @param {province, city, area, address, rentType, houseType, intro, tel, price}
+  *          省份,城市,地区,具体地址,租房类型,房间类型,介绍,户主手机号,价格
+  * @returns {result,houseId} result:true为成功 houseId:房源编号
+  */
+  const newHouse = (params) => {
+    return axios.post('/newHouse', params)
+  }
 //导航守卫
-/*
+/*调试时注释掉
 router.beforeEach((to, from, next) => {
   if (to.path == '/login' || to.path == '/register') {
     sessionStorage.removeItem('userInfo')

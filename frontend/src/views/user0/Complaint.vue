@@ -38,7 +38,7 @@ import { submitComplaint } from "../../main";
 export default {
   data() {
     return {
-      userComplaint:[],
+      userComplaint: [],
       /*userComplaint: [
         {
           complaitId: "",
@@ -52,7 +52,7 @@ export default {
         houseId: "",
         username: "",
         content: "",
-        pic:[]
+        pic: []
       },
       rule: {
         houseId: [
@@ -100,7 +100,9 @@ export default {
             }
           });
         } else {
-          console.log("submitComplaint err.");
+          this.$message.error({
+            message: "请检查输入信息"
+          });
         }
       });
     }

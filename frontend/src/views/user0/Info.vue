@@ -42,7 +42,6 @@
             @province="onChangeProvince"
             @city="onChangeCity"
             @area="onChangeArea"
-            @selected="onSelected"
           ></v-distpicker>
         </el-form-item>
         <el-button :loading="submiting" @click.native.prevent="submit">保存</el-button>
@@ -218,7 +217,9 @@ export default {
             }
           });
         } else {
-          console.log("registerSubmit err");
+          this.$message.error({
+            message: "请检查输入信息"
+          });
         }
       });
     }
@@ -227,7 +228,7 @@ export default {
     this.changeUserInfoForm.userType = this.$store.state.userInfo.userType;
     this.changeUserInfoForm.username = this.$store.state.userInfo.username;
     this.changeUserInfoForm.password = this.$store.state.userInfo.password;
-    this.changeUserInfoForm.tel = this.$store.state.userInfo.tel;
+    this.changeUserInfoForm.tel = parseInt(this.$store.state.userInfo.tel);
     this.changeUserInfoForm.email = this.$store.state.userInfo.email;
     this.changeUserInfoForm.name = this.$store.state.userInfo.name;
     this.changeUserInfoForm.province = this.$store.state.userInfo.province;
