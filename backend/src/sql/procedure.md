@@ -115,3 +115,146 @@ adminSelectUserInfoByTel (out status int, IN Te  varchar(11))
 返回-1表示电话重复，返回1表示正常插入
 
 （ps：这里是不是该做个鉴权机制啊？）
+
+### 租客个人信息页面：renterInfo
+
+```mysql
+adminChangeUserInfo (OUT status int, in ID int, IN Te char(11),
+IN Emai varchar(64), IN Nam varchar(30), IN Provinc varchar(20),IN Cit varchar(20), IN Are varchar(30))
+```
+
+功能：管理员修改用户信息，不能修改密码和主键
+
+//todo 
+
+客服确认租客缴纳租金
+租客退回租金
+
+（这两个没对线，我不知道到底是怎么个意思）
+
+### 租房页面：rent
+
+```mysql
+userSearchHouseByKey(out status int ,in  KeyW varchar(64))
+```
+
+功能：根据关键词返回未租满的房子
+
+我这里照的是main.js里面的 searchHouses 函数写的，不知道为啥不用上地址
+
+这里不用的话感觉没地方用了啊
+
+具体实现是在intro里面进行模糊搜索
+
+### 房源管理页面：houseManage
+
+```mysql
+adminSearchHouseByKey(OUT status int, IN KeyW varchar(64))
+```
+
+功能：根据关键词返回所有房子
+
+返回 1 表示正常
+
+```mysql
+adminImportNewHouse(out status int ,in provinc varchar(20),cit varchar(20),are varchar(30),addres varchar(50),rentTyp int,houseTyp int,pi varchar(50),intr text,ownerTe varchar(11), pric int)
+```
+
+功能：管理员导入单个新增房子
+
+返回1表示正常
+
+（这里应该不用做返回房间ID吧？）
+
+### ,房源详情页面：houseDetail
+
+```mysql
+userApplyToRent (out status int ,in UID int ,in HID int,in rentTim date ,in contractDuratio int ,pric int ,commen text)
+```
+
+功能:用户提交租房申请（！！！！！   这里存的是申请租用的时长，而不是结束的日期！！！！！！！！    ！！！！！！！！！！）
+
+而且这里会把目标房子的状态暂时设定为以租出（不然会出现很多奇怪的逻辑错误）
+
+返回1表示成功申请
+
+返回-1表示该房已满
+
+```mysql
+,adminChangeHouseInfo(out status int ,in HID int ,in provinc varchar (20),cit varchar(20),are varchar(30),addres varchar(50),rentTyp int ,houseTyp int ,pi varchar(50),intr text,ownerTe varchar(11),pric int ,houseStatu int)
+```
+
+功能：管理员修改房源信息（实现逻辑是只有主键不能修改）
+
+```mysql
+adminCloseHouse(out status int ,in HID int )
+```
+
+功能：暂停出租
+
+ -- 返回1 说明正常关闭
+
+ --返回-1 说明该房子已经租出了
+
+```mysql
+ adminOpenHouse(out status int ,in HID int )
+```
+
+功能：开启出租状态
+
+返回1表示开启成功
+
+返回-1表示该房子并未被关闭
+
+### 订单查询页面：order
+
+似乎你写了
+
+### 订单管理页面：orderManage
+
+```mysql
+adminSearchOrderByUser(out status int ,in UID int )
+```
+
+功能：根据UID查询订单
+
+返回-1表示这个用户没得订单
+
+```mysql
+adminSearchOrderByID(out status int ,in OID int )
+```
+
+功能：根据订单ID查询订单
+
+返回-1表示订单不存在
+
+### 申请详情页面：applicationDetail
+
+```mysql
+adminCheckRentApply(out status int ,in OID int ,OrderStatu int)
+```
+
+功能：处理申请（同意或者拒绝）
+
+返回1表示成功拒绝
+
+返回2表示成功同意
+
+```mysql
+serverGetHouseInfoByOrder(out status int ,in OID int )
+```
+
+功能：根据订单返回房子信息
+
+```
+serverGetUserInfoByOrder(out status int ,in OID int )
+```
+
+功能：根据订单返回用户信息
+
+### 订单详情页面：orderDetail
+
+感觉这里好像没我啥事i
+
+### 报修页面：repair
+
