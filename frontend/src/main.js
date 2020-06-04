@@ -85,7 +85,7 @@ export /**
  *          报修编号, 房源编号, 状态
  *          状态:'未处理' '未评价' '已评价'
  */
-  const getUserRepair = (params) => {
+  const   getUserRepair = (params) => {
     return axios.post('/getUserRepair', params)
   }
 export /**

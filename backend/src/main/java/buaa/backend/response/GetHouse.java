@@ -9,8 +9,8 @@ import java.util.Map;
 public class GetHouse {
     /**
      * @param body {houseId} params 房源编号
-     * @return {houseId, area, address, rentType, houseType, intro, tel, price, housestatus, pic}
-     * 房源编号,地区,具体地址,租房类型,房间类型,介绍,户主手机号,价格,房源状态, 图片
+     * @return {houseId, province, city, area, address, rentType, houseType, intro, tel, price, housestatus, pic}
+     * 房源编号,省份,城市,地区,具体地址,租房类型,房间类型,介绍,户主手机号,价格,房源状态, 图片
      * 图片是url数组
      */
     @CrossOrigin("http://localhost:8080")

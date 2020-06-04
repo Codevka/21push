@@ -75,8 +75,6 @@ public class Login {
                 return getInfo(cs.getResultSet());
             });
         }
-
-
         result.put("result", false);
         return result;
     }
