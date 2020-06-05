@@ -3,6 +3,14 @@
     <p class="input">
       <el-form>
         <el-form-item label-width="100" label="搜索房源:">
+          <el-select v-model="value" placeholder="请选择房间类型" style="width:150px;">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
           <el-input style="width:400px;" v-model="keyword" placeholder="请输入搜索关键词">
             <el-button slot="append" icon="el-icon-search" circle @click.native.prevent="sHouses"></el-button>
           </el-input>
@@ -31,7 +39,7 @@ export default {
   data() {
     return {
       keyword: "",
-      houseData: []
+      houseData: [],
       /*houseData: [
         {
           houseId: "",
@@ -41,12 +49,35 @@ export default {
           houseType: "",
           status:"未租满"
         }
-      ]*/
+      ],*/
+      options: [
+        {
+          value: "0",
+          label: "任意房间类型"
+        },
+        {
+          value: "1",
+          label: "单人间"
+        },
+        {
+          value: "2",
+          label: "二人间"
+        },
+        {
+          value: "3",
+          label: "三人间"
+        },
+        {
+          value: "4",
+          label: "四人间"
+        }
+      ],
+      value: "0"
     };
   },
   methods: {
     sHouses() {
-      let params = { keyword: this.keyword };
+      let params = { keyword: this.keyword, houseType: this.value };
       searchHouses(params).then(res => {
         this.houseData = res.data;
         this.$message({
@@ -76,7 +107,7 @@ export default {
   border-radius: 10px;
 }
 .input {
-  width: 500px;
+  width: 650px;
   float: right;
 }
 </style>

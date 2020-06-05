@@ -20,6 +20,7 @@ Vue.prototype.$http = axios;
 axios.defaults.baseURL = 'http://localhost:18888';
 axios.defaults.timeout = 2000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
+//06.03:4453L
 /*
 原有内容改动和解释:
   发起投诉、发起报修和导入房源里的上传图片交给ZRQ了，我在对应位置留了注释<!--上传图片-->,在user0的Complaint、Repair和views的NewHouse里
@@ -31,6 +32,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     searchHouses参数关键词为房源编号或具体地址
   6月3日:
     getHouse原先返回值里的area改为province,city,area
+  6月4日:
+    searchHouses参数新增houseType
 */
 
 export /**
@@ -74,7 +77,7 @@ export /**
  * @param {username} params 账号
  * @returns [{contractId, houseId, rentTime, contractTime,contractDuration, price, status}]
  *          订单编号,房源编号,租房时间,订单时间,订单持续时间,价格,状态 
- *          状态:'已审核' '未缴费' '已缴费'
+ *          状态:'未审核' '未缴费' '已缴费'
  */
   const getUserContract = (params) => {
     return axios.post('/getUserContract', params)
@@ -116,7 +119,9 @@ export /**
 //按关键词找
 export /**
  * 租户搜房源，只返回状态为'未租满'的房源
- * @param {keyword} params 关键词
+ * @param {keyword, houseType} params 
+ *        关键词(你们自己定吧), 房间类型 
+ *        房间类型: '0':任意房间类型 '1':单人间 '2':二人间 '3':三人间 '4':四人间
  * @returns [{houseId, area, address, rentType, houseType}]
  *           房源编号, 地区, 具体地址, 租房类型, 房间类型
  *           租房类型: '短租' '长租'
@@ -160,6 +165,7 @@ export /**
  * @param {contractId} params 订单编号
  * @returns {contractId, username, houseId, houseLocation, houseType, ownerTel, price, housestatus, contractStatus, rentType} 
  *          订单编号, 账号, 房源编号, 房源具体地址, 房间类型, 户主手机号, 价格, 房源状态 ,订单状态, 租房类型
+ *          订单状态: 未审核 未缴费 已缴费 
  * @see searchHouses
  */
   const getContract = (params) => {
