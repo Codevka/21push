@@ -23,7 +23,21 @@
         <el-form-item prop="content" label="投诉内容">
           <el-input placeholder="投诉内容" v-model="complaintForm.content"></el-input>
         </el-form-item>
-        <!--上传图片-->
+        <el-upload
+          :multiple="true"
+          list-type="picture-card"
+          :on-remove="handleRemove"
+          :action="actionPath"
+          accept="image/jpeg, image/png, image/jpg"
+          :before-upload="beforeUpload"
+          :data="postData"
+          :file-list="photoList"
+          :on-success="handleSuccess"
+          :on-exceed="handleExceed"
+          :limit="limitNumber"
+        >
+          <i class="el-icon-plus"></i>
+        </el-upload>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click.native.prevent="makeComplaint">确认</el-button>
@@ -34,10 +48,16 @@
 <script>
 import { getUserComplaint } from "../../main";
 import { submitComplaint } from "../../main";
-//import { getToken } from '../../main';
+import { genToken } from "../../genToken";
+import random from "string-random";
+
 export default {
   data() {
     return {
+      // actionPath: "https://upload.qiniup.com", // 华东
+      // actionPath: "https://upload-z1.qiniup.com", // 华北
+      actionPath: "https://upload-z2.qiniup.com", // 华南
+      photoUrl: "http://qbi3ylqqu.bkt.clouddn.com/", //! for test
       userComplaint: [],
       /*userComplaint: [
         {
@@ -47,6 +67,7 @@ export default {
           adminId: ""
         }
       ],*/
+      limitNumber: 3,
       dialogVisible: false,
       complaintForm: {
         houseId: "",
@@ -54,6 +75,11 @@ export default {
         content: "",
         pic: []
       },
+      postData: {
+        token: "",
+        key: ""
+      },
+      photoList: [],
       rule: {
         houseId: [
           {
@@ -105,7 +131,66 @@ export default {
           });
         }
       });
+    },
+    beforeUpload(file) {
+      const checkFileType =
+        file.type === "image/jpeg" ||
+        file.type === "image/jpg" ||
+        file.type === "image/png";
+      const checkFileSize = file.size / 1024 / 1024 < 5;
+      if (!checkFileType) {
+        this.$message.error("上传图片必须是 jpeg/jpg/png 格式！");
+      }
+      if (!checkFileSize) {
+        this.$message.error("上传图片大小不能超过 5MB！");
+      }
+      if (checkFileType && checkFileSize) this.postData.key = random(16);
+      return checkFileType && checkFileSize;
+    },
+    handleSuccess(response) {
+      this.complaintForm.pic.push(this.photoUrl + response.key);
+      console.log(this.photoUrl + response.key);
+    },
+    handleRemove(file) {
+      Array.prototype.remove = function(val) {
+        var index = this.indexOf(val);
+        if (index > -1) {
+          this.splice(index, 1);
+        }
+      };
+
+      if (file.url) {
+        let removePicture = file.url.substr(file.url.lastIndexOf("/"));
+        this.complaintForm.pic.remove(removePicture);
+        if (!this.complaintForm.pic.length) {
+          this.hasFmt = false;
+          this.$refs.image.validate();
+        }
+      }
+      if (file.response.key) {
+        this.complaintForm.pic.remove(this.photoUrl + file.response.key);
+      }
+    },
+    handleExceed() {
+      this.$message.warning('最多上传 3 张图片');
     }
+  },
+  created() {
+    var token;
+    var policy = {};
+    // var bucketName = "21push";
+    // var AK = "K96MCAU7eCnSWz4XUbxIBe9Q9PUm_gBHfacmsAEf";
+    // var SK = "g0eagx-yjztmAo0iVi-Nj8QrsCRGrKhdGKIjpVr9";
+    var bucketName = "push21";
+    var AK = "slnMazKaSrCowN_nA5Y4i0QwFo62AaZKZQ8h2xOj";
+    var SK = "wh8pr5uMd8_SNCxdGZvEh8-Hzy11swN6UaXwhlCF";
+    var deadline = 1594028031; // 2020-07-06
+    policy.scope = bucketName;
+    policy.deadline = deadline;
+    token = genToken(AK, SK, policy);
+    this.postData.token = token;
+
+    console.log("token = " + token);
   },
   mounted() {
     let user = { username: this.$store.state.userInfo.username };
