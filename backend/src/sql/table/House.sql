@@ -1,3 +1,4 @@
+-- auto-generated definition
 create table House
 (
     houseId     int auto_increment
@@ -8,7 +9,7 @@ create table House
     address     varchar(50) not null,
     rentType    int         not null,
     houseType   int         not null,
-    pic         varchar(50) null,
+    pic         text        null,
     intro       text        not null,
     ownerTel    varchar(11) not null,
     price       int         not null,
