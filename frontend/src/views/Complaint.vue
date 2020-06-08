@@ -1,7 +1,7 @@
 <template>
   <el-main class="infoC">
     <el-page-header @back="goBack" content="投诉详情"></el-page-header>
-    <p v-for="(item,key,index) in complaintInfo" :key="key">{{complaintLabel[index]}}:{{item}}</p>
+    <p v-for="(item,key,index) in complaintInfo" :key="key">{{complaintLabel[index]}}：{{item}}</p>
     <el-button @click.native.prevent="dialogVisible = true" v-if="complaintInfo.status=='未处理'">处理</el-button>
     <el-dialog title="处理" :visible.sync="dialogVisible">
       <el-form :model="replyForm" ref="replyForm" :rules="rule">

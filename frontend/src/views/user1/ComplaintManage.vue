@@ -28,6 +28,7 @@
     </el-table>
   </el-main>
 </template>
+
 <script>
 import { searchComplaints } from "../../main";
 export default {
