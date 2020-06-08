@@ -1,12 +1,12 @@
 <template>
   <el-main class="infoRw">
     <el-table border :data="userRepairWork" style="width: 100%">
-      <el-table-column type="index" width="50"></el-table-column>
-      <el-table-column prop="repairWorkId" label="工单编号" width="150"></el-table-column>
-      <el-table-column prop="repairId" label="报修编号" width="150"></el-table-column>
-      <el-table-column prop="status" label="工单状态" width="150"></el-table-column>
-      <el-table-column prop="callback" label="反馈" width="300"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="150">
+      <el-table-column type="index" width="50" :resizable="false"></el-table-column>
+      <el-table-column prop="repairWorkId" label="工单编号" width="150" :resizable="false"></el-table-column>
+      <el-table-column prop="repairId" label="报修编号" width="150" :resizable="false"></el-table-column>
+      <el-table-column prop="status" label="工单状态" width="150" :resizable="false"></el-table-column>
+      <el-table-column prop="callback" label="反馈" width="300" :resizable="false"></el-table-column>
+      <el-table-column fixed="right" label="操作" width="150" :resizable="false">
         <template slot-scope="scope">
           <el-button @click.native.prevent="toRepairWork(scope.$index)" size="small">详细信息</el-button>
         </template>

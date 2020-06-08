@@ -19,11 +19,11 @@
       </el-form>
     </p>
     <el-table border :data="userData">
-      <el-table-column type="index" width="50"></el-table-column>
-      <el-table-column prop="username" label="账号" width="200"></el-table-column>
-      <el-table-column prop="userType" label="用户类型" width="150"></el-table-column>
-      <el-table-column prop="name" label="昵称" width="150"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="150">
+      <el-table-column type="index" width="50" :resizable="false"></el-table-column>
+      <el-table-column prop="username" label="账号" width="200" :resizable="false"></el-table-column>
+      <el-table-column prop="userType" label="用户类型" width="150" :resizable="false"></el-table-column>
+      <el-table-column prop="name" label="昵称" width="150" :resizable="false"></el-table-column>
+      <el-table-column fixed="right" label="操作" width="150" :resizable="false">
         <template slot-scope="scope">
           <el-button @click.native.prevent="toUser(scope.$index)" size="small">详细信息</el-button>
         </template>
