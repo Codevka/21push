@@ -12,4 +12,13 @@ public enum WorkStatus {
     public String getText() {
         return text;
     }
+
+    static WorkStatus fromString(String string) {
+        for (WorkStatus c : WorkStatus.values()) {
+            if (c.text.equals(string)) {
+                return c;
+            }
+        }
+        return null;
+    }
 }

@@ -11,4 +11,13 @@ public enum RepairStatus {
     public String getText() {
         return text;
     }
+
+    static RepairStatus fromString(String string) {
+        for (RepairStatus c : RepairStatus.values()) {
+            if (c.text.equals(string)) {
+                return c;
+            }
+        }
+        return null;
+    }
 }

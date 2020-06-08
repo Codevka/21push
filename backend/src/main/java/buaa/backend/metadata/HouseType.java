@@ -12,4 +12,13 @@ public enum HouseType {
     public String getText() {
         return text;
     }
+
+    static HouseType fromString(String string) {
+        for (HouseType c : HouseType.values()) {
+            if (c.text.equals(string)) {
+                return c;
+            }
+        }
+        return null;
+    }
 }

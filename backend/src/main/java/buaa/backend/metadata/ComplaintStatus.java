@@ -11,4 +11,13 @@ public enum ComplaintStatus {
     public String getText() {
         return text;
     }
+
+    static ComplaintStatus fromString(String string) {
+        for (ComplaintStatus c : ComplaintStatus.values()) {
+            if (c.text.equals(string)) {
+                return c;
+            }
+        }
+        return null;
+    }
 }

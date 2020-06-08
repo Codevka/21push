@@ -11,4 +11,13 @@ public enum RentType {
     public String getText() {
         return text;
     }
+
+    static RentType fromString(String string) {
+        for (RentType r : RentType.values()) {
+            if (r.text.equals(string)) {
+                return r;
+            }
+        }
+        return null;
+    }
 }

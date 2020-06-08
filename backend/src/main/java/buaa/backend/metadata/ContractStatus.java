@@ -12,4 +12,13 @@ public enum ContractStatus {
     public String getText() {
         return text;
     }
+
+    static ContractStatus fromString(String string) {
+        for (ContractStatus c : ContractStatus.values()) {
+            if (c.text.equals(string)) {
+                return c;
+            }
+        }
+        return null;
+    }
 }
