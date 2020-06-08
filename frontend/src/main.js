@@ -164,7 +164,7 @@ export /**
   * @param {keyword} params 关键词为报修编号、房源编号或用户账号
   * @returns [{repairId, houseId, username, status}]
   *           报修编号，房源编号，用户账号，处理状态
-  *           处理状态：未处理 工单建立成功 已完成 已拒绝
+  *           处理状态：未处理 工单建立成功 未评价 已完成 已拒绝
   */
   const searchRepairs = (params) => {
     return axios.post('/searchRepairs', params)
