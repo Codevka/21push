@@ -1,5 +1,9 @@
- create procedure adminChangeHouseInfo(out status int ,in HID int ,in provinc varchar (20),cit varchar(20),are varchar(30),addres varchar(50),rentTyp int ,houseTyp int ,pi varchar(50),intr text,ownerTe varchar(11),pric int ,houseStatu int)
- begin
+create procedure adminChangeHouseInfo(OUT status int, IN HID int, IN provinc varchar(20),
+                                                            IN cit varchar(20), IN are varchar(30),
+                                                            IN addres varchar(50), IN rentTyp int, IN houseTyp int,
+                                                            IN pi text, IN intr text, IN ownerTe varchar(11),
+                                                            IN pric int, IN houseStatu int)
+begin
      select -1 into  status;
      update House h
          set h.province = provinc,
@@ -15,6 +19,8 @@
              houseStatus=houseStatu where h.houseId=HID;
      select 1 into status;
  end;
+
+
  --实现逻辑是默认了管理员可以修改除了房子的主键之外的所有信息。
 --返回 1 说明处理正常
 --返回 -1 说明出问题了

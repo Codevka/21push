@@ -4,11 +4,11 @@
       <el-button @click.native.prevent="dialogVisible=true" type="primary">发起报修</el-button>
     </p>
     <el-table border :data="userRepair" style="width: 100%">
-      <el-table-column type="index" width="50"></el-table-column>
-      <el-table-column prop="repairId" label="报修编号" width="150"></el-table-column>
-      <el-table-column prop="houseId" label="房源编号" width="150"></el-table-column>
-      <el-table-column prop="status" label="处理状态" width="150"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="100">
+      <el-table-column type="index" width="50" :resizable="false"></el-table-column>
+      <el-table-column prop="repairId" label="报修编号" width="150" :resizable="false"></el-table-column>
+      <el-table-column prop="houseId" label="房源编号" width="150" :resizable="false"></el-table-column>
+      <el-table-column prop="status" label="处理状态" width="150" :resizable="false"></el-table-column>
+      <el-table-column fixed="right" label="操作" width="100" :resizable="false">
         <template slot-scope="scope">
           <el-button @click.native.prevent="toRepairInfo(scope.$index)" size="small">详细信息</el-button>
         </template>
@@ -114,13 +114,13 @@ export default {
             if (res.data.result == true) {
               this.$message({
                 type: "success",
-                message: "报修提交成功,请等待处理"
+                message: "报修提交成功，请等待处理"
               });
               this.dialogVisible = false;
               this.$router.push("/user0/repair");
             } else {
               this.$message.error({
-                message: "报修提交失败,请稍后再试"
+                message: "报修提交失败，请稍后再试"
               });
             }
           });

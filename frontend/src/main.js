@@ -58,7 +58,7 @@ export /**
   }
 
 export /**
- * @param {userType, username, password} params 用户类型:0租户 1客服 2维修师傅, 账号或手机, 密码 
+ * @param {userType, username, password} params 用户类型:0租户 1客服 2维修师傅, 账号或手机, 密码
  * @returns result: true为成功, 成功时还返回:{userType, username, password, tel, email, name, province, city, area}
  * @see RegisterUser
  */
@@ -78,7 +78,7 @@ export /**
 export /**
  * @param {username} params 账号
  * @returns [{contractId, houseId, rentTime, contractTime,contractDuration, price, status}]
- *          订单编号,房源编号,租房时间,订单时间,订单持续时间,价格,状态 
+ *          订单编号,房源编号,租房时间,订单时间,订单持续时间,价格,状态
  *          状态:'未审核' '未缴费' '已缴费'
  */
   const getUserContract = (params) => {
@@ -106,7 +106,7 @@ export /**
  * @param {username} params 账号
  * @returns [{repairWorkId, repairId, status, callback}]
  *           维修工单编号, 报修编号, 状态, 回复内容
- *           状态: '未处理' '已处理' 
+ *           状态: '未处理' '已处理'
  */
   const getUserRepairWork = (params) => {
     return axios.post('/getUserRepairWork', params)
@@ -121,9 +121,14 @@ export /**
 //按关键词找
 export /**
  * 租户搜房源，只返回状态为'未租满'的房源
+<<<<<<< HEAD
  * @param {keyword, rentType, houseType} params 
  *        关键词(你们自己定吧), 租房类型, 房间类型 
  *        租房形式: '0':任意租房形式 '1':短租 '2':长租
+=======
+ * @param {keyword, houseType} params
+ *        关键词(你们自己定吧), 房间类型
+>>>>>>> 8060b7b5bdb23040da40b22a8da5a6d16b636ab3
  *        房间类型: '0':任意房间类型 '1':单人间 '2':二人间 '3':三人间 '4':四人间
  * @returns [{houseId, area, address, rentType, houseType}]
  *           房源编号, 地区, 具体地址, 租房类型, 房间类型
@@ -156,19 +161,28 @@ export /**
   }
 export /**
   * @param {keyword} params 关键词为投诉编号、房源编号或用户账号
-  * @returns [{complaintId, houseId, username,status}]
+  * @returns [{complaintId, houseId, username, status}]
   *           投诉编号, 房源编号, 用户账号, 处理状态
   *           处理状态: '未处理' '未评价' '已评价'
   */
   const searchComplaints = (params) => {
     return axios.post('/searchComplaints', params)
   }
+export /**
+  * @param {keyword} params 关键词为报修编号、房源编号或用户账号
+  * @returns [{repairId, houseId, username, status}]
+  *           报修编号，房源编号，用户账号，处理状态
+  *           处理状态：未处理 工单建立成功 未评价 已完成 已拒绝
+  */
+  const searchRepairs = (params) => {
+    return axios.post('/searchRepairs', params)
+  }
 //按主键找
 export /**
  * @param {contractId} params 订单编号
- * @returns {contractId, username, houseId, houseLocation, houseType, ownerTel, price, housestatus, contractStatus, rentType} 
+ * @returns {contractId, username, houseId, houseLocation, houseType, ownerTel, price, housestatus, contractStatus, rentType}
  *          订单编号, 账号, 房源编号, 房源具体地址, 房间类型, 户主手机号, 价格, 房源状态 ,订单状态, 租房类型
- *          订单状态: 未审核 未缴费 已缴费 
+ *          订单状态: 未审核 未缴费 已缴费
  * @see searchHouses
  */
   const getContract = (params) => {
@@ -220,7 +234,7 @@ export /**
 //报修相关
 export /**
  * @param {repairId} params 报修编号
- * @returns {repairId, houseId, content, status, evaluation, score} 
+ * @returns {repairId, houseId, content, status, evaluation, score}
  *          报修编号, 房源编号, 报修内容, 处理状态, 评价内容, 评分
  */
   const getRepair = (params) => {

@@ -49,6 +49,12 @@ const router = new Router({
         import('../views/ComplaintInfo.vue')
     },
     {
+      path: '/repair',
+      name: '报修信息',
+      component: () =>
+        import('../views/Repair.vue')
+    },
+    {
       path: '/repairWorkInfo',
       name: '维修工单',
       component: () =>
@@ -139,12 +145,12 @@ const router = new Router({
         },
         {
           path: '/user1/rentManage',
-          name: '租房管理',
+          name: '订单管理',
           component: () => import('../views/user1/RentManage.vue')
         },
         {
           path: '/user1/houseManage',
-          name: '房屋管理',
+          name: '房源管理',
           component: () => import('../views/user1/HouseManage.vue')
         },
         {
@@ -154,7 +160,7 @@ const router = new Router({
         },
         {
           path: '/user1/repairManage',
-          name: '维修管理',
+          name: '报修管理',
           component: () => import('../views/user1/RepairManage.vue')
         }
       ]
