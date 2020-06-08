@@ -1,7 +1,7 @@
 package buaa.backend.metadata;
 
 public enum RepairStatus {
-    UNSOLVED("未处理"), UNEVAL("未评价"), FINISHED("已评价");
+    UNSOLVED("未处理"), RUNNING("工单建立成功"), UNEVAL("未评价"), FINISHED("已评价"), DENY("已拒绝");
     private final String text;
 
     RepairStatus(String text) {

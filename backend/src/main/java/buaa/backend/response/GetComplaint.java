@@ -43,6 +43,7 @@ public class GetComplaint {
         while (rs.next()) {
             map.put("complaintId", String.valueOf(rs.getInt("complaintId")));
             map.put("houseId", String.valueOf(rs.getInt("houseId")));
+            map.put("username", String.valueOf(rs.getInt("username")));
             map.put("content", rs.getString("content"));
             map.put("status", ComplaintStatus.values()[rs.getInt("dealingStatus")].getText());
             map.put("adminId", String.valueOf(rs.getInt("adminID")));
