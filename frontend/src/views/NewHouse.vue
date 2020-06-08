@@ -54,7 +54,7 @@
         <i class="el-icon-plus"></i>
       </el-upload>
       <br />
-      <el-button :loading="submiting" @click.native.prevent="cHouseInfo">确认修改</el-button>
+      <el-button :loading="submiting" @click.native.prevent="nHouse">确认</el-button>
     </el-form>
   </el-main>
 </template>
@@ -254,7 +254,7 @@ export default {
       }
     },
     handleExceed() {
-      this.$message.warning('最多上传 3 张图片');
+      this.$message.warning("最多上传 3 张图片");
     }
   },
   created() {
@@ -273,7 +273,7 @@ export default {
     this.postData.token = token;
 
     console.log("token = " + token);
-  },
+  }
 };
 </script>
 <style>
