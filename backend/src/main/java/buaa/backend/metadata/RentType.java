@@ -12,7 +12,7 @@ public enum RentType {
         return text;
     }
 
-    static RentType fromString(String string) {
+    public static RentType fromString(String string) {
         for (RentType r : RentType.values()) {
             if (r.text.equals(string)) {
                 return r;

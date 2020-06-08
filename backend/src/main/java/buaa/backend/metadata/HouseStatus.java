@@ -13,7 +13,7 @@ public enum HouseStatus {
         this.text = text;
     }
 
-    static HouseStatus fromString(String string) {
+    public static HouseStatus fromString(String string) {
         for (HouseStatus c : HouseStatus.values()) {
             if (c.text.equals(string)) {
                 return c;

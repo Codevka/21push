@@ -21,9 +21,9 @@ public class DeleteRent {
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         System.out.println(body);
         jdbcTemplate.execute((CallableStatementCreator) con -> {
-            String storedProc = "{call allUpdateSelfInfo(?,?,?,?,?,?,?,?,?)}";
+            String storedProc = "delete from House where houseId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
-            cs.registerOutParameter(1, Types.INTEGER);
+            cs.setInt(1, Integer.parseInt((String) body.get("houseId")));
             return cs;
         }, cs -> {
             cs.execute();
@@ -31,7 +31,6 @@ public class DeleteRent {
         });
         Map<String, Object> result = new HashMap<>();
         result.put("result", true);
-        //TODO
         return result;
     }
 }

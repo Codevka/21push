@@ -20,18 +20,18 @@ public class StopRent {
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         System.out.println(body);
-        jdbcTemplate.execute((CallableStatementCreator) con -> {
-            String storedProc = "{call allUpdateSelfInfo(?,?,?,?,?,?,?,?,?)}";
+        Boolean r = jdbcTemplate.execute((CallableStatementCreator) con -> {
+            String storedProc = "{call adminCloseHouse(?,?)}";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.registerOutParameter(1, Types.INTEGER);
+            cs.setInt(2, Integer.parseInt((String) body.get("houseId")));
             return cs;
         }, cs -> {
             cs.execute();
-            return true;
+            return cs.getInt(1) == 1;
         });
         Map<String, Object> result = new HashMap<>();
-        result.put("result", true);
-        //TODO
+        result.put("result", r);
         return result;
     }
 }

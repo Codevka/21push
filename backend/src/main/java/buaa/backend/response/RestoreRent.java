@@ -1,5 +1,6 @@
 package buaa.backend.response;
 
+import buaa.backend.metadata.HouseStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,9 +22,10 @@ public class RestoreRent {
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         System.out.println(body);
         jdbcTemplate.execute((CallableStatementCreator) con -> {
-            String storedProc = "{call allUpdateSelfInfo(?,?,?,?,?,?,?,?,?)}";
+            String storedProc = "update House set houseStatus = ? where houseId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
-            cs.registerOutParameter(1, Types.INTEGER);
+            cs.setInt(1, HouseStatus.INT.ordinal());
+            cs.setInt(2, Integer.parseInt((String) body.get("houseId")));
             return cs;
         }, cs -> {
             cs.execute();

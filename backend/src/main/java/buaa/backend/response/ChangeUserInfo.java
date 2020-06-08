@@ -43,7 +43,6 @@ public class ChangeUserInfo {
         });
         Map<String, Object> result = new HashMap<>();
         result.put("result", true);
-        //TODO
         return result;
     }
 }

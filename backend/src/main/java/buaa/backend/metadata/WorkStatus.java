@@ -13,7 +13,7 @@ public enum WorkStatus {
         return text;
     }
 
-    static WorkStatus fromString(String string) {
+    public static WorkStatus fromString(String string) {
         for (WorkStatus c : WorkStatus.values()) {
             if (c.text.equals(string)) {
                 return c;

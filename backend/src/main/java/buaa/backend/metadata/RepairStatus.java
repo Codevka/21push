@@ -12,7 +12,7 @@ public enum RepairStatus {
         return text;
     }
 
-    static RepairStatus fromString(String string) {
+    public static RepairStatus fromString(String string) {
         for (RepairStatus c : RepairStatus.values()) {
             if (c.text.equals(string)) {
                 return c;

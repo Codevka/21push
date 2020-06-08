@@ -12,7 +12,7 @@ public enum ComplaintStatus {
         return text;
     }
 
-    static ComplaintStatus fromString(String string) {
+    public static ComplaintStatus fromString(String string) {
         for (ComplaintStatus c : ComplaintStatus.values()) {
             if (c.text.equals(string)) {
                 return c;

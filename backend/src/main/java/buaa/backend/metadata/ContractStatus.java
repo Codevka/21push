@@ -13,7 +13,7 @@ public enum ContractStatus {
         return text;
     }
 
-    static ContractStatus fromString(String string) {
+    public static ContractStatus fromString(String string) {
         for (ContractStatus c : ContractStatus.values()) {
             if (c.text.equals(string)) {
                 return c;
