@@ -3,9 +3,17 @@
     <p class="input">
       <el-form>
         <el-form-item label-width="100" label="搜索房源:">
-          <el-select v-model="value" placeholder="请选择房间类型" style="width:150px;">
+          <el-select v-model="value0" placeholder="请选择租房形式" style="width:150px;">
             <el-option
-              v-for="item in options"
+              v-for="item in option0"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+          <el-select v-model="value1" placeholder="请选择房间类型" style="width:150px;">
+            <el-option
+              v-for="item in option1"
               :key="item.value"
               :label="item.label"
               :value="item.value"
@@ -50,7 +58,21 @@ export default {
           status:"未租满"
         }
       ],*/
-      options: [
+      option0: [
+        {
+          value: "0",
+          label: "任意租房形式"
+        },
+        {
+          value: "1",
+          label: "短租"
+        },
+        {
+          value: "12",
+          label: "长租"
+        }
+      ],
+      option1: [
         {
           value: "0",
           label: "任意房间类型"
@@ -72,12 +94,17 @@ export default {
           label: "四人间"
         }
       ],
-      value: "0"
+      value0: "0",
+      value1: "0"
     };
   },
   methods: {
     sHouses() {
-      let params = { keyword: this.keyword, houseType: this.value };
+      let params = {
+        keyword: this.keyword,
+        rentType: this.value0,
+        houseType: this.value1
+      };
       searchHouses(params).then(res => {
         this.houseData = res.data;
         this.$message({
@@ -107,7 +134,7 @@ export default {
   border-radius: 10px;
 }
 .input {
-  width: 650px;
+  width: 800px;
   float: right;
 }
 </style>

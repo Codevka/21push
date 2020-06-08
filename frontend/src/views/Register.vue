@@ -172,7 +172,7 @@ export default {
             area: this.RegisterForm.area
           };
           RegisterUser(RegisterParams).then(res => {
-            this.regitering = false;
+            this.registering = false;
             console.log(RegisterParams);
             if (res.data.result == true) {
               this.$message({
@@ -191,6 +191,7 @@ export default {
               });
               this.$router.push("/login");
             } else {
+              console.log(res.data)
               this.$message.error({
                 message: "注册失败"
               });

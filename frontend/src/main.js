@@ -33,7 +33,9 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
   6月3日:
     getHouse原先返回值里的area改为province,city,area
   6月4日:
-    searchHouses参数新增houseType
+    searchHouses新增参数houseType
+  6月8日:
+    searchHouses新增参数rentType
 */
 
 export /**
@@ -88,7 +90,7 @@ export /**
  *          报修编号, 房源编号, 状态
  *          状态:'未处理' '未评价' '已评价'
  */
-  const   getUserRepair = (params) => {
+  const getUserRepair = (params) => {
     return axios.post('/getUserRepair', params)
   }
 export /**
@@ -119,8 +121,9 @@ export /**
 //按关键词找
 export /**
  * 租户搜房源，只返回状态为'未租满'的房源
- * @param {keyword, houseType} params 
- *        关键词(你们自己定吧), 房间类型 
+ * @param {keyword, rentType, houseType} params 
+ *        关键词(你们自己定吧), 租房类型, 房间类型 
+ *        租房形式: '0':任意租房形式 '1':短租 '2':长租
  *        房间类型: '0':任意房间类型 '1':单人间 '2':二人间 '3':三人间 '4':四人间
  * @returns [{houseId, area, address, rentType, houseType}]
  *           房源编号, 地区, 具体地址, 租房类型, 房间类型
