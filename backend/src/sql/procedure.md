@@ -258,3 +258,138 @@ serverGetUserInfoByOrder(out status int ,in OID int )
 
 ### 报修页面：repair
 
+```mysql
+userCommitNewRepair(out status int ,in  usernam int,in houseI int ,in conten text,in pi text)
+```
+
+功能：用户提交报修
+
+提交报修申请的人必须已经支付租金，并且提交的房屋号要存在对应的订单，否则返回-1
+
+```mysql
+ userCheckSelfAllRepair(out status int,in usernam int) 
+```
+
+功能：用户查看自己的所有保修
+
+### 报修管理页面：repairManage
+
+```mysql
+adminSelectAllUnhandledRepair(out status int)
+```
+
+功能：选择所有没处理的报修
+
+### 报修详情页面：repairDetail
+
+```mysql
+create procedure userCheckWorkerOrder(out status int,in usernam int)
+```
+
+功能：用户查询和自己有关的工单
+
+```mysql
+procedure adminGenerateWorkOrder(out status int, in adminID int,in RID int,in fixerID int)
+```
+
+功能：admin手动生成工单,并在repair表里面加上admin的主键
+
+```mysql
+adminChooseFixer(out status int)
+```
+
+功能：admin查看所有的师傅
+
+```mysql
+adminRefuseRepair(OUT status int, in adminI int,IN RID int)
+```
+
+功能：客服拒绝报修请求，并在repair表里面加上admin的主键
+
+```mysql
+userCommentRepair(out status int, in RID int, in commen text, in scor int)
+```
+
+功能：用户评价可以评价的（repair中status=2）的报修
+
+返回：1,评价完毕
+
+​			-1：目标订单无法评价或是评价出错。
+
+### 维修任务页面：repairTask
+
+```mysql
+procedure fixerCheckSelfTask(out status int ,in UID int)
+```
+
+功能：维修师傅查看自己的工单。
+
+### 工单详情页面：workorderDetail
+
+```mysql
+procedure fixerFinishWork(out status int, in workerOrderID int, callbac text)
+```
+
+-- func 将工单和保修设置为完成状态
+
+--返回 -1 说明该工单已经终止或是正常结束
+
+```mysql
+fixerShowOrderInfo(out status int, in workerOrderID int)
+```
+
+--为fixer展示租客提交的报修房源编号、报修描述和报修图片,租客联系方式
+
+```mysql
+procedure userShowOrderInfo(out status int, in workerOrderID int)
+```
+
+--为用户展示，房源编号、报修描述和报修图片，维修师傅联系方式。
+
+###  投诉页面：complaint
+
+```mysql
+userCheckSelfComplaintAll(out status int, in usernam int)
+```
+
+用户查看和自己有关的所有complaint
+
+```mysql
+userCommitNewComplaint(out status int, in usernam int ,  houseI int,  conten text, pi text)
+```
+
+用户提交新的投诉
+
+### complaintManage
+
+```mysql
+adminCheckAllCom(out status int)
+```
+
+客服查看所有的投诉
+
+### 投诉详情页面：complaintDetail
+
+```mysql
+ procedure adminReplyCom(out status int,in CID int,in con text,in adminI int)
+```
+
+客服回复投诉，并修改投诉的状态为已回复未评价
+
+```mysql
+procedure getUserTelByCom(out status int,in CID int)
+```
+
+通过complaint获得对应用户的电话，用于显示给管理员
+
+```mysql
+showAdminTelByCom (out status int,in CID int,in adminI int )
+```
+
+通过complaint获得对应管理员的电话，用于显示给用户
+
+```mysql
+userGiveEvaluation(OUT status int, IN CID int, IN con text, IN scor int)
+```
+
+用户对complaint进行评价并打分，并修改投诉状态。
