@@ -10,12 +10,12 @@
       </el-form>
     </p>
     <el-table border :data="repairData" style="width: 100%">
-      <el-table-column type="index" width="50" :resizable="false"></el-table-column>
-      <el-table-column prop="repairId" label="报修编号" width="150" :resizable="false"></el-table-column>
-      <el-table-column prop="houseId" label="房源编号" width="150" :resizable="false"></el-table-column>
-      <el-table-column prop="username" label="账号" width="150" :resizable="false"></el-table-column>
-      <el-table-column prop="status" label="处理状态" width="100" :resizable="false"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="150" :resizable="false">
+      <el-table-column type="index" min-width="7%" :resizable="false"></el-table-column>
+      <el-table-column prop="repairId" label="报修编号" min-width="20%" :resizable="false"></el-table-column>
+      <el-table-column prop="houseId" label="房源编号" min-width="20%" :resizable="false"></el-table-column>
+      <el-table-column prop="username" label="账号" min-width="20%" :resizable="false"></el-table-column>
+      <el-table-column prop="status" label="处理状态" min-width="13%" :resizable="false"></el-table-column>
+      <el-table-column fixed="right" label="操作" min-width="20%" :resizable="false">
         <template slot-scope="scope">
           <el-button @click.native.prevent="toRepair(scope.$index)" size="small">详细信息</el-button>
         </template>

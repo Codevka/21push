@@ -5,7 +5,7 @@
         <el-form-item>
           <el-button type="primary" @click.prevent.native="newHouse" style="float: right">导入房源</el-button>
         </el-form-item>
-        <el-form-item label-width="100" label="搜索房源:">
+        <el-form-item label-width="100" label="搜索房源：">
           <el-input style="width:400px;" v-model="keyword" placeholder="请输入搜索关键词">
             <el-button slot="append" icon="el-icon-search" circle @click.native.prevent="sHouses"></el-button>
           </el-input>
@@ -13,14 +13,14 @@
       </el-form>
     </p>
     <el-table border :data="houseData" style="width: 100%">
-      <el-table-column type="index" width="50" :resizable="false"></el-table-column>
-      <el-table-column prop="houseId" label="房源编号" width="200" :resizable="false"></el-table-column>
-      <el-table-column prop="area" label="地区" width="150" :resizable="false"></el-table-column>
-      <el-table-column prop="address" label="地址" width="400" :resizable="false"></el-table-column>
-      <el-table-column prop="rentType" label="租房形式" width="150" :resizable="false"></el-table-column>
-      <el-table-column prop="houseType" label="房间类型" width="150" :resizable="false"></el-table-column>
-      <el-table-column prop="status" label="房源状态" width="150" :resizable="false"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="150" :resizable="false">
+      <el-table-column type="index" min-width="4%" :resizable="false"></el-table-column>
+      <el-table-column prop="houseId" label="房源编号" min-width="15%" :resizable="false"></el-table-column>
+      <el-table-column prop="area" label="地区" min-width="11%" :resizable="false"></el-table-column>
+      <el-table-column prop="address" label="地址" min-width="26%" :resizable="false"></el-table-column>
+      <el-table-column prop="rentType" label="租房形式" min-width="11%" :resizable="false"></el-table-column>
+      <el-table-column prop="houseType" label="房间类型" min-width="11%" :resizable="false"></el-table-column>
+      <el-table-column prop="status" label="房源状态" min-width="11%" :resizable="false"></el-table-column>
+      <el-table-column fixed="right" label="操作" min-width="11%" :resizable="false">
         <template slot-scope="scope">
           <el-button @click.native.prevent="toHouseInfo(scope.$index)" size="small">详细信息</el-button>
         </template>

@@ -26,14 +26,14 @@
       </el-form>
     </p>
     <el-table border :data="houseData" style="width: 100%">
-      <el-table-column type="index" width="50" :resizable="false"></el-table-column>
-      <el-table-column prop="houseId" label="房源编号" width="200" :resizable="false"></el-table-column>
-      <el-table-column prop="area" label="地区" width="150" :resizable="false"></el-table-column>
-      <el-table-column prop="address" label="地址" width="400" :resizable="false"></el-table-column>
-      <el-table-column prop="rentType" label="租房形式" width="150" :resizable="false"></el-table-column>
-      <el-table-column prop="houseType" label="房间类型" width="150" :resizable="false"></el-table-column>
-      <el-table-column prop="status" label="房源状态" width="150" :resizable="false"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="150" :resizable="false">
+      <el-table-column type="index" min-width="4%" :resizable="false"></el-table-column>
+      <el-table-column prop="houseId" label="房源编号" min-width="11%" :resizable="false"></el-table-column>
+      <el-table-column prop="area" label="地区" min-width="15%" :resizable="false"></el-table-column>
+      <el-table-column prop="address" label="地址" min-width="26%" :resizable="false"></el-table-column>
+      <el-table-column prop="rentType" label="租房形式" min-width="11%" :resizable="false"></el-table-column>
+      <el-table-column prop="houseType" label="房间类型" min-width="11%" :resizable="false"></el-table-column>
+      <el-table-column prop="status" label="房源状态" min-width="11%" :resizable="false"></el-table-column>
+      <el-table-column fixed="right" label="操作" min-width="11%" :resizable="false">
         <template slot-scope="scope">
           <el-button @click.native.prevent="toHouse(scope.$index)" size="small">详细信息</el-button>
         </template>

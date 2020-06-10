@@ -160,7 +160,7 @@ export default {
       this.$refs.RegisterForm.validate(valid => {
         if (valid) {
           this.registering = true;
-          //console.log('submitting')
+          console.log("submitting");
           let RegisterParams = {
             //username: this.RegisterForm.username,
             password: this.RegisterForm.password,
@@ -191,7 +191,7 @@ export default {
               });
               this.$router.push("/login");
             } else {
-              console.log(res.data)
+              console.log(res.data);
               this.$message.error({
                 message: "注册失败"
               });

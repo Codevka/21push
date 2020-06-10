@@ -85,6 +85,12 @@ const router = new Router({
         import('../views/NewHouse.vue')
     },
     {
+      path: '/applicationInfo',
+      name: '申请信息',
+      component: () =>
+        import('../views/ApplicationInfo.vue')
+    },
+    {
       path: '/houseInfo',
       name: '房源详情',
       component: () =>

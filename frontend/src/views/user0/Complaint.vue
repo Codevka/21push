@@ -4,12 +4,12 @@
       <el-button @click.native.prevent="dialogVisible=true" type="primary">发起投诉</el-button>
     </p>
     <el-table border :data="userComplaint" style="width: 100%">
-      <el-table-column type="index" width="50" :resizable="false"></el-table-column>
-      <el-table-column prop="complaintId" label="投诉编号" width="150" :resizable="false"></el-table-column>
-      <el-table-column prop="houseId" label="房源编号" width="150" :resizable="false"></el-table-column>
-      <el-table-column prop="adminId" label="处理人id" width="150" :resizable="false"></el-table-column>
-      <el-table-column prop="status" label="处理状态" width="150" :resizable="false"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="100" :resizable="false">
+      <el-table-column type="index" min-width="7%" :resizable="false"></el-table-column>
+      <el-table-column prop="complaintId" label="投诉编号" min-width="20%" :resizable="false"></el-table-column>
+      <el-table-column prop="houseId" label="房源编号" min-width="20%" :resizable="false"></el-table-column>
+      <el-table-column prop="adminId" label="处理人id" min-width="20%" :resizable="false"></el-table-column>
+      <el-table-column prop="status" label="处理状态" min-width="20%" :resizable="false"></el-table-column>
+      <el-table-column fixed="right" label="操作" min-width="13%" :resizable="false">
         <template slot-scope="scope">
           <el-button @click.native.prevent="toComplaintInfo(scope.$index)" size="small">详细信息</el-button>
         </template>
