@@ -1,5 +1,5 @@
 <template>
-  <el-main class="info">
+  <el-main class="infoC">
     <p align="right">
       <el-button @click.native.prevent="dialogVisible=true" type="primary">发起投诉</el-button>
     </p>
@@ -201,7 +201,7 @@ export default {
 };
 </script>
 <style>
-.info {
+.infoC {
   margin: auto auto;
   width: 830px;
   background: #fff;

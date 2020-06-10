@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-main class="info">
+    <el-main class="info1">
       <h3>用户信息</h3>
       <p v-bind:username="username">账号: {{username}}</p>
       <p v-bind:password="password">密码: {{password}}</p>
@@ -242,7 +242,7 @@ export default {
 </script>
 
 <style scoped>
-.info {
+.info1 {
   margin: auto 200px;
   width: 600px;
   background: #fff;

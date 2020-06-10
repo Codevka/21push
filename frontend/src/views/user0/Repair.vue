@@ -1,5 +1,5 @@
 <template>
-  <el-main class="infoR">
+  <el-main class="infoRepair">
     <p align="right">
       <el-button @click.native.prevent="dialogVisible=true" type="primary">发起报修</el-button>
     </p>
@@ -200,7 +200,7 @@ export default {
 };
 </script>
 <style>
-.infoR {
+.infoRepair {
   margin: auto auto;
   width: 680px;
   background: #fff;
