@@ -149,7 +149,7 @@ export default {
     },
     handleSuccess(response) {
       this.complaintForm.pic.push(this.photoUrl + response.key);
-      console.log(this.photoUrl + response.key);
+      //console.log(this.photoUrl + response.key);
     },
     handleRemove(file) {
       Array.prototype.remove = function(val) {
@@ -190,7 +190,7 @@ export default {
     token = genToken(AK, SK, policy);
     this.postData.token = token;
 
-    console.log("token = " + token);
+    //console.log("token = " + token);
   },
   mounted() {
     let user = { username: this.$store.state.userInfo.username };

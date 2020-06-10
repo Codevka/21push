@@ -76,7 +76,7 @@ export default {
       this.$router.push("/user0/complaint");
     },
     makeComplaintComment() {
-      console.log(this.commentForm);
+      //console.log(this.commentForm);
       this.$refs.commentForm.validate(valid => {
         if (valid) {
           this.commentForm.complaintId = this.complaintInfo.complaintId;

@@ -72,7 +72,7 @@ export default {
       this.rentHouseForm.rentType = this.houseInfo.rentType;
       this.rentHouseForm.houseId = this.houseInfo.houseId;
       rentHouse(this.rentHouseForm).then(res => {
-        console.log(res);
+        //console.log(res);
         if (res.data.result == true)
           this.$message({
             type: "success",

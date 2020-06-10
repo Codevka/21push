@@ -40,7 +40,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 export /**
  * 用户注册
- * @param {username, password, tel, email, name, province, city, area} params 账号, 密码, 手机, 邮箱, 昵称, 省, 市, 地
+ * @param {password, tel, email, name, province, city, area} params 密码, 手机, 邮箱, 昵称, 省, 市, 地
  * @returns {result,username} result:true为成功 username:账号
  */
   const RegisterUser = (params) => {
