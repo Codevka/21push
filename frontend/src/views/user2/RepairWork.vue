@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     toRepairWork(index) {
-      console.log(this.userRepairWork[index].repairWorkId);
+      //console.log(this.userRepairWork[index].repairWorkId);
       this.$router.push({
         path: "/repairWorkInfo",
         query: {

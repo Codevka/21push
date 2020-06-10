@@ -56,7 +56,7 @@ export default {
   components: {},
   data() {
     let confirmpasswordCheck = (rule, value, callback) => {
-      console.log(value);
+      //console.log(value);
       if (value === "") {
         return callback(new Error("密码不能为空"));
       } else if (value !== this.changeUserInfoForm.password) {
@@ -75,9 +75,9 @@ export default {
       }
     };
     let cityCheck = (rule, value, callback) => {
-      console.log(this.changeUserInfoForm.province);
-      console.log(value);
-      console.log(this.changeUserInfoForm.area);
+      //console.log(this.changeUserInfoForm.province);
+      //console.log(value);
+      //console.log(this.changeUserInfoForm.area);
       if (
         this.changeUserInfoForm.province == undefined ||
         value == undefined ||
@@ -199,7 +199,7 @@ export default {
                 message: "信息修改成功"
               });
               this.submiting = false;
-              console.log(changeParams);
+              //console.log(changeParams);
               sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
               this.$store.dispatch("commitLogin");
               this.dis = true;
@@ -228,7 +228,7 @@ export default {
     this.changeUserInfoForm.province = this.$store.state.userInfo.province;
     this.changeUserInfoForm.city = this.$store.state.userInfo.city;
     this.changeUserInfoForm.area = this.$store.state.userInfo.area;
-    console.log(this.changeUserInfoForm);
+    //console.log(this.changeUserInfoForm);
   }
 };
 </script>

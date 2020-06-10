@@ -57,7 +57,7 @@ import { RegisterUser } from "../main";
 export default {
   data() {
     let confirmpasswordCheck = (rule, value, callback) => {
-      console.log(value);
+      //console.log(value);
       if (value === "") {
         return callback(new Error("密码不能为空"));
       } else if (value !== this.RegisterForm.password) {
@@ -173,7 +173,7 @@ export default {
           };
           RegisterUser(RegisterParams).then(res => {
             this.registering = false;
-            console.log(RegisterParams);
+            //console.log(RegisterParams);
             if (res.data.result == true) {
               this.$message({
                 type: "success",

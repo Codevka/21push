@@ -101,7 +101,7 @@ export default {
     },
     lRenew() {
       this.leaseRenewForm.contractId = this.contractInfo.contractId;
-      console.log(this.leaseRenewForm);
+      //console.log(this.leaseRenewForm);
       leaseRenew(this.leaseRenewForm).then(res => {
         if (res.data.result == true) {
           this.$message({

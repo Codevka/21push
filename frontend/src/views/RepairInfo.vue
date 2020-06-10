@@ -70,7 +70,7 @@ export default {
       this.$router.push("/user0/repair");
     },
     makeRepairComment() {
-      console.log(this.commentForm);
+      //console.log(this.commentForm);
       this.$refs.commentForm.validate(valid => {
         if (valid) {
           this.commentForm.repairId = this.repairInfo.repairId;

@@ -70,14 +70,14 @@ export default {
       this.$refs.LoginForm.validate(valid => {
         if (valid) {
           this.logining = true;
-          console.log("submited");
+          //console.log("submited");
           let LoginParams = {
             userType: this.LoginForm.userType,
             username: this.LoginForm.username,
             password: this.LoginForm.password
           };
           LoginUser(LoginParams).then(res => {
-            console.log(res);
+            //console.log(res);
             this.logining = false;
             if (res.data.result == true) {
               this.$message({
@@ -88,7 +88,7 @@ export default {
               delete userInfo.result;
               //let userInfo = LoginParams;
               sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
-              console.log(sessionStorage.getItem("userInfo"));
+              //console.log(sessionStorage.getItem("userInfo"));
               this.$store.dispatch("commitLogin");
               switch (userInfo.userType) {
                 case "0":

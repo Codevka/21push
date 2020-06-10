@@ -66,7 +66,7 @@ export default {
       this.$router.push("/user2/repairWork");
     },
     makeRepairComment() {
-      console.log(this.callbackForm);
+      //console.log(this.callbackForm);
       /*this.$refs.callbackForm.validate(valid =>{
                 if(valid) {*/
       this.callbackForm.repairWorkLabel = this.repairWorkInfo.repairWorkId;
@@ -86,7 +86,7 @@ export default {
       });
       /*}
                 else {
-                    console.log('callbackSubmit err')
+                    //console.log('callbackSubmit err')
                 }
             })*/
     }

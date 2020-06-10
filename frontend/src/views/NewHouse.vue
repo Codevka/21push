@@ -67,9 +67,9 @@ import random from "string-random";
 export default {
   data() {
     let cityCheck = (rule, value, callback) => {
-      console.log(this.HouseForm.province);
-      console.log(value);
-      console.log(this.HouseForm.area);
+      //console.log(this.HouseForm.province);
+      //console.log(value);
+      //console.log(this.HouseForm.area);
       if (
         this.HouseForm.province == undefined ||
         value == undefined ||
@@ -231,7 +231,7 @@ export default {
     },
     handleSuccess(response) {
       this.HouseForm.pic.push(this.photoUrl + response.key);
-      console.log(this.photoUrl + response.key);
+      //console.log(this.photoUrl + response.key);
     },
     handleRemove(file) {
       Array.prototype.remove = function(val) {
@@ -272,7 +272,7 @@ export default {
     token = genToken(AK, SK, policy);
     this.postData.token = token;
 
-    console.log("token = " + token);
+    //console.log("token = " + token);
   }
 };
 </script>

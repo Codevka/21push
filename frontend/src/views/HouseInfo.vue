@@ -79,9 +79,9 @@ import { changeHouseInfo } from "../main";
 export default {
   data() {
     let cityCheck = (rule, value, callback) => {
-      console.log(this.changeHouseForm.province);
-      console.log(value);
-      console.log(this.changeHouseForm.area);
+      //console.log(this.changeHouseForm.province);
+      //console.log(value);
+      //console.log(this.changeHouseForm.area);
       if (
         this.changeHouseForm.province == undefined ||
         value == undefined ||
