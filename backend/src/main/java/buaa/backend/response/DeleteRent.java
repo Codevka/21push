@@ -15,7 +15,7 @@ public class DeleteRent {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @CrossOrigin("http://localhost:8080")
+    @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/deleteRent", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {

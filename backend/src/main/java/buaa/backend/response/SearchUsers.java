@@ -17,7 +17,7 @@ public class SearchUsers {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @CrossOrigin("http://localhost:8080")
+    @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/searchUsers", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {

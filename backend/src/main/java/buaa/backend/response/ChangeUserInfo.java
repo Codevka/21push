@@ -20,7 +20,7 @@ public class ChangeUserInfo {
      * @param body {userType, username, password, tel, email, name, province, city, area} params
      * @return result: true为成功
      */
-    @CrossOrigin("http://localhost:8080")
+    @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/changeUserInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         System.out.println(body);

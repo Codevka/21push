@@ -19,7 +19,6 @@ public class GetToken {
 //            produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         Map<String, Object> result = new HashMap<>();
-        //TODO
         return result;
     }
 }

@@ -23,7 +23,7 @@ public class GetComplaint {
      * 状态: '未处理' '未评价' '已评价'
      * 评分: range[1,5]
      */
-    @CrossOrigin("http://localhost:8080")
+    @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/getComplaint", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
