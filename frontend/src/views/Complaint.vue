@@ -3,7 +3,7 @@
     <el-page-header @back="goBack" content="投诉详情"></el-page-header>
     <p v-for="(item,key,index) in complaintInfo" :key="key">{{complaintLabel[index]}}：{{item}}</p>
     <el-button @click.native.prevent="dialogVisible = true" v-if="complaintInfo.status=='未处理'">处理</el-button>
-    <el-dialog title="处理" :visible.sync="dialogVisible">
+    <el-dialog title="处理投诉" :visible.sync="dialogVisible">
       <el-form :model="replyForm" ref="replyForm" :rules="rule">
         <el-form-item label="回复内容" label-width="100px" prop="reply">
           <el-input placeholder="请输入回复内容" v-model="replyForm.reply"></el-input>

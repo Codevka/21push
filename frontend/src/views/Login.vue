@@ -3,7 +3,7 @@
     <el-form :model="LoginForm" ref="LoginForm" :rules="rule" label-width="0px" class="login-form">
       <h3>用户登录</h3>
       <el-form-item prop="userType">
-        <el-radio v-model="LoginForm.userType" label="0">租户</el-radio>
+        <el-radio v-model="LoginForm.userType" label="0">租客</el-radio>
         <el-radio v-model="LoginForm.userType" label="2">维修人员</el-radio>
         <el-radio v-model="LoginForm.userType" label="1">客服</el-radio>
       </el-form-item>

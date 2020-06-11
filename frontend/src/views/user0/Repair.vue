@@ -57,14 +57,14 @@ export default {
       // actionPath: "https://upload-z1.qiniup.com", // 华北
       actionPath: "https://upload-z2.qiniup.com", // 华南
       photoUrl: "http://qbi3ylqqu.bkt.clouddn.com/", //! for test
-      userRepair: [],
-      /*userRepair: [
+      // userRepair: [],
+      userRepair: [
         {
           repairId: "",
           houseId: "",
           status: ""
         }
-      ],*/
+      ],
       limitNumber: 3,
       dialogVisible: false,
       repairForm: {

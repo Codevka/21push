@@ -28,8 +28,9 @@ export default {
       repairInfo: {
         repairId: "",
         houseId: "",
+        username: "",
         content: "",
-        status: "未评价",
+        status: "未处理",
         evaluation: "",
         score: ""
       },
