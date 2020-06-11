@@ -1,5 +1,5 @@
 create
-    definer = root@localhost procedure allGetPasswordAndTypeByTel(out status int, IN Te varchar(11))
+    definer = root@localhost procedure allGetPasswordAndTypeByTel(out status int, IN Te nvarchar(11))
 begin
     if exists(select password from Account a1 where a1.tel =Te )
     then

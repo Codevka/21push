@@ -1,4 +1,4 @@
-create procedure userSearchHouseByKey(OUT status int, IN KeyW varchar(64))
+create procedure userSearchHouseByKey(OUT status int, IN KeyW nvarchar(64))
 begin
     select 1 into status;
     select houseId, province, city, area, address, rentType, houseType, pic, intro, ownerTel, price, houseStatus from House h where houseStatus<>0 and houseStatus<>-1 and(intro like concat('%',KeyW,'%') );

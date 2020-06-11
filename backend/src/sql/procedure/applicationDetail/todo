@@ -1,2 +1,42 @@
 
 导出合同这个我有点蒙
+
+ DROP PROCEDURE IF EXISTS adminChangeHouseInfo;          
+ DROP PROCEDURE IF EXISTS adminChangeUserInfo;           
+ DROP PROCEDURE IF EXISTS adminCheckAllCom;             
+ DROP PROCEDURE IF EXISTS adminCheckRentApply;           
+ DROP PROCEDURE IF EXISTS adminChooseFixer;              
+ DROP PROCEDURE IF EXISTS adminCloseHouse;               
+ DROP PROCEDURE IF EXISTS adminExportRepairer;           
+ DROP PROCEDURE IF EXISTS adminGenerateWorkOrder;        
+ DROP PROCEDURE IF EXISTS adminImportNewHouse;           
+ DROP PROCEDURE IF EXISTS adminRefuseRepair;             
+ DROP PROCEDURE IF EXISTS adminReplyCom;                
+ DROP PROCEDURE IF EXISTS adminSearchHouseByKey;         
+ DROP PROCEDURE IF EXISTS adminSearchOrderByID;          
+ DROP PROCEDURE IF EXISTS adminSearchOrderByUser;        
+DROP PROCEDURE IF EXISTS adminSelectAllUnhandledRepair; 
+DROP PROCEDURE IF EXISTS adminSelectUserInfoByID;       
+ DROP PROCEDURE IF EXISTS adminSelectUserInfoByTel;      
+ DROP PROCEDURE IF EXISTS allGetPasswordAndTypeByID;     
+ DROP PROCEDURE IF EXISTS allGetPasswordAndTypeByTel;    
+ DROP PROCEDURE IF EXISTS allGetSelfInfo;                
+ DROP PROCEDURE IF EXISTS allUpdateSelfInfo;             
+ DROP PROCEDURE IF EXISTS fixerCheckSelfTask;            
+ DROP PROCEDURE IF EXISTS fixerFinishWork;              
+ DROP PROCEDURE IF EXISTS fixerShowOrderInfo;            
+ DROP PROCEDURE IF EXISTS getUserTelByCom;               
+ DROP PROCEDURE IF EXISTS rootExportAdmin;               
+ DROP PROCEDURE IF EXISTS serverGetHouseInfoByOrder;     
+ DROP PROCEDURE IF EXISTS serverGetUserInfoByOrder;      
+ DROP PROCEDURE IF EXISTS serverInsertNewAccount;        
+ DROP PROCEDURE IF EXISTS showAdminTelByCom;             
+ DROP PROCEDURE IF EXISTS userApplyToRent;               
+ DROP PROCEDURE IF EXISTS userCheckSelfAllRepair;        
+ DROP PROCEDURE IF EXISTS userCheckSelfComplaintAll;     
+ DROP PROCEDURE IF EXISTS userCommentRepair;             
+ DROP PROCEDURE IF EXISTS userCommitNewComplaint;        
+ DROP PROCEDURE IF EXISTS userCommitNewRepair;           
+ DROP PROCEDURE IF EXISTS userGiveEvaluation;            
+ DROP PROCEDURE IF EXISTS userSearchHouseByKey;          
+ DROP PROCEDURE IF EXISTS userShowOrderInfo;  
