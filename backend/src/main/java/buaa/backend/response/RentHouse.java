@@ -9,6 +9,8 @@ import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Types;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,8 +55,7 @@ public class RentHouse {
             cs.setInt(1, Integer.parseInt((String) body.get("username")));
             cs.setInt(2, Integer.parseInt((String) body.get("houseId")));
             cs.setInt(3, Integer.parseInt((String) body.get("houseId")));
-            // TODO
-            cs.setDate(4, null);
+            cs.setDate(4, Date.valueOf((String) body.get("rentTime")));
             cs.setInt(5, Integer.parseInt((String) body.get("rentDuration")) * i[1]);
             return cs;
         }, cs -> {
