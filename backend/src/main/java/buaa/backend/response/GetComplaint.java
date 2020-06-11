@@ -50,6 +50,7 @@ public class GetComplaint {
             map.put("reply", rs.getString("reply"));
             map.put("evaluation", rs.getString("evaluation"));
             map.put("score", rs.getInt("score"));
+            map.put("pic", rs.getString("pic").split(";"));
         }
         return map;
     }
