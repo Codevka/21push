@@ -17,7 +17,8 @@ Vue.config.productionTip = false;
 
 Vue.prototype.$http = axios;
 
-axios.defaults.baseURL = 'http://localhost:18888';
+// axios.defaults.baseURL = 'http://123.57.41.160:18888';
+axios.defaults.baseURL = 'http://127.0.0.1:18888';
 axios.defaults.timeout = 2000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 //06.03:4453L
@@ -39,6 +40,14 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     新增 searchRepairs 按照报修编号or房源编号or租客账号搜索报修（同searchComplaints）
     新增 getApplication 请求未处理租房申请
     新增 dealApplication 处理租房申请（同意/拒绝）
+  6月11日：
+    新增 searchRepairers 按照(维修人员账号or昵称or手机号) and (租客账号对应的地区)搜索维修人员（空keyword表示所有该地区维修人员）
+    新增 createWorkOrder 根据报修编号、导入的师傅账号创建维修工单
+    新增 refuseRepair 拒绝报修
+    修改 getRepair 返回值中增加 username 字段（发起报修的用户账号）
+                          增加 pic      字段（图片url数组）
+    修改 getComplaint 返回值中增加 pic 字段（图片url数组）
+    rentHouse 新增 rentTime为"yyyy-MM-dd"格式的字符串表示租房开始时间
 */
 
 export /**
@@ -176,7 +185,7 @@ const searchComplaints = (params) => {
 };
 
 export /**
- * 客服检索维修工单
+ * 客服检索报修
  * @param {keyword} params 关键词为报修编号、房源编号或用户账号
  * @returns [{repairId, houseId, username, status}]
  *           报修编号，房源编号，用户账号，处理状态
@@ -213,8 +222,8 @@ const getHouse = (params) => {
 export /**
  * 请求投诉信息
  * @param {complaintId} params 投诉编号
- * @returns {complaintId,houseId,username,content,status,adminId,reply,evaluation,score}
- *          投诉编号, 房源编号, 投诉人账号, 投诉内容, 状态, 客服编号, 回复, 评价内容, 评分
+ * @returns {complaintId, houseId, username, content, status, adminId, reply, evaluation, score, pic}
+ *          投诉编号, 房源编号, 投诉人账号, 投诉内容, 状态, 客服编号, 回复, 评价内容, 评分，图片url地址数组
  *          状态: '未处理' '未评价' '已评价'
  *          评分: range[1,5]
  */
@@ -254,7 +263,7 @@ const leaseRenew = (params) => {
 //租房相关
 export /**
  * 申请租房
- * @param {houseId, username, rentType, rentDuration} params 房源编号, 账号, 租房类型, 租房时间:短租日数 或 长租月数
+ * @param {houseId, username, rentType, rentTime, rentDuration} params 房源编号, 账号, 租房类型, 租房开始时间:"yyyy-MM-dd"字符串, 租房时间:短租日数 或 长租月数
  * @returns result: true为成功
  */
 const rentHouse = (params) => {
@@ -265,8 +274,8 @@ const rentHouse = (params) => {
 export /**
  * 请求报修信息
  * @param {repairId} params 报修编号
- * @returns {repairId, houseId, content, status, evaluation, score}
- *          报修编号, 房源编号, 报修内容, 处理状态, 评价内容, 评分
+ * @returns {repairId, houseId, username, content, status, evaluation, score, pic}
+ *          报修编号, 房源编号, 报修内容, 处理状态, 评价内容, 评分，图片url数组
  */
 const getRepair = (params) => {
   return axios.post('/getRepair', params);
@@ -288,6 +297,36 @@ export /**
  */
 const submitRepairComment = (params) => {
   return axios.post('/submitRepairComment', params);
+};
+
+export /**
+ * 客服搜索维修人员
+ * @param {keyword, username} params 维修人员账号/昵称/手机号，报修租客账号
+ * @returns [{username, name, tel}]
+ *           维修人员账号，昵称，手机号
+ */
+const searchRepairers = (params) => {
+  return axios.post('/searchRepairers', params);
+};
+
+export /**
+ * 客服创建维修工单
+ * @param {repairId, username} params 报修编号，维修人员账号
+ * @returns result: true为成功
+ * 创建维修工单后，对应报修 status 设为 “工单建立成功”
+ */
+const createWorkOrder = (params) => {
+  return axios.post('/createWorkOrder', params);
+};
+
+export /**
+ * 客服拒绝报修
+ * @param {repairId} params 报修编号
+ * @returns result: true为成功
+ * 拒绝后，对应报修 status 设为 “已拒绝”
+ */
+const refuseRepair = (params) => {
+  return axios.post('/refuseRepair', params);
 };
 
 //投诉相关

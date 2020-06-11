@@ -2,16 +2,21 @@
   <el-main class="infoH">
     <el-page-header @back="goBack" content="房源详情"></el-page-header>
     <p v-for="(item,key,index) in houseInfo" :key="key">{{houseLabel[index]}}:{{item}}</p>
-    <div class="image">
-      <el-image v-for="url in pic" :key="url" :src="url" fit="scale-down" lazy></el-image>
-    </div>
     <el-button @click.native.prevent="dialogFormVisible = true">租房</el-button>
     <el-dialog title="租房时间" :visible.sync="dialogFormVisible">
       <el-form v-model="rentHouseForm">
-        <el-form-item label="月数" label-width="50px" v-if="houseInfo.rentType=='长租'">
+        <el-form-item label="租房开始时间" label-width="100px">
+          <el-date-picker
+            v-model="rentHouseForm.rentTime"
+            type="date"
+            placeholder="选择租房开始时间"
+            value-format="yyyy-MM-dd"
+          ></el-date-picker>
+        </el-form-item>
+        <el-form-item label="月数" label-width="100px" v-if="houseInfo.rentType=='长租'">
           <el-input-number v-model="rentHouseForm.rentDuration" :min="1"></el-input-number>
         </el-form-item>
-        <el-form-item label="天数" label-width="50px" v-if="houseInfo.rentType=='短租'">
+        <el-form-item label="天数" label-width="100px" v-if="houseInfo.rentType=='短租'">
           <el-input-number v-model="rentHouseForm.rentDuration" :min="1"></el-input-number>
         </el-form-item>
       </el-form>
@@ -41,7 +46,10 @@ export default {
         price: "",
         housestatus: ""
       },
-      pic: [],
+      pic: [
+        "http://qbi3ylqqu.bkt.clouddn.com/6eKVd3ZUonkS5bd2",
+        "http://qbi3ylqqu.bkt.clouddn.com/7hXAE3tAQSLXyYa0"
+      ],
       houseLabel: [
         "房源编号",
         "省份",
@@ -59,6 +67,7 @@ export default {
         houseId: "",
         username: "",
         rentType: "",
+        rentTime: null,
         rentDuration: ""
       }
     };
@@ -71,15 +80,30 @@ export default {
       this.rentHouseForm.username = this.$store.state.userInfo.username;
       this.rentHouseForm.rentType = this.houseInfo.rentType;
       this.rentHouseForm.houseId = this.houseInfo.houseId;
-      rentHouse(this.rentHouseForm).then(res => {
-        //console.log(res);
-        if (res.data.result == true)
-          this.$message({
-            type: "success",
-            message: "订单提交成功"
-          });
-        this.methods.goBack();
-      });
+      if (this.rentHouseForm.rentTime == null) {
+        this.$message({
+          type: "warning",
+          message: "请选择租房开始时间"
+        });
+      } else if (
+        new Date().getTime() - new Date(this.rentHouseForm.rentTime).getTime() >
+        0
+      ) {
+        this.$message({
+          type: "warning",
+          message: "租房开始时间不能早于今天"
+        });
+      } else {
+        rentHouse(this.rentHouseForm).then(res => {
+          //console.log(res);
+          if (res.data.result == true)
+            this.$message({
+              type: "success",
+              message: "订单提交成功"
+            });
+          this.methods.goBack();
+        });
+      }
     }
   },
   mounted() {
@@ -95,8 +119,8 @@ export default {
 </script>
 <style>
 .infoH {
-  margin: 40px 400px;
-  width: 500px;
+  margin: 40px 40px;
+  width: 1500px;
   background: #fff;
   box-shadow: 0 0 35px #b4bccc;
   padding: 30px 30px 30px 30px;
@@ -111,6 +135,6 @@ export default {
 }
 .image {
   margin: auto auto;
-  width: 500px;
+  width: 1200px;
 }
 </style>

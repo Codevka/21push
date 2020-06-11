@@ -38,7 +38,7 @@ const router = new Router({
     },
     {
       path: '/repairInfo',
-      name: '报修工单',
+      name: '租客报修详情',
       component: () =>
         import('../views/RepairInfo.vue')
     },
@@ -50,7 +50,7 @@ const router = new Router({
     },
     {
       path: '/repair',
-      name: '报修信息',
+      name: '客服报修详情',
       component: () =>
         import('../views/Repair.vue')
     },
