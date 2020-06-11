@@ -47,6 +47,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     修改 getRepair 返回值中增加 username 字段（发起报修的用户账号）
                           增加 pic      字段（图片url数组）
     修改 getComplaint 返回值中增加 pic 字段（图片url数组）
+    rentHouse 新增 rentTime为"yyyy-MM-dd"格式的字符串表示租房开始时间
 */
 
 export /**
@@ -262,7 +263,7 @@ const leaseRenew = (params) => {
 //租房相关
 export /**
  * 申请租房
- * @param {houseId, username, rentType, rentDuration} params 房源编号, 账号, 租房类型, 租房时间:短租日数 或 长租月数
+ * @param {houseId, username, rentType, rentTime, rentDuration} params 房源编号, 账号, 租房类型, 租房开始时间:"yyyy-MM-dd"字符串, 租房时间:短租日数 或 长租月数
  * @returns result: true为成功
  */
 const rentHouse = (params) => {
