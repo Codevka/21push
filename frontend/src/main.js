@@ -39,6 +39,11 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     新增 searchRepairs 按照报修编号or房源编号or租客账号搜索报修（同searchComplaints）
     新增 getApplication 请求未处理租房申请
     新增 dealApplication 处理租房申请（同意/拒绝）
+  6月11日：
+    新增 searchRepairers 按照(维修人员账号or昵称or手机号) and (租客账号对应的地区)搜索维修人员（空keyword表示所有该地区维修人员）
+    新增 createWorkOrder 根据报修编号、导入的师傅账号创建维修工单
+    新增 refuseRepair 拒绝报修
+    修改 getRepair 返回值中增加 username 字段（发起报修的用户账号）
 */
 
 export /**
@@ -176,7 +181,7 @@ const searchComplaints = (params) => {
 };
 
 export /**
- * 客服检索维修工单
+ * 客服检索报修
  * @param {keyword} params 关键词为报修编号、房源编号或用户账号
  * @returns [{repairId, houseId, username, status}]
  *           报修编号，房源编号，用户账号，处理状态
@@ -265,7 +270,7 @@ const rentHouse = (params) => {
 export /**
  * 请求报修信息
  * @param {repairId} params 报修编号
- * @returns {repairId, houseId, content, status, evaluation, score}
+ * @returns {repairId, houseId, username, content, status, evaluation, score}
  *          报修编号, 房源编号, 报修内容, 处理状态, 评价内容, 评分
  */
 const getRepair = (params) => {
@@ -288,6 +293,36 @@ export /**
  */
 const submitRepairComment = (params) => {
   return axios.post('/submitRepairComment', params);
+};
+
+export /**
+ * 客服搜索维修人员
+ * @param {keyword, username} params 维修人员账号/昵称/手机号，报修租客账号
+ * @returns [{username, name, tel}]
+ *           维修人员账号，昵称，手机号
+ */
+const searchRepairers = (params) => {
+  return axios.post('/searchRepairers', params);
+};
+
+export /**
+ * 客服创建维修工单
+ * @param {repairId, username} params 报修编号，维修人员账号
+ * @returns result: true为成功
+ * 创建维修工单后，对应报修 status 设为 “工单建立成功”
+ */
+const createWorkOrder = (params) => {
+  return axios.post('/createWorkOrder', params);
+};
+
+export /**
+ * 客服拒绝报修
+ * @param {repairId} params 报修编号
+ * @returns result: true为成功
+ * 拒绝后，对应报修 status 设为 “已拒绝”
+ */
+const refuseRepair = (params) => {
+  return axios.post('/refuseRepair', params);
 };
 
 //投诉相关

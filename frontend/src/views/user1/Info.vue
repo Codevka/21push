@@ -3,7 +3,7 @@
     <el-main class="info1">
       <h3>用户信息</h3>
       <p v-bind:username="username">账号: {{username}}</p>
-      <p v-bind:password="password">密码: {{password}}</p>
+      <!-- <p v-bind:password="password">密码: {{password}}</p> -->
       <p v-bind:tel="tel">手机: {{tel}}</p>
       <p v-bind:email="email">邮箱: {{email}}</p>
       <p v-bind:name="name">昵称: {{name}}</p>
