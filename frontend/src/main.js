@@ -17,7 +17,8 @@ Vue.config.productionTip = false;
 
 Vue.prototype.$http = axios;
 
-axios.defaults.baseURL = 'http://localhost:18888';
+// axios.defaults.baseURL = 'http://123.57.41.160:18888';
+axios.defaults.baseURL = 'http://127.0.0.1:18888';
 axios.defaults.timeout = 2000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 //06.03:4453L
@@ -44,6 +45,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     新增 createWorkOrder 根据报修编号、导入的师傅账号创建维修工单
     新增 refuseRepair 拒绝报修
     修改 getRepair 返回值中增加 username 字段（发起报修的用户账号）
+                          增加 pic      字段（图片url数组）
+    修改 getComplaint 返回值中增加 pic 字段（图片url数组）
 */
 
 export /**
@@ -218,8 +221,8 @@ const getHouse = (params) => {
 export /**
  * 请求投诉信息
  * @param {complaintId} params 投诉编号
- * @returns {complaintId,houseId,username,content,status,adminId,reply,evaluation,score}
- *          投诉编号, 房源编号, 投诉人账号, 投诉内容, 状态, 客服编号, 回复, 评价内容, 评分
+ * @returns {complaintId, houseId, username, content, status, adminId, reply, evaluation, score, pic}
+ *          投诉编号, 房源编号, 投诉人账号, 投诉内容, 状态, 客服编号, 回复, 评价内容, 评分，图片url地址数组
  *          状态: '未处理' '未评价' '已评价'
  *          评分: range[1,5]
  */
@@ -270,8 +273,8 @@ const rentHouse = (params) => {
 export /**
  * 请求报修信息
  * @param {repairId} params 报修编号
- * @returns {repairId, houseId, username, content, status, evaluation, score}
- *          报修编号, 房源编号, 报修内容, 处理状态, 评价内容, 评分
+ * @returns {repairId, houseId, username, content, status, evaluation, score, pic}
+ *          报修编号, 房源编号, 报修内容, 处理状态, 评价内容, 评分，图片url数组
  */
 const getRepair = (params) => {
   return axios.post('/getRepair', params);

@@ -41,7 +41,10 @@ export default {
         price: "",
         housestatus: ""
       },
-      pic: [],
+      pic: [
+        "http://qbi3ylqqu.bkt.clouddn.com/6eKVd3ZUonkS5bd2",
+        "http://qbi3ylqqu.bkt.clouddn.com/7hXAE3tAQSLXyYa0"
+      ],
       houseLabel: [
         "房源编号",
         "省份",
@@ -95,8 +98,8 @@ export default {
 </script>
 <style>
 .infoH {
-  margin: 40px 400px;
-  width: 500px;
+  margin: 40px 40px;
+  width: 1500px;
   background: #fff;
   box-shadow: 0 0 35px #b4bccc;
   padding: 30px 30px 30px 30px;
@@ -111,6 +114,6 @@ export default {
 }
 .image {
   margin: auto auto;
-  width: 500px;
+  width: 1200px;
 }
 </style>
