@@ -3,16 +3,17 @@
   <el-main class="infoC">
     <el-page-header @back="goBack" content="订单详情"></el-page-header>
     <p v-for="(item,key,index) in contractInfo" :key="key">{{contractLabel[index]}}:{{item}}</p>
-    <p v-if="contractInfo.contractStatus=='未审核'">请等待审核通过</p>
-    <p v-if="contractInfo.contractStatus=='未缴费'">请尽快进行线下缴费</p>
+    <p v-if="contractInfo.contractStatus=='未审核'&&usertype==0">请等待审核通过</p>
+    <p v-if="contractInfo.contractStatus=='未缴费'&&usertype==0">请尽快进行线下缴费</p>
     <el-button
-      v-if="contractInfo.contractStatus=='已缴费'&&contractInfo.rentType=='长租'"
+      v-if="contractInfo.contractStatus=='已缴费'&&contractInfo.rentType=='长租'&&usertype==0"
       @click.native.prevent="lBack"
     >退租</el-button>
     <el-button
-      v-if="contractInfo.contractStatus=='已缴费'&&contractInfo.rentType=='长租'"
+      v-if="contractInfo.contractStatus=='已缴费'&&contractInfo.rentType=='长租'&&usertype==0"
       @click.native.prevent="dialogFormVisible = true"
     >续租</el-button>
+    <el-button v-if="contractInfo.contractStatus!='未审核'" @click.native.prevent="eContract">导出合同</el-button>
     <el-dialog title="续租时间" :visible.sync="dialogFormVisible">
       <el-form v-model="leaseRenewForm">
         <el-form-item label="月数" label-width="50px">
@@ -52,6 +53,7 @@ export default {
         contractId: "",
         month: ""
       },
+      usertype: 0,
       //租房形式: 短租 长租
 
       /*contractLabel:{
@@ -115,12 +117,16 @@ export default {
         }
         this.$router.push("/user0/query");
       });
+    },
+    eContract() {
+      // TODO: uncompleted
     }
   },
   mounted() {
     getContract(this.$route.query.contractId).then(res => {
       this.contractInfo = res.data;
     });
+    this.usertype = this.$route.query.usertype;
   }
 };
 </script>
