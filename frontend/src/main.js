@@ -61,6 +61,10 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     关于长租：后端再 ContractStatus 里增加 "未签订合同" "已签订合同" 作为长租订单的状态
     新增 changeUserPassword 用户修改自己的密码
     changeUserInfo 的参数去掉密码password
+    其中参数是long类型的目前有:
+      submitComplaintComment里的score
+      所有手机号
+      newHouse里的price
 */
 
 export /**

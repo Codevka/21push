@@ -87,6 +87,7 @@ export default {
       this.$refs.commentForm.validate(valid => {
         if (valid) {
           this.commentForm.complaintId = this.complaintInfo.complaintId;
+          this.commentForm.score = this.commentForm.score.toString();
           submitComplaintComment(this.commentForm).then(res => {
             if (res.data.result == true) {
               this.$message({

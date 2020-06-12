@@ -87,6 +87,7 @@ export default {
       this.$refs.commentForm.validate(valid => {
         if (valid) {
           this.commentForm.repairId = this.repairInfo.repairId;
+          this.commentForm.score = this.commentForm.score.toString();
           submitRepairComment(this.commentForm).then(res => {
             if (res.data.result == true) {
               this.$message({

@@ -164,7 +164,7 @@ export default {
           let RegisterParams = {
             //username: this.RegisterForm.username,
             password: this.RegisterForm.password,
-            tel: this.RegisterForm.tel,
+            tel: this.RegisterForm.tel.toString(),
             email: this.RegisterForm.email,
             name: this.RegisterForm.name,
             province: this.RegisterForm.province,
