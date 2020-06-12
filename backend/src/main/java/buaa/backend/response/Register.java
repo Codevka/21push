@@ -32,11 +32,11 @@ public class Register {
             cs.setString(2, (String) body.get("password"));
             cs.setInt(3, Integer.parseInt((String) body.get("userType")));
             cs.setString(4, (String) body.get("name"));
-//            if (Integer.parseInt((String) body.get("userType")) == UserType.RENTER.ordinal()) {
-//                cs.setString(5, ((Long) body.get("tel")).toString());
-//            } else {
+            if (Integer.parseInt((String) body.get("userType")) == UserType.RENTER.ordinal()) {
+                cs.setString(5, ((Long) body.get("tel")).toString());
+            } else {
             cs.setString(5, (String) body.get("tel"));
-//            }
+            }
             cs.setString(6, (String) body.get("area"));
             cs.setString(7, "nouse");
             cs.setString(8, (String) body.get("province"));
