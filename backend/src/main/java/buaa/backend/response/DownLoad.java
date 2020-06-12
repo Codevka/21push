@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 @RestController
 public class DownLoad {
@@ -31,26 +32,37 @@ public class DownLoad {
                     new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1));
             response.setContentType("application/octet-stream");
             //输出并关闭
-            File file = ResourceUtils.getFile("classpath:templates/LongContract.html");
-            FileInputStream in = new FileInputStream(file);
-            Document document = new Document();
-            // step 2
-            PdfWriter writer = PdfWriter.getInstance(document, out);
-            // step 3
-            document.open();
-            // step 4
-            //显示中文必须设置font-family。这里为宋体(simsun)。中文可为汉字，也可为汉字的unicode
-            String str = "<div style='font-family:SimSun'>123\u6d4b\u8bd5abc测试</div>";
 
-            XMLWorkerHelper worker = XMLWorkerHelper.getInstance();
-            ByteArrayInputStream is = new ByteArrayInputStream(str.getBytes("UTF-8"));
-            worker.parseXHtml(writer, document, is, Charset.forName("UTF-8"));
-            // step 5
-            document.close();
-            out.flush();
-            out.close();
         } catch (IOException | DocumentException e) {
             e.printStackTrace();
         }
+    }
+
+    private void getPdf(OutputStream out, ByteArrayInputStream in) throws DocumentException, IOException {
+
+        Document document = new Document();
+        // step 2
+        PdfWriter writer = PdfWriter.getInstance(document, out);
+        // step 3
+        document.open();
+        // step 4
+        //显示中文必须设置font-family。这里为宋体(simsun)。中文可为汉字，也可为汉字的unicode
+        String str = "<div style='font-family:SimSun'>123\u6d4b\u8bd5abc测试</div>";
+
+        XMLWorkerHelper worker = XMLWorkerHelper.getInstance();
+        worker.parseXHtml(writer, document, in, StandardCharsets.UTF_8);
+        // step 5
+        document.close();
+        out.flush();
+        out.close();
+    }
+
+    private ByteArrayInputStream getInStream(String contractId) throws IOException {
+        File file = ResourceUtils.getFile("classpath:templates/LongContract.html");
+        FileInputStream in = new FileInputStream(file);
+    }
+
+    private Map<String, Object> getInfo(String contractId) {
+        return null
     }
 }
