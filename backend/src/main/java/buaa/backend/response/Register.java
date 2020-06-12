@@ -1,5 +1,6 @@
 package buaa.backend.response;
 
+import buaa.backend.metadata.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,7 +30,7 @@ public class Register {
             CallableStatement cs = con.prepareCall(storedProc);
             cs.registerOutParameter(1, Types.INTEGER);
             cs.setString(2, (String) body.get("password"));
-            cs.setInt(3, 0);
+            cs.setInt(3, Integer.parseInt((String) body.get("userType")));
             cs.setString(4, (String) body.get("name"));
             cs.setString(5, ((Long) body.get("tel")).toString());
             cs.setString(6, (String) body.get("area"));
@@ -51,7 +52,9 @@ public class Register {
             }
             return res;
         });
-        addMoneyAccount((String) result.get("username"));
+        if (Integer.parseInt((String) body.get("userType")) == UserType.RENTER.ordinal()) {
+            addMoneyAccount((String) result.get("username"));
+        }
         return result;
     }
 
