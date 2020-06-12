@@ -3,7 +3,7 @@
     <el-main class="info">
       <el-page-header @back="goBack" content="用户详情"></el-page-header>
       <p v-bind:username="userInfo.username">账号: {{username}}</p>
-      <p v-bind:password="userInfo.password">密码: {{password}}</p>
+      <!--<p v-bind:password="userInfo.password">密码: {{password}}</p>-->
       <p v-bind:tel="userInfo.tel">手机: {{tel}}</p>
       <p v-bind:email="userInfo.email">邮箱: {{email}}</p>
       <p v-bind:name="userInfo.name">昵称: {{name}}</p>
@@ -47,33 +47,33 @@
         </div>
       </el-dialog>
       <el-form
-        :model="changeUserInfoForm"
-        ref="changeUserInfoForm"
+        :model="manageUserInfoForm"
+        ref="manageUserInfoForm"
         :rules="rule"
         class="changeform"
         label-width="80px"
         v-if="!dis"
       >
-        <el-form-item label="密码" prop="password">
-          <el-input v-model="changeUserInfoForm.password" placeholder="密码" :disabled="dis"></el-input>
+        <!--<el-form-item label="密码" prop="password">
+          <el-input v-model="manageUserInfoForm.password" placeholder="密码" :disabled="dis"></el-input>
         </el-form-item>
         <el-form-item label="确认密码" prop="confirmpassword">
-          <el-input v-model="changeUserInfoForm.confirmpassword" placeholder="确认密码" :disabled="dis"></el-input>
-        </el-form-item>
+          <el-input v-model="manageUserInfoForm.confirmpassword" placeholder="确认密码" :disabled="dis"></el-input>
+        </el-form-item>-->
         <el-form-item label="手机" prop="tel">
-          <el-input v-model.number="changeUserInfoForm.tel" placeholder="手机" :disabled="dis"></el-input>
+          <el-input v-model.number="manageUserInfoForm.tel" placeholder="手机" :disabled="dis"></el-input>
         </el-form-item>
         <el-form-item label="邮箱" prop="email">
-          <el-input v-model="changeUserInfoForm.email" placeholder="邮箱" :disabled="dis"></el-input>
+          <el-input v-model="manageUserInfoForm.email" placeholder="邮箱" :disabled="dis"></el-input>
         </el-form-item>
         <el-form-item label="昵称" prop="name">
-          <el-input v-model="changeUserInfoForm.name" placeholder="昵称" :disabled="dis"></el-input>
+          <el-input v-model="manageUserInfoForm.name" placeholder="昵称" :disabled="dis"></el-input>
         </el-form-item>
         <el-form-item label="地区" prop="city">
           <v-distpicker
-            :province="changeUserInfoForm.province"
-            :city="changeUserInfoForm.city"
-            :area="changeUserInfoForm.area"
+            :province="manageUserInfoForm.province"
+            :city="manageUserInfoForm.city"
+            :area="manageUserInfoForm.area"
             @province="onChangeProvince"
             @city="onChangeCity"
             @area="onChangeArea"
@@ -86,20 +86,23 @@
 </template>
 
 <script>
-import { changeUserInfo, payMoney, returnMoney } from "../main";
+import { payMoney, returnMoney } from "../main";
+import { manageUserInfo } from "../main";
+import { getUser } from "../main";
+
 export default {
   components: {},
   data() {
-    let confirmpasswordCheck = (rule, value, callback) => {
+    /*let confirmpasswordCheck = (rule, value, callback) => {
       //console.log(value);
       if (value === "") {
         return callback(new Error("密码不能为空"));
-      } else if (value !== this.changeUserInfoForm.password) {
+      } else if (value !== this.manageUserInfoForm.password) {
         return callback(new Error("密码不一致"));
       } else {
         return callback();
       }
-    };
+    };*/
     let telCheck = (rule, value, callback) => {
       if (value === "" || value == undefined) {
         return callback(new Error("手机号不能为空"));
@@ -110,13 +113,13 @@ export default {
       }
     };
     let cityCheck = (rule, value, callback) => {
-      //console.log(this.changeUserInfoForm.province);
+      //console.log(this.manageUserInfoForm.province);
       //console.log(value);
-      //console.log(this.changeUserInfoForm.area);
+      //console.log(this.manageUserInfoForm.area);
       if (
-        this.changeUserInfoForm.province == undefined ||
+        this.manageUserInfoForm.province == undefined ||
         value == undefined ||
-        this.changeUserInfoForm.area == undefined
+        this.manageUserInfoForm.area == undefined
       )
         return callback(new Error("省市地不能为空"));
       else callback();
@@ -140,10 +143,9 @@ export default {
         password: ""
       },
       userInfo: {
-        userType: "-1",
         name: "",
         username: "",
-        password: "",
+        //password: "",
         email: "",
         tel: "",
         province: "",
@@ -151,7 +153,7 @@ export default {
         area: ""
       },
       rule: {
-        password: [
+        /*password: [
           {
             required: true,
             min: 6,
@@ -165,7 +167,7 @@ export default {
             validator: confirmpasswordCheck,
             trigger: "blur"
           }
-        ],
+        ],*/
         tel: [
           {
             required: true,
@@ -196,11 +198,8 @@ export default {
           }
         ]
       },
-      changeUserInfoForm: {
-        userType: "",
+      manageUserInfoForm: {
         username: "",
-        password: "",
-        confirmpassword: "",
         tel: "",
         email: "",
         name: "",
@@ -218,30 +217,28 @@ export default {
       this.dis = this.dis == true ? false : true;
     },
     onChangeProvince(data) {
-      this.changeUserInfoForm.province = data.value;
+      this.manageUserInfoForm.province = data.value;
     },
     onChangeCity(data) {
-      this.changeUserInfoForm.city = data.value;
+      this.manageUserInfoForm.city = data.value;
     },
     onChangeArea(data) {
-      this.changeUserInfoForm.area = data.value;
+      this.manageUserInfoForm.area = data.value;
     },
     submit() {
-      this.$refs.changeUserInfoForm.validate(valid => {
+      this.$refs.manageUserInfoForm.validate(valid => {
         if (valid) {
           this.submiting = true;
           let changeParams = {
-            userType: this.changeUserInfoForm.userType,
-            username: this.changeUserInfoForm.username,
-            password: this.changeUserInfoForm.password,
-            tel: this.changeUserInfoForm.tel,
-            email: this.changeUserInfoForm.email,
-            name: this.changeUserInfoForm.name,
-            city: this.changeUserInfoForm.city,
-            area: this.changeUserInfoForm.area,
-            province: this.changeUserInfoForm.province
+            username: this.manageUserInfoForm.username,
+            tel: this.manageUserInfoForm.tel,
+            email: this.manageUserInfoForm.email,
+            name: this.manageUserInfoForm.name,
+            city: this.manageUserInfoForm.city,
+            area: this.manageUserInfoForm.area,
+            province: this.manageUserInfoForm.province
           };
-          changeUserInfo(changeParams).then(res => {
+          manageUserInfo(this.manageUserInfoForm).then(res => {
             if (res.data.result == true) {
               this.logining = false;
               this.$message({
@@ -324,16 +321,9 @@ export default {
     }
   },
   mounted() {
-    this.changeUserInfoForm.userType = this.$store.state.userInfo.userType;
-    this.changeUserInfoForm.username = this.$store.state.userInfo.username;
-    this.changeUserInfoForm.password = this.$store.state.userInfo.password;
-    this.changeUserInfoForm.tel = parseInt(this.$store.state.userInfo.tel);
-    this.changeUserInfoForm.email = this.$store.state.userInfo.email;
-    this.changeUserInfoForm.name = this.$store.state.userInfo.name;
-    this.changeUserInfoForm.province = this.$store.state.userInfo.province;
-    this.changeUserInfoForm.city = this.$store.state.userInfo.city;
-    this.changeUserInfoForm.area = this.$store.state.userInfo.area;
-    //console.log(this.changeUserInfoForm);
+    getUser({ username: this.$route.query.username }).then(res => {
+      this.userInfo = res.data;
+    });
   }
 };
 </script>
