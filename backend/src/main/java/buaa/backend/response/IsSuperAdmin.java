@@ -11,7 +11,7 @@ public class IsSuperAdmin {
      * @param body {username} params 账号
      * @return isSuperAdmin: true为当前用户是超级管理员
      */
-    @CrossOrigin("http://localhost:8080")
+    @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/isSuperAdmin", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> isSuperAdmin(@RequestBody Map<String, Object> body) {
