@@ -11,7 +11,16 @@
             type="date"
             placeholder="选择租房开始时间"
             value-format="yyyy-MM-dd"
+            v-if="houseInfo.rentType=='短租'"
           ></el-date-picker>
+          <el-date-picker
+            v-model="rentHouseForm.rentTime"
+            type="month"
+            placeholder="选择租房开始时间"
+            value-format="yyyy-MM-01"
+            v-if="houseInfo.rentType=='长租'"
+          ></el-date-picker>
+          <p style="font-size:10px" v-if="houseInfo.rentType=='长租'">(长租的租房开始时间为每月一号)</p>
         </el-form-item>
         <el-form-item label="月数" label-width="100px" v-if="houseInfo.rentType=='长租'">
           <el-input-number v-model="rentHouseForm.rentDuration" :min="1"></el-input-number>
@@ -39,7 +48,7 @@ export default {
         city: "",
         area: "",
         address: "",
-        rentType: "短租",
+        rentType: "",
         houseType: "",
         intro: "",
         tel: "",
@@ -130,8 +139,8 @@ export default {
   padding: 30px 30px 30px 30px;
   border-radius: 30px;
 }
-.image {
-  margin: auto auto;
-  width: 500px;
+.picHouse {
+  width: 300px;
+  height: 300px;
 }
 </style>
