@@ -149,6 +149,7 @@ export default {
 }
 .image {
   margin: auto auto;
-  width: 1200px;
+  width: 500px;
+  height: 500px;
 }
 </style>
