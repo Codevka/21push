@@ -3,7 +3,7 @@
      if     exists(select o.contractId from Orders o where o.contractId=OID)
          then
             select 1 into status;
-         select *from  Orders o1 where o1.contractId=OID
+         select *from  Orders o1 where o1.contractId=OID;
          else
          select -1 into status;
      end if;
