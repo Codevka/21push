@@ -2,14 +2,13 @@
   <el-container>
     <el-main class="info">
       <el-page-header @back="goBack" content="用户详情"></el-page-header>
-      <p v-bind:username="userInfo.username">账号: {{username}}</p>
-      <!--<p v-bind:password="userInfo.password">密码: {{password}}</p>-->
-      <p v-bind:tel="userInfo.tel">手机: {{tel}}</p>
-      <p v-bind:email="userInfo.email">邮箱: {{email}}</p>
-      <p v-bind:name="userInfo.name">昵称: {{name}}</p>
-      <p v-bind:province="userInfo.province">省份: {{province}}</p>
-      <p v-bind:city="userInfo.city">城市: {{city}}</p>
-      <p v-bind:area="userInfo.area">地区: {{area}}</p>
+      <p>账号: {{userInfo.username}}</p>
+      <p>手机: {{userInfo.tel}}</p>
+      <p>邮箱: {{userInfo.email}}</p>
+      <p>昵称: {{userInfo.name}}</p>
+      <p>省份: {{userInfo.province}}</p>
+      <p>城市: {{userInfo.city}}</p>
+      <p>地区: {{userInfo.area}}</p>
       <el-button @click.native.prevent="change">修改个人信息</el-button>
       <el-button @click.native.prevent="payVisible = true">缴纳租金</el-button>
       <el-button @click.native.prevent="returnVisible = true">退回租金</el-button>
