@@ -10,7 +10,7 @@ create table Repair
     pic        text null,
     adminId    int  null,
     evaluation text null,
-    score      int  not null,
+    score      int  null,
     constraint Repair_Account_username_fk
         foreign key (adminId) references Account (username),
     constraint Repair_Account_username_fk_2
