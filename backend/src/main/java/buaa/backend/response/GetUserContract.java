@@ -21,7 +21,7 @@ public class GetUserContract {
      * 订单编号,房源编号,租房时间,订单时间,订单持续时间,价格,状态
      * 状态:'未审核' '未缴费' '已缴费'
      */
-    @CrossOrigin("http://localhost:8080")
+    @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/getUserContract", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
