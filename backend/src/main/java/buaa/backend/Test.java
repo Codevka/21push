@@ -28,7 +28,7 @@ public class Test {
 
     @RequestMapping("/hello")
     public List<?> hello() {
-        List<?> res = jdbcTemplate.queryForList("select * from test");
+        List<?> res = jdbcTemplate.queryForList("select * from Account");
         System.out.println(res);
         mail.sendSimpleTextMail("holmium_jwh@qq.com", "hello", "hellooooo");
         ResultSet result = jdbcTemplate.execute((CallableStatementCreator) con -> {

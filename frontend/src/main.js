@@ -17,8 +17,7 @@ Vue.config.productionTip = false;
 
 Vue.prototype.$http = axios;
 
-// axios.defaults.baseURL = 'http://123.57.41.160:18888';
-axios.defaults.baseURL = 'http://127.0.0.1:18888'; // for local test
+axios.defaults.baseURL = 'http://123.57.41.160:18888';
 axios.defaults.timeout = 2000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 //06.03:4453L
@@ -49,11 +48,18 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     修改 getComplaint 返回值中增加 pic 字段（图片url数组）
     rentHouse 新增 rentTime为"yyyy-MM-dd"格式的字符串表示租房开始时间
   6月12日：
-    新增 payMoney 缴纳租金（字符串），需要验证密码
+    新增 payMoney 缴纳租金，需要验证密码
     新增 returnMoney 退回租金，需要验证密码，且返回退回的金额
+      (以上租金都是字符串，缴纳租金验证了是否是正整数)
     searchUsers现在只能搜索到租客
     新增 getUser 按账号请求租客的用户信息
     新增 manageUserInfo 客服修改租客的用户信息
+    修改 getRepair 返回值增加 维修人员电话，维修反馈 字段
+      发现后端的一个问题：SubmitRepairWorkCallback 中要同时把工单对应的报修状态设置成 未评价
+    新增 exportContract 导出合同（返回链接，建议用订单号等防冲突，后面会用iframe下载文件）
+    关于长租：后端再 ContractStatus 里增加 "未签订合同" "已签订合同" 作为长租订单的状态
+    新增 changeUserPassword 用户修改自己的密码
+    changeUserInfo 的参数去掉密码password
 */
 
 export /**
@@ -77,14 +83,22 @@ const LoginUser = (params) => {
 
 export /**
  * 用户修改自己的用户信息
- * @param {userType, username, password, tel, email, name, province, city, area} params
+ * @param {userType, username, tel, email, name, province, city, area} params
  * @returns result: true为成功
  * @see LoginUser
  */
 const changeUserInfo = (params) => {
   return axios.post('/changeUserInfo', params);
 };
-
+export /**
+ * 用户修改自己的密码
+ * @param {username, password} params 账号, 新密码
+ * @returns result: true为成功
+ * @see LoginUser
+ */
+const changeUserPassword = (params) => {
+  return axios.post('/changeUserPassword', params);
+};
 export /**
  * 客服修改租客的用户信息
  * @param {username, tel, email, name, province, city, area} params
@@ -92,9 +106,9 @@ export /**
  * @returns result: true为成功
  * @see LoginUser
  */
-  const manageUserInfo = (params) => {
-    return axios.post('/manageUserInfo', params);
-  };
+const manageUserInfo = (params) => {
+  return axios.post('/manageUserInfo', params);
+};
 
 //按账号找
 export /**
@@ -219,9 +233,9 @@ export /**
  * @returns {username, name, email, tel, provonce, city, area}
  *          账号, 昵称, 用户类型, 邮箱, 手机, 省, 市, 地
  */
-  const getUser = (params) => {
-    return axios.post('/getUser', params);
-  }
+const getUser = (params) => {
+  return axios.post('/getUser', params);
+};
 export /**
  * 请求订单信息
  * @param {contractId} params 订单编号
@@ -286,6 +300,24 @@ const leaseRenew = (params) => {
   return axios.post('/leaseRenew', params);
 };
 
+export /**
+ * 导出租房合同
+ * @param contractId 订单编号
+ * @returns {result, url} result：true为成功，url: 文件下载链接
+ */
+const exportContract = (contractId) => {
+  return axios.post('/exportContract', contractId);
+};
+
+export /**
+ * 审核申请
+ * @param {contractId, isAccept} params
+ * @returns result result：true为成功
+ */
+const dealApplication = (params) => {
+  return axios.post('dealApplication', params);
+};
+
 //租房相关
 export /**
  * 申请租房
@@ -300,8 +332,8 @@ const rentHouse = (params) => {
 export /**
  * 请求报修信息
  * @param {repairId} params 报修编号
- * @returns {repairId, houseId, username, content, status, evaluation, score, pic}
- *          报修编号, 房源编号, 报修内容, 处理状态, 评价内容, 评分，图片url数组
+ * @returns {repairId, houseId, tel, username, content, status, callback, evaluation, score, pic}
+ *          报修编号, 房源编号, 维修师傅电话（status==未处理，返回""）, 报修内容, 处理状态, 维修反馈（根据报修编号找到工单的callback，status==未处理or工单建立完成，返回""）, 评价内容, 评分，图片url数组
  */
 const getRepair = (params) => {
   return axios.post('/getRepair', params);
@@ -457,7 +489,7 @@ export /**
  * 缴纳租金
  * 账号密码匹配成功才返回 true
  * @param {username, password, amount}
- *         租客账号，租客密码，金额（数字）
+ *         租客账号，租客密码，金额
  * @return result：true为成功
  */ const payMoney = (params) => {
   return axios.post('/payMoney', params);
@@ -472,7 +504,6 @@ export /**
  */ const returnMoney = (params) => {
   return axios.post('/returnMoney', params);
 };
-
 
 //导航守卫
 /*调试时注释掉

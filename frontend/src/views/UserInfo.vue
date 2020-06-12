@@ -2,21 +2,20 @@
   <el-container>
     <el-main class="info">
       <el-page-header @back="goBack" content="用户详情"></el-page-header>
-      <p v-bind:username="userInfo.username">账号: {{username}}</p>
-      <!--<p v-bind:password="userInfo.password">密码: {{password}}</p>-->
-      <p v-bind:tel="userInfo.tel">手机: {{tel}}</p>
-      <p v-bind:email="userInfo.email">邮箱: {{email}}</p>
-      <p v-bind:name="userInfo.name">昵称: {{name}}</p>
-      <p v-bind:province="userInfo.province">省份: {{province}}</p>
-      <p v-bind:city="userInfo.city">城市: {{city}}</p>
-      <p v-bind:area="userInfo.area">地区: {{area}}</p>
+      <p>账号: {{userInfo.username}}</p>
+      <p>手机: {{userInfo.tel}}</p>
+      <p>邮箱: {{userInfo.email}}</p>
+      <p>昵称: {{userInfo.name}}</p>
+      <p>省份: {{userInfo.province}}</p>
+      <p>城市: {{userInfo.city}}</p>
+      <p>地区: {{userInfo.area}}</p>
       <el-button @click.native.prevent="change">修改个人信息</el-button>
       <el-button @click.native.prevent="payVisible = true">缴纳租金</el-button>
       <el-button @click.native.prevent="returnVisible = true">退回租金</el-button>
       <el-dialog title="缴纳租金" :visible.sync="payVisible">
         <el-form>
           <el-form-item label-width="100" label="缴纳金额">
-            <el-input style="width:400px;" v-model="payForm.amount" placeholder="请输入缴纳金额"></el-input>
+            <el-input style="width:400px;" v-model="payAmount" placeholder="请输入缴纳金额"></el-input>
           </el-form-item>
           <el-form-item label-width="100" label="租客密码">
             <el-input
@@ -133,10 +132,11 @@ export default {
       payVisible: false,
       returnVisible: false,
       returnAmount: "",
+      payAmount: 0,
       payForm: {
         username: "",
         password: "",
-        amount: 0
+        amount: ""
       },
       returnForm: {
         username: "",
@@ -267,8 +267,7 @@ export default {
     pMoney() {
       this.paySubmiting = true;
       this.payForm.username = this.userInfo.username;
-      console.log(this.payForm);
-      if (!Number.isInteger(this.payForm.amount) || this.payForm.amount < 0) {
+      if (!Number.isInteger(this.payAmount) || this.payAmount < 0) {
         this.$message({
           type: "error",
           message: "缴纳金额必须是正整数"
@@ -276,12 +275,10 @@ export default {
         this.paySubmiting = false;
         return;
       }
-      let params = {
-        username: this.payForm.username,
-        password: this.payForm.password,
-        amount: this.payForm.amount
-      };
-      payMoney(params).then(res => {
+      this.payForm.amount = this.payAmount.toString();
+      console.log(this.payForm);
+
+      payMoney(this.payForm).then(res => {
         if (res.data.result == true) {
           this.$message({
             type: "success",
@@ -300,11 +297,8 @@ export default {
       this.returnSubmiting = true;
       this.returnForm.username = this.userInfo.username;
       console.log(this.returnForm);
-      let params = {
-        username: this.returnForm.username,
-        password: this.returnForm.password
-      };
-      returnMoney(params).then(res => {
+
+      returnMoney(this.returnForm).then(res => {
         if (res.data.result == true) {
           this.$message({
             type: "success",

@@ -1,7 +1,7 @@
-create procedure adminExportRepairer(OUT status int, IN Passwor varchar(30),
-                                     IN Nam varchar(30), IN Te char(11), IN Are varchar(30),
-                                     IN IdNumbe char(18), IN Provinc varchar(20),
-                                     IN Cit varchar(20))
+create procedure adminExportRepairer(OUT status int, IN Passwor nvarchar(30),
+                                     IN Nam nvarchar(30), IN Te char(11), IN Are nvarchar(30),
+                                     IN IdNumbe char(18), IN Provinc nvarchar(20),
+                                     IN Cit nvarchar(20))
 begin
     if exists(select tel from Account i where i.tel = Te)
     then
