@@ -60,11 +60,13 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     关于长租：后端再 ContractStatus 里增加 "未签订合同" "已签订合同" 作为长租订单的状态
     新增 changeUserPassword 用户修改自己的密码
     changeUserInfo 的参数去掉密码password
+    RegisterUser 新增参数 userType
 */
 
 export /**
  * 用户注册
- * @param {password, tel, email, name, province, city, area} params 密码, 手机, 邮箱, 昵称, 省, 市, 地
+ * @param {userType, password, tel, email, name, province, city, area} params 
+ * 用户类型("0":租客 "1":客服 "2":维修人员), 密码, 手机, 邮箱, 昵称, 省, 市, 地
  * @returns {result,username} result:true为成功 username:账号
  */
   const RegisterUser = (params) => {
