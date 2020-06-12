@@ -38,6 +38,7 @@ public class NewHouse {
             cs.setString(8, String.join(";", (List<String>) body.get("pic")));
             cs.setString(9, (String) body.get("intro"));
             cs.setString(10, (String) body.get("tel"));
+//            cs.setString(10, ((Long) body.get("tel")).toString());
             cs.setString(11, (String) body.get("price"));
             return cs;
         }, cs -> {
