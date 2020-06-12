@@ -31,9 +31,11 @@ export default {
       repairInfo: {
         repairId: "",
         houseId: "",
+        tel: "",
         username: "",
         content: "",
         status: "未处理",
+        callback: "",
         evaluation: "",
         score: "",
         pic: [
@@ -44,9 +46,11 @@ export default {
       repairLabel: [
         "报修编号",
         "房源编号",
+        "维修人员电话",
         "报修账号",
         "报修内容",
         "处理状态",
+        "维修反馈",
         "评价内容",
         "评分"
       ],
@@ -112,14 +116,27 @@ export default {
   },
   computed: {
     showRepairInfo: function() {
+      let tmp_tel = this.repairInfo.tel;
+      let tmp_callback = this.repairInfo.callback;
+      if (this.repairInfo.status == "未处理") {
+        tmp_tel = "暂无";
+      }
+      if (
+        this.repairInfo.status == "未处理" ||
+        this.repairInfo.status == "工单建立成功"
+      ) {
+        tmp_callback = "暂无";
+      }
       return {
-        repairId: this.repairId,
-        houseId: this.houseId,
-        username: this.username,
-        content: this.content,
-        status: this.status,
-        evaluation: this.evaluation,
-        score: this.score
+        repairId: this.repairInfo.repairId,
+        houseId: this.repairInfo.houseId,
+        tel: tmp_tel,
+        username: this.repairInfo.username,
+        content: this.repairInfo.content,
+        status: this.repairInfo.status,
+        callback: tmp_callback,
+        evaluation: this.repairInfo.evaluation,
+        score: this.repairInfo.score
       };
     }
   }

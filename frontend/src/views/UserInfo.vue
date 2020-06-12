@@ -276,12 +276,8 @@ export default {
         this.paySubmiting = false;
         return;
       }
-      let params = {
-        username: this.payForm.username,
-        password: this.payForm.password,
-        amount: this.payForm.amount
-      };
-      payMoney(params).then(res => {
+
+      payMoney(this.payForm).then(res => {
         if (res.data.result == true) {
           this.$message({
             type: "success",
@@ -300,11 +296,8 @@ export default {
       this.returnSubmiting = true;
       this.returnForm.username = this.userInfo.username;
       console.log(this.returnForm);
-      let params = {
-        username: this.returnForm.username,
-        password: this.returnForm.password
-      };
-      returnMoney(params).then(res => {
+
+      returnMoney(this.returnForm).then(res => {
         if (res.data.result == true) {
           this.$message({
             type: "success",

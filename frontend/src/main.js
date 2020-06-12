@@ -54,6 +54,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     searchUsers现在只能搜索到租客
     新增 getUser 按账号请求租客的用户信息
     新增 manageUserInfo 客服修改租客的用户信息
+    修改 getRepair 返回值增加 维修人员电话，维修反馈 字段
+      发现后端的一个问题：SubmitRepairWorkCallback 中要同时把工单对应的报修状态设置成 未评价
 */
 
 export /**
@@ -300,8 +302,8 @@ const rentHouse = (params) => {
 export /**
  * 请求报修信息
  * @param {repairId} params 报修编号
- * @returns {repairId, houseId, username, content, status, evaluation, score, pic}
- *          报修编号, 房源编号, 报修内容, 处理状态, 评价内容, 评分，图片url数组
+ * @returns {repairId, houseId, tel, username, content, status, callback, evaluation, score, pic}
+ *          报修编号, 房源编号, 维修师傅电话（status==未处理，返回""）, 报修内容, 处理状态, 维修反馈（根据报修编号找到工单的callback，status==未处理or工单建立完成，返回""）, 评价内容, 评分，图片url数组
  */
 const getRepair = (params) => {
   return axios.post('/getRepair', params);
