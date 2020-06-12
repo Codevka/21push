@@ -2,65 +2,92 @@
   <el-container>
     <el-main class="info1">
       <h3>用户信息</h3>
-      <p v-bind:username="username">账号: {{username}}</p>
-      <!-- <p v-bind:password="password">密码: {{password}}</p> -->
-      <p v-bind:tel="tel">手机: {{tel}}</p>
-      <p v-bind:email="email">邮箱: {{email}}</p>
-      <p v-bind:name="name">昵称: {{name}}</p>
-      <p v-bind:province="province">省份: {{province}}</p>
-      <p v-bind:city="city">城市: {{city}}</p>
-      <p v-bind:area="area">地区: {{area}}</p>
-      <el-button @click.native.prevent="change">修改个人信息</el-button>
-      <el-form
-        :model="changeUserInfoForm"
-        ref="changeUserInfoForm"
-        :rules="rule"
-        class="changeform"
-        label-width="80px"
-        v-if="!dis"
-      >
-        <el-form-item label="密码" prop="password">
-          <el-input v-model="changeUserInfoForm.password" placeholder="密码" :disabled="dis"></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="confirmpassword">
-          <el-input v-model="changeUserInfoForm.confirmpassword" placeholder="确认密码" :disabled="dis"></el-input>
-        </el-form-item>
-        <el-form-item label="手机" prop="tel">
-          <el-input v-model.number="changeUserInfoForm.tel" placeholder="手机" :disabled="dis"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="changeUserInfoForm.email" placeholder="邮箱" :disabled="dis"></el-input>
-        </el-form-item>
-        <el-form-item label="昵称" prop="name">
-          <el-input v-model="changeUserInfoForm.name" placeholder="昵称" :disabled="dis"></el-input>
-        </el-form-item>
-        <el-form-item label="地区" prop="city">
-          <v-distpicker
-            :province="changeUserInfoForm.province"
-            :city="changeUserInfoForm.city"
-            :area="changeUserInfoForm.area"
-            @province="onChangeProvince"
-            @city="onChangeCity"
-            @area="onChangeArea"
-          ></v-distpicker>
-        </el-form-item>
-        <el-button :loading="submiting" @click.native.prevent="submit">保存</el-button>
-      </el-form>
+      <p v-bind:username="userInfo.username">账号: {{username}}</p>
+      <p v-bind:tel="userInfo.tel">手机: {{tel}}</p>
+      <p v-bind:email="userInfo.email">邮箱: {{email}}</p>
+      <p v-bind:name="userInfo.name">昵称: {{name}}</p>
+      <p v-bind:province="userInfo.province">省份: {{province}}</p>
+      <p v-bind:city="userInfo.city">城市: {{city}}</p>
+      <p v-bind:area="userInfo.area">地区: {{area}}</p>
+      <el-button @click.native.prevent="dis0=true">修改个人信息</el-button>
+      <el-button @click.native.prevent="dis1=true">修改密码</el-button>
+      <el-dialog :visible.sync="dis0" title="修改个人信息">
+        <el-form
+          :model="changeUserInfoForm"
+          ref="changeUserInfoForm"
+          :rules="rule0"
+          label-width="80px"
+        >
+          <el-form-item label="手机" prop="tel">
+            <el-input v-model.number="changeUserInfoForm.tel" placeholder="手机"></el-input>
+          </el-form-item>
+          <el-form-item label="邮箱" prop="email">
+            <el-input v-model="changeUserInfoForm.email" placeholder="邮箱"></el-input>
+          </el-form-item>
+          <el-form-item label="昵称" prop="name">
+            <el-input v-model="changeUserInfoForm.name" placeholder="昵称"></el-input>
+          </el-form-item>
+          <el-form-item label="地区" prop="city">
+            <v-distpicker
+              :province="changeUserInfoForm.province"
+              :city="changeUserInfoForm.city"
+              :area="changeUserInfoForm.area"
+              @province="onChangeProvince"
+              @city="onChangeCity"
+              @area="onChangeArea"
+            ></v-distpicker>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button type="primary" :loading="submiting" @click.native.prevent="submit0">确认</el-button>
+        </div>
+      </el-dialog>
+      <el-dialog :visible.sync="dis1" title="修改密码">
+        <el-form
+          :model="changeUserPasswordForm"
+          ref="changeUserPasswordForm"
+          :rules="rule1"
+          class="changeform"
+          label-width="80px"
+        >
+          <el-form-item label="旧密码" prop="passwordOld">
+            <el-input v-model="changeUserPasswordForm.passwordOld" placeholder="旧密码"></el-input>
+          </el-form-item>
+          <el-form-item label="新密码" prop="password">
+            <el-input v-model="changeUserPasswordForm.password" placeholder="新密码"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="confirmpassword">
+            <el-input v-model="changeUserPasswordForm.confirmpassword" placeholder="确认密码"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button type="primary" :loading="submiting" @click.native.prevent="submit1">确认</el-button>
+        </div>
+      </el-dialog>
     </el-main>
   </el-container>
 </template>
 
 <script>
-import { mapState } from "vuex";
 import { changeUserInfo } from "../../main";
+import { changeUserPassword } from "../../main";
 export default {
   components: {},
   data() {
+    let oldPasswordCheck = (rule, value, callback) => {
+      if (value === "") {
+        return callback(new Error("旧密码不能为空"));
+      } else if (value !== this.userInfo.password) {
+        return callback(new Error("旧密码错误"));
+      } else {
+        return callback();
+      }
+    };
     let confirmpasswordCheck = (rule, value, callback) => {
       //console.log(value);
       if (value === "") {
-        return callback(new Error("密码不能为空"));
-      } else if (value !== this.changeUserInfoForm.password) {
+        return callback(new Error("确认密码不能为空"));
+      } else if (value !== this.changeUserPasswordForm.password) {
         return callback(new Error("密码不一致"));
       } else {
         return callback();
@@ -76,21 +103,26 @@ export default {
       }
     };
     let cityCheck = (rule, value, callback) => {
-      //console.log(this.changeUserInfoForm.province);
-      //console.log(value);
-      //console.log(this.changeUserInfoForm.area);
       if (
-        this.changeUserInfoForm.province == undefined ||
-        value == undefined ||
-        this.changeUserInfoForm.area == undefined
+        this.changeUserInfoForm.province == "" ||
+        value == "" ||
+        this.changeUserInfoForm.area == ""
       )
         return callback(new Error("省市地不能为空"));
       else callback();
     };
     return {
-      dis: true,
+      dis0: false,
+      dis1: false,
       submiting: false,
-      rule: {
+      rule1: {
+        passwordOld: [
+          {
+            required: true,
+            validator: oldPasswordCheck,
+            trigger: "blur"
+          }
+        ],
         password: [
           {
             required: true,
@@ -105,7 +137,9 @@ export default {
             validator: confirmpasswordCheck,
             trigger: "blur"
           }
-        ],
+        ]
+      },
+      rule0: {
         tel: [
           {
             required: true,
@@ -136,37 +170,35 @@ export default {
           }
         ]
       },
-      changeUserInfoForm: {
+      userInfo: {
         userType: "",
         username: "",
         password: "",
-        confirmpassword: "",
-        tel: "",
+        tel: null,
         email: "",
         name: "",
         province: "",
         city: "",
         area: ""
+      },
+      changeUserInfoForm: {
+        userType: "",
+        username: "",
+        tel: null,
+        email: "",
+        name: "",
+        province: "",
+        city: "",
+        area: ""
+      },
+      changeUserPasswordForm: {
+        passwordOld: "",
+        password: "",
+        confirmpassword: ""
       }
     };
   },
-  computed: {
-    ...mapState({
-      usertype: state => state.userInfo.usertype,
-      username: state => state.userInfo.username,
-      password: state => state.userInfo.password,
-      tel: state => state.userInfo.tel,
-      email: state => state.userInfo.email,
-      name: state => state.userInfo.name,
-      province: state => state.userInfo.province,
-      city: state => state.userInfo.city,
-      area: state => state.userInfo.area
-    })
-  },
   methods: {
-    change() {
-      this.dis = this.dis == true ? false : true;
-    },
     onChangeProvince(data) {
       this.changeUserInfoForm.province = data.value;
     },
@@ -176,23 +208,11 @@ export default {
     onChangeArea(data) {
       this.changeUserInfoForm.area = data.value;
     },
-    submit() {
+    submit0() {
       this.$refs.changeUserInfoForm.validate(valid => {
         if (valid) {
           this.submiting = true;
-          //console.log('submitting')
-          let changeParams = {
-            userType: this.changeUserInfoForm.userType,
-            username: this.changeUserInfoForm.username,
-            password: this.changeUserInfoForm.password,
-            tel: this.changeUserInfoForm.tel,
-            email: this.changeUserInfoForm.email,
-            name: this.changeUserInfoForm.name,
-            city: this.changeUserInfoForm.city,
-            area: this.changeUserInfoForm.area,
-            province: this.changeUserInfoForm.province
-          };
-          changeUserInfo(changeParams).then(res => {
+          changeUserInfo(this.changeUserInfoForm).then(res => {
             if (res.data.result == true) {
               this.logining = false;
               this.$message({
@@ -200,18 +220,21 @@ export default {
                 message: "信息修改成功"
               });
               this.submiting = false;
-              /*
-              this.$message({
-                type: "success",
-                message: "信息修改成功"
-              });
-              let userInfo = res.data
-              */
-              //console.log(changeParams);
+              let changeParams = {
+                userType: this.changeUserInfoForm.userType,
+                username: this.changeUserInfoForm.username,
+                password: this.changeUserInfo.password,
+                tel: this.changeUserInfoForm.tel,
+                email: this.changeUserInfoForm.email,
+                name: this.changeUserInfoForm.name,
+                city: this.changeUserInfoForm.city,
+                area: this.changeUserInfoForm.area,
+                province: this.changeUserInfoForm.province
+              };
               sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
               this.$store.dispatch("commitLogin");
-              this.dis = true;
-              this.$router.push("/user1/info");
+              this.dis0 = false;
+              this.$router.push("/user0/info");
             } else {
               this.$message.error({
                 message: "信息修改失败,请稍后再试"
@@ -224,9 +247,55 @@ export default {
           });
         }
       });
+    },
+    submit1() {
+      this.$refs.changeUserPasswordForm.validate(valid => {
+        if (valid) {
+          this.submiting = true;
+          let changePasswordParams = {
+            username: this.userInfo.username,
+            password: this.changeUserPasswordForm.password
+          };
+          changeUserPassword(changePasswordParams).then(res => {
+            if (res.data.result == true) {
+              this.logining = false;
+              this.$message({
+                type: "success",
+                message: "密码修改成功"
+              });
+              this.submiting = false;
+              let changeParams = {
+                userType: this.UserInfo.userType,
+                username: this.UserInfo.username,
+                password: this.changeUserPasswordForm.password,
+                tel: this.UserInfo.tel,
+                email: this.UserInfo.email,
+                name: this.UserInfo.name,
+                city: this.UserInfo.city,
+                area: this.UserInfo.area,
+                province: this.UserInfo.province
+              };
+              sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
+              this.$store.dispatch("commitLogin");
+              this.dis1 = false;
+              this.$router.push("/user1/info");
+            } else {
+              this.$message.error({
+                message: "密码修改失败,请稍后再试"
+              });
+            }
+          });
+        } else {
+          this.$message.error({
+            message: "请检查输入信息"
+          });
+        }
+      });
     }
   },
   mounted() {
+    this.userInfo = this.$store.state.userInfo;
+    this.userInfo.password = "123456";
     this.changeUserInfoForm.userType = this.$store.state.userInfo.userType;
     this.changeUserInfoForm.username = this.$store.state.userInfo.username;
     this.changeUserInfoForm.password = this.$store.state.userInfo.password;
@@ -249,11 +318,5 @@ export default {
   box-shadow: 0 0 35px #b4bccc;
   padding: 30px 30px 30px 30px;
   border-radius: 30px;
-}
-.changeform {
-  margin: auto auto;
-  width: 700px;
-  background: #fff;
-  padding: 30px 30px 30px 30px;
 }
 </style>
