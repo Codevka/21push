@@ -1,7 +1,10 @@
 <template>
   <el-main class="infoRi">
     <el-page-header @back="goBack" content="报修详情"></el-page-header>
-    <p v-for="(item,key,index) in repairInfo" :key="key">{{repairLabel[index]}}:{{item}}</p>
+    <p v-for="(item,key,index) in showRepairInfo" :key="key">{{repairLabel[index]}}:{{item}}</p>
+    <div class="image">
+      <el-image v-for="url in repairInfo.pic" :key="url" :src="url" fit="scale-down" lazy></el-image>
+    </div>
     <el-button @click.native.prevent="dialogVisible = true" v-if="repairInfo.status=='未评价'">评价</el-button>
     <el-dialog title="评价" :visible.sync="dialogVisible">
       <el-form :model="commentForm" ref="commentForm" :rules="rule">
@@ -28,17 +31,26 @@ export default {
       repairInfo: {
         repairId: "",
         houseId: "",
+        tel: "",
         username: "",
         content: "",
         status: "未处理",
+        callback: "",
         evaluation: "",
-        score: ""
+        score: "",
+        pic: [
+          "http://qbi3ylqqu.bkt.clouddn.com/6eKVd3ZUonkS5bd2",
+          "http://qbi3ylqqu.bkt.clouddn.com/7hXAE3tAQSLXyYa0"
+        ]
       },
       repairLabel: [
         "报修编号",
         "房源编号",
+        "维修人员电话",
+        "报修账号",
         "报修内容",
         "处理状态",
+        "维修反馈",
         "评价内容",
         "评分"
       ],
@@ -101,6 +113,32 @@ export default {
     getRepair({ repairId: this.$route.query.repairId }).then(res => {
       this.repairInfo = res.data;
     });
+  },
+  computed: {
+    showRepairInfo: function() {
+      let tmp_tel = this.repairInfo.tel;
+      let tmp_callback = this.repairInfo.callback;
+      if (this.repairInfo.status == "未处理") {
+        tmp_tel = "暂无";
+      }
+      if (
+        this.repairInfo.status == "未处理" ||
+        this.repairInfo.status == "工单建立成功"
+      ) {
+        tmp_callback = "暂无";
+      }
+      return {
+        repairId: this.repairInfo.repairId,
+        houseId: this.repairInfo.houseId,
+        tel: tmp_tel,
+        username: this.repairInfo.username,
+        content: this.repairInfo.content,
+        status: this.repairInfo.status,
+        callback: tmp_callback,
+        evaluation: this.repairInfo.evaluation,
+        score: this.repairInfo.score
+      };
+    }
   }
 };
 </script>
@@ -119,5 +157,9 @@ export default {
   background: #fff;
   padding: 30px 30px 30px 30px;
   border-radius: 30px;
+}
+.image {
+  margin: auto auto;
+  width: 1200px;
 }
 </style>

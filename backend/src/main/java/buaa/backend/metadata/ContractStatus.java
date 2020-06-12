@@ -1,7 +1,7 @@
 package buaa.backend.metadata;
 
 public enum ContractStatus {
-    UNCHECKED("未审核"), UNPAY("未缴费"), FINISHED("已缴费");
+    UNCHECKED("未审核"), UNPAY("未缴费"), FINISHED("已缴费"),ENDED("已退租");
 
     private final String text;
 

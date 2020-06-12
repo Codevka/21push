@@ -25,7 +25,7 @@ public class GetContract {
      * @return {contractId, username, houseId, houseLocation, houseType, ownerTel, price, housestatus, contractStatus, rentType}
      * 订单编号, 账号, 房源编号, 房源具体地址, 房间类型, 户主手机号, 价格, 房源状态 ,订单状态, 租房类型
      */
-    @CrossOrigin("http://localhost:8080")
+    @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/getContract", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
@@ -68,8 +68,6 @@ public class GetContract {
             res.put("houseLocation", rs.getString("address"));
             res.put("houseType", HouseType.values()[rs.getInt("houseType")].getText());
             res.put("ownerTel", rs.getString("ownerTel"));
-            res.put("houseId", String.valueOf(rs.getInt("houseId")));
-            res.put("price", String.valueOf(rs.getInt("price")));
             res.put("housestatus", HouseStatus.values()[rs.getInt("houseStatus")].getText());
             res.put("rentType", RentType.values()[rs.getInt("rentType")]);
         }

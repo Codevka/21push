@@ -1,7 +1,10 @@
 <template>
   <el-main class="infoC">
     <el-page-header @back="goBack" content="投诉详情"></el-page-header>
-    <p v-for="(item,key,index) in complaintInfo" :key="key">{{complaintLabel[index]}}：{{item}}</p>
+    <p v-for="(item,key,index) in showComplaintInfo" :key="key">{{complaintLabel[index]}}：{{item}}</p>
+    <div class="image">
+      <el-image v-for="url in complaintInfo.pic" :key="url" :src="url" fit="scale-down"></el-image>
+    </div>
     <el-button @click.native.prevent="dialogVisible = true" v-if="complaintInfo.status=='未处理'">处理</el-button>
     <el-dialog title="处理投诉" :visible.sync="dialogVisible">
       <el-form :model="replyForm" ref="replyForm" :rules="rule">
@@ -31,7 +34,11 @@ export default {
         adminId: "",
         reply: "",
         evaluation: "",
-        score: ""
+        score: "",
+        pic: [
+          "http://qbi3ylqqu.bkt.clouddn.com/6eKVd3ZUonkS5bd2",
+          "http://qbi3ylqqu.bkt.clouddn.com/7hXAE3tAQSLXyYa0"
+        ]
       },
       complaintLabel: [
         "投诉编号",
@@ -96,6 +103,21 @@ export default {
       //console.log(res.data)
       this.complaintInfo = res.data;
     });
+  },
+  computed: {
+    showComplaintInfo: function() {
+      return {
+        complaintId: this.complaintId,
+        houseId: this.houseId,
+        username: this.username,
+        content: this.content,
+        status: this.status,
+        adminId: this.adminId,
+        reply: this.reply,
+        evaluation: this.evaluation,
+        score: this.score
+      };
+    }
   }
 };
 </script>
@@ -114,5 +136,9 @@ export default {
   background: #fff;
   padding: 30px 30px 30px 30px;
   border-radius: 30px;
+}
+.image {
+  margin: auto auto;
+  width: 1200px;
 }
 </style>

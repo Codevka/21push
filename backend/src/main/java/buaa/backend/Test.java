@@ -1,8 +1,11 @@
 package buaa.backend;
 
+import buaa.backend.service.Mail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,15 +15,17 @@ import java.sql.Types;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
 public class Test {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private Mail mail;
 
     @RequestMapping("/hello")
     public List<?> hello() {
         List<?> res = jdbcTemplate.queryForList("select * from Account");
         System.out.println(res);
+        mail.sendSimpleTextMail("holmium_jwh@qq.com", "hello", "hellooooo");
         ResultSet result = jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "{call allGetPasswordAndTypeById(?,?)}";
             CallableStatement cs = con.prepareCall(storedProc);
