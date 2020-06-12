@@ -18,7 +18,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 
 // axios.defaults.baseURL = 'http://123.57.41.160:18888';
-axios.defaults.baseURL = 'http://127.0.0.1:18888';
+axios.defaults.baseURL = 'http://127.0.0.1:18888'; // for local test
 axios.defaults.timeout = 2000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 //06.03:4453L
@@ -48,7 +48,9 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
                           增加 pic      字段（图片url数组）
     修改 getComplaint 返回值中增加 pic 字段（图片url数组）
     rentHouse 新增 rentTime为"yyyy-MM-dd"格式的字符串表示租房开始时间
-  6月12日
+  6月12日：
+    新增 payMoney 缴纳租金（字符串），需要验证密码
+    新增 returnMoney 退回租金，需要验证密码，且返回退回的金额
     searchUsers现在只能搜索到租客
     新增 getUser 按账号请求租客的用户信息
     新增 manageUserInfo 客服修改租客的用户信息
@@ -59,9 +61,9 @@ export /**
  * @param {password, tel, email, name, province, city, area} params 密码, 手机, 邮箱, 昵称, 省, 市, 地
  * @returns {result,username} result:true为成功 username:账号
  */
-  const RegisterUser = (params) => {
-    return axios.post('/register', params);
-  };
+const RegisterUser = (params) => {
+  return axios.post('/register', params);
+};
 
 export /**
  * 用户登录
@@ -69,9 +71,9 @@ export /**
  * @returns result: true为成功, 成功时还返回:{userType, username, password, tel, email, name, province, city, area}
  * @see RegisterUser
  */
-  const LoginUser = (params) => {
-    return axios.post('/login', params);
-  };
+const LoginUser = (params) => {
+  return axios.post('/login', params);
+};
 
 export /**
  * 用户修改自己的用户信息
@@ -79,9 +81,9 @@ export /**
  * @returns result: true为成功
  * @see LoginUser
  */
-  const changeUserInfo = (params) => {
-    return axios.post('/changeUserInfo', params);
-  };
+const changeUserInfo = (params) => {
+  return axios.post('/changeUserInfo', params);
+};
 
 export /**
  * 客服修改租客的用户信息
@@ -102,9 +104,9 @@ export /**
  *          订单编号,房源编号,租房时间,订单时间,订单持续时间,价格,状态
  *          状态:'未审核' '未缴费' '已缴费'
  */
-  const getUserContract = (params) => {
-    return axios.post('/getUserContract', params);
-  };
+const getUserContract = (params) => {
+  return axios.post('/getUserContract', params);
+};
 
 export /**
  * 请求租客维修工单
@@ -113,9 +115,9 @@ export /**
  *          报修编号, 房源编号, 状态
  *          状态:'未处理' '未评价' '已评价'
  */
-  const getUserRepair = (params) => {
-    return axios.post('/getUserRepair', params);
-  };
+const getUserRepair = (params) => {
+  return axios.post('/getUserRepair', params);
+};
 
 export /**
  * 请求租客投诉工单
@@ -124,9 +126,9 @@ export /**
  *          投诉编号, 房源编号, 状态, 处理人编号
  *          状态:'未处理' '未评价' '已评价'
  */
-  const getUserComplaint = (params) => {
-    return axios.post('/getUserComplaint', params);
-  };
+const getUserComplaint = (params) => {
+  return axios.post('/getUserComplaint', params);
+};
 
 export /**
  * 请求维修人员维修任务
@@ -135,18 +137,18 @@ export /**
  *           维修工单编号, 报修编号, 状态, 回复内容
  *           状态: '未处理' '已处理'
  */
-  const getUserRepairWork = (params) => {
-    return axios.post('/getUserRepairWork', params);
-  };
+const getUserRepairWork = (params) => {
+  return axios.post('/getUserRepairWork', params);
+};
 
 export /**
  * 判断是否为超级管理员
  * @param {username} params 账号
  * @returns isSuperAdmin: true为当前用户是超级管理员
  */
-  const isSuperAdmin = (params) => {
-    return axios.post('/isSuperAdmin', params);
-  };
+const isSuperAdmin = (params) => {
+  return axios.post('/isSuperAdmin', params);
+};
 
 //按关键词找
 export /**
@@ -160,9 +162,9 @@ export /**
  *           租房类型: '短租' '长租'
  *           房间类型: '单人间' '双人间' '三人间' '四人间'
  */
-  const searchHouses = (params) => {
-    return axios.post('/searchHouses', params);
-  };
+const searchHouses = (params) => {
+  return axios.post('/searchHouses', params);
+};
 
 export /**
  * 客服搜房源，三种状态的房源都返回
@@ -173,9 +175,9 @@ export /**
  *           房间类型: '单人间' '双人间' '三人间' '四人间'
  *           状态: '暂停出租' '未租满' '已租满'
  */
-  const searchAllHouses = (params) => {
-    return axios.post('/searchAllHouses', params);
-  };
+const searchAllHouses = (params) => {
+  return axios.post('/searchAllHouses', params);
+};
 
 export /**
  * 客服检索租客
@@ -184,9 +186,9 @@ export /**
  *           账号, 用户类型, 昵称
  *           用户类型: '租客' '客服' '维修人员'
  */
-  const searchUsers = (params) => {
-    return axios.post('/searchUsers', params);
-  };
+const searchUsers = (params) => {
+  return axios.post('/searchUsers', params);
+};
 
 export /**
  * 客服检索投诉工单
@@ -195,9 +197,9 @@ export /**
  *           投诉编号, 房源编号, 用户账号, 处理状态
  *           处理状态: '未处理' '未评价' '已评价'
  */
-  const searchComplaints = (params) => {
-    return axios.post('/searchComplaints', params);
-  };
+const searchComplaints = (params) => {
+  return axios.post('/searchComplaints', params);
+};
 
 export /**
  * 客服检索报修
@@ -206,9 +208,9 @@ export /**
  *           报修编号，房源编号，用户账号，处理状态
  *           处理状态：未处理 工单建立成功 未评价 已完成 已拒绝
  */
-  const searchRepairs = (params) => {
-    return axios.post('/searchRepairs', params);
-  };
+const searchRepairs = (params) => {
+  return axios.post('/searchRepairs', params);
+};
 
 //按主键找
 export /**
@@ -228,9 +230,9 @@ export /**
  *          订单状态: 未审核 未缴费 已缴费
  * @see searchHouses
  */
-  const getContract = (params) => {
-    return axios.post('/getContract', params);
-  };
+const getContract = (params) => {
+  return axios.post('/getContract', params);
+};
 
 export /**
  * 请求房源信息
@@ -239,9 +241,9 @@ export /**
  *          房源编号,省份,城市,地区,具体地址,租房类型,房间类型,介绍,户主手机号,价格,房源状态, 图片
  *          图片是url数组
  */
-  const getHouse = (params) => {
-    return axios.post('/getHouse', params);
-  };
+const getHouse = (params) => {
+  return axios.post('/getHouse', params);
+};
 
 export /**
  * 请求投诉信息
@@ -251,9 +253,9 @@ export /**
  *          状态: '未处理' '未评价' '已评价'
  *          评分: range[1,5]
  */
-  const getComplaint = (params) => {
-    return axios.post('/getComplaint', params);
-  };
+const getComplaint = (params) => {
+  return axios.post('/getComplaint', params);
+};
 
 //订单相关
 export /**
@@ -261,9 +263,9 @@ export /**
  * @param {contractId} params 订单编号
  * @returns result: true为成功
  */
-  const leaseBack = (params) => {
-    return axios.post('/leaseBack', params);
-  };
+const leaseBack = (params) => {
+  return axios.post('/leaseBack', params);
+};
 
 export /**
  * 请求租房申请（未审核订单）
@@ -271,18 +273,18 @@ export /**
  *          订单编号,房源编号,租房时间,订单时间,订单持续时间,价格,状态
  *          状态:'未审核' '未缴费' '已缴费'
  */
-  const getApplication = () => {
-    return axios.post('/getApplication');
-  };
+const getApplication = () => {
+  return axios.post('/getApplication');
+};
 
 export /**
  * 续租
  * @param {contractId, month} params 订单编号, 续租月数
  * @returns result: true为成功
  */
-  const leaseRenew = (params) => {
-    return axios.post('/leaseRenew', params);
-  };
+const leaseRenew = (params) => {
+  return axios.post('/leaseRenew', params);
+};
 
 //租房相关
 export /**
@@ -290,9 +292,9 @@ export /**
  * @param {houseId, username, rentType, rentTime, rentDuration} params 房源编号, 账号, 租房类型, 租房开始时间:"yyyy-MM-dd"字符串, 租房时间:短租日数 或 长租月数
  * @returns result: true为成功
  */
-  const rentHouse = (params) => {
-    return axios.post('/rentHouse', params);
-  };
+const rentHouse = (params) => {
+  return axios.post('/rentHouse', params);
+};
 
 //报修相关
 export /**
@@ -301,27 +303,27 @@ export /**
  * @returns {repairId, houseId, username, content, status, evaluation, score, pic}
  *          报修编号, 房源编号, 报修内容, 处理状态, 评价内容, 评分，图片url数组
  */
-  const getRepair = (params) => {
-    return axios.post('/getRepair', params);
-  };
+const getRepair = (params) => {
+  return axios.post('/getRepair', params);
+};
 
 export /**
  * 发起报修
  * @param {houseId, username, content, pic} params 房源编号 账号 报修内容 图片url
  * @returns  result: true为成功
  */
-  const submitRepair = (params) => {
-    return axios.post('/submitRepair', params);
-  };
+const submitRepair = (params) => {
+  return axios.post('/submitRepair', params);
+};
 
 export /**
  * 评价报修
  * @param {repairId, evaluation, score} params 报修编号, 评价内容, 评分
  * @returns result: true为成功
  */
-  const submitRepairComment = (params) => {
-    return axios.post('/submitRepairComment', params);
-  };
+const submitRepairComment = (params) => {
+  return axios.post('/submitRepairComment', params);
+};
 
 export /**
  * 客服搜索维修人员
@@ -329,9 +331,9 @@ export /**
  * @returns [{username, name, tel}]
  *           维修人员账号，昵称，手机号
  */
-  const searchRepairers = (params) => {
-    return axios.post('/searchRepairers', params);
-  };
+const searchRepairers = (params) => {
+  return axios.post('/searchRepairers', params);
+};
 
 export /**
  * 客服创建维修工单
@@ -339,9 +341,9 @@ export /**
  * @returns result: true为成功
  * 创建维修工单后，对应报修 status 设为 “工单建立成功”
  */
-  const createWorkOrder = (params) => {
-    return axios.post('/createWorkOrder', params);
-  };
+const createWorkOrder = (params) => {
+  return axios.post('/createWorkOrder', params);
+};
 
 export /**
  * 客服拒绝报修
@@ -349,9 +351,9 @@ export /**
  * @returns result: true为成功
  * 拒绝后，对应报修 status 设为 “已拒绝”
  */
-  const refuseRepair = (params) => {
-    return axios.post('/refuseRepair', params);
-  };
+const refuseRepair = (params) => {
+  return axios.post('/refuseRepair', params);
+};
 
 //投诉相关
 export /**
@@ -359,27 +361,27 @@ export /**
  * @param {houseId, username, content, pic} params 房源编号 账号 报修内容 图片url
  * @returns result: true为成功
  */
-  const submitComplaint = (params) => {
-    return axios.post('/submitComplaint', params);
-  };
+const submitComplaint = (params) => {
+  return axios.post('/submitComplaint', params);
+};
 
 export /**
  * 评价投诉
  * @param {complaintd, evaluation, score} params 投诉编号, 评价内容, 评分
  * @returns result: true为成功
  */
-  const submitComplaintComment = (params) => {
-    return axios.post('/submitComplaintComment', params);
-  };
+const submitComplaintComment = (params) => {
+  return axios.post('/submitComplaintComment', params);
+};
 
 export /**
  * 客服回复投诉
  * @param {complaintd, reply, username} params 投诉编号, 回复内容, 客服账号
  * @returns result: true为成功
  */
-  const submitComplaintReply = (params) => {
-    return axios.post('/submitComplaintReply', params);
-  };
+const submitComplaintReply = (params) => {
+  return axios.post('/submitComplaintReply', params);
+};
 
 //维修相关
 export /**
@@ -389,18 +391,18 @@ export /**
  *          工单编号, 报修编号, 房源编号, 房源地址, 报修内容, 图片url, 状态, 维修反馈, 评价, 租客手机号
  *          状态: 未完成, 已完成
  */
-  const getRepairWork = (params) => {
-    return axios.post('/getRepairWork', params);
-  };
+const getRepairWork = (params) => {
+  return axios.post('/getRepairWork', params);
+};
 
 export /**
  * 维修人员回复维修任务
  * @param {repairWorkId, callback} params 维修工单编号, 维修反馈
  * @returns result: true为成功
  */
-  const submitRepairWorkCallback = (params) => {
-    return axios.post('/submitRepairWorkCallback', params);
-  };
+const submitRepairWorkCallback = (params) => {
+  return axios.post('/submitRepairWorkCallback', params);
+};
 
 //房源相关
 export /**
@@ -408,27 +410,27 @@ export /**
  * @param {houseId} params 房源编号
  * @returns result: true为成功
  */
-  const stopRent = (params) => {
-    return axios.post('/stopRent', params);
-  };
+const stopRent = (params) => {
+  return axios.post('/stopRent', params);
+};
 
 export /**
  * 恢复出租房源
  * @param {houseId} params 房源编号
  * @returns result: true为成功
  */
-  const restoreRent = (params) => {
-    return axios.post('/restoreRent', params);
-  };
+const restoreRent = (params) => {
+  return axios.post('/restoreRent', params);
+};
 
 export /**
  * 删除房源
  * @param {houseId} params 房源编号
  * @returns result: true为成功
  */
-  const deleteRent = (params) => {
-    return axios.post('/deleteRent', params);
-  };
+const deleteRent = (params) => {
+  return axios.post('/deleteRent', params);
+};
 
 export /**
  * 修改房源信息
@@ -436,9 +438,9 @@ export /**
  *          房源编号,省份,城市,地区,具体地址,租房类型,房间类型,介绍,户主手机号,价格,房源状态
  * @returns result: true为成功
  */
-  const changeHouseInfo = (params) => {
-    return axios.post('/changeHouseInfo', params);
-  };
+const changeHouseInfo = (params) => {
+  return axios.post('/changeHouseInfo', params);
+};
 
 export /**
  * 导入房源
@@ -446,9 +448,31 @@ export /**
  *          省份,城市,地区,具体地址,租房类型,房间类型,介绍,户主手机号,价格
  * @returns {result,houseId} result:true为成功 houseId:房源编号
  */
-  const newHouse = (params) => {
-    return axios.post('/newHouse', params);
-  };
+const newHouse = (params) => {
+  return axios.post('/newHouse', params);
+};
+
+// 租金相关
+export /**
+ * 缴纳租金
+ * 账号密码匹配成功才返回 true
+ * @param {username, password, amount}
+ *         租客账号，租客密码，金额（数字）
+ * @return result：true为成功
+ */ const payMoney = (params) => {
+  return axios.post('/payMoney', params);
+};
+
+export /**
+ * 退回租金
+ * 账号密码匹配成功才返回 true
+ * @param {username, password}
+ *         租客账号，租客密码
+ * @return {result, amount} result：true为成功 amount：退回的金额（字符串）（false时为0）
+ */ const returnMoney = (params) => {
+  return axios.post('/returnMoney', params);
+};
+
 
 //导航守卫
 /*调试时注释掉
