@@ -50,9 +50,11 @@ export default {
       repairInfo: {
         repairId: "",
         houseId: "",
+        tel: "",
         username: "",
         content: "",
         status: "未处理",
+        callback: "",
         evaluation: "",
         score: "",
         pic: [

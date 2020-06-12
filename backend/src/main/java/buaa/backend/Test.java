@@ -6,13 +6,18 @@ import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.Types;
 import java.util.List;
+import java.util.ResourceBundle;
+import java.util.Scanner;
 
 @RestController
 public class Test {
@@ -44,5 +49,20 @@ public class Test {
             return cs.getResultSet();
         });
         return res;
+    }
+
+//    @RequestMapping("/ttt")
+    public String temp() throws FileNotFoundException {
+        File file = ResourceUtils.getFile("classpath:templates/LongContract.html");
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                System.out.println(scanner.next());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "123456";
     }
 }
