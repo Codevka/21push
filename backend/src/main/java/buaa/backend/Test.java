@@ -19,7 +19,7 @@ public class Test {
 
     @RequestMapping("/hello")
     public List<?> hello() {
-        List<?> res = jdbcTemplate.queryForList("select * from test");
+        List<?> res = jdbcTemplate.queryForList("select * from Account");
         System.out.println(res);
         ResultSet result = jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "{call allGetPasswordAndTypeById(?,?)}";
