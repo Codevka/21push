@@ -17,8 +17,7 @@ Vue.config.productionTip = false;
 
 Vue.prototype.$http = axios;
 
-// axios.defaults.baseURL = 'http://123.57.41.160:18888';
-axios.defaults.baseURL = 'http://localhost:18888';
+axios.defaults.baseURL = 'http://123.57.41.160:18888';
 axios.defaults.timeout = 2000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 //06.03:4453L
