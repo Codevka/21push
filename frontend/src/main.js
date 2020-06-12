@@ -18,7 +18,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 
 // axios.defaults.baseURL = 'http://123.57.41.160:18888';
-axios.defaults.baseURL = 'http://127.0.0.1:18888';
+axios.defaults.baseURL = 'http://127.0.0.1:18888'; // for local test
 axios.defaults.timeout = 2000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 //06.03:4453L
@@ -48,10 +48,14 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
                           增加 pic      字段（图片url数组）
     修改 getComplaint 返回值中增加 pic 字段（图片url数组）
     rentHouse 新增 rentTime为"yyyy-MM-dd"格式的字符串表示租房开始时间
-  6月12日
+  6月12日：
+    新增 payMoney 缴纳租金（字符串），需要验证密码
+    新增 returnMoney 退回租金，需要验证密码，且返回退回的金额
     searchUsers现在只能搜索到租客
     新增 getUser 按账号请求租客的用户信息
     新增 manageUserInfo 客服修改租客的用户信息
+    修改 getRepair 返回值增加 维修人员电话，维修反馈 字段
+      发现后端的一个问题：SubmitRepairWorkCallback 中要同时把工单对应的报修状态设置成 未评价
     新增 changeUserPassword 用户修改自己的密码
     changeUserInfo 的参数去掉密码password
 */
@@ -308,8 +312,8 @@ export /**
 export /**
  * 请求报修信息
  * @param {repairId} params 报修编号
- * @returns {repairId, houseId, username, content, status, evaluation, score, pic}
- *          报修编号, 房源编号, 报修内容, 处理状态, 评价内容, 评分，图片url数组
+ * @returns {repairId, houseId, tel, username, content, status, callback, evaluation, score, pic}
+ *          报修编号, 房源编号, 维修师傅电话（status==未处理，返回""）, 报修内容, 处理状态, 维修反馈（根据报修编号找到工单的callback，status==未处理or工单建立完成，返回""）, 评价内容, 评分，图片url数组
  */
   const getRepair = (params) => {
     return axios.post('/getRepair', params);
@@ -459,6 +463,28 @@ export /**
   const newHouse = (params) => {
     return axios.post('/newHouse', params);
   };
+
+// 租金相关
+export /**
+ * 缴纳租金
+ * 账号密码匹配成功才返回 true
+ * @param {username, password, amount}
+ *         租客账号，租客密码，金额（数字）
+ * @return result：true为成功
+ */ const payMoney = (params) => {
+    return axios.post('/payMoney', params);
+  };
+
+export /**
+ * 退回租金
+ * 账号密码匹配成功才返回 true
+ * @param {username, password}
+ *         租客账号，租客密码
+ * @return {result, amount} result：true为成功 amount：退回的金额（字符串）（false时为0）
+ */ const returnMoney = (params) => {
+    return axios.post('/returnMoney', params);
+  };
+
 
 //导航守卫
 /*调试时注释掉
