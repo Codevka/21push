@@ -142,14 +142,8 @@ export default {
   padding: 30px 30px 30px 30px;
   border-radius: 30px;
 }
-<<<<<<< HEAD
-.picHouse {
-  width: 300px;
-  height: 300px;
-=======
 .image {
   margin: auto auto;
   width: 1200px;
->>>>>>> 3de72e4f567e6ceb6df28b7412f612261a156f38
 }
 </style>

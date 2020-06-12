@@ -11,6 +11,41 @@
       <p v-bind:city="userInfo.city">城市: {{city}}</p>
       <p v-bind:area="userInfo.area">地区: {{area}}</p>
       <el-button @click.native.prevent="change">修改个人信息</el-button>
+      <el-button @click.native.prevent="payVisible = true">缴纳租金</el-button>
+      <el-button @click.native.prevent="returnVisible = true">退回租金</el-button>
+      <el-dialog title="缴纳租金" :visible.sync="payVisible">
+        <el-form>
+          <el-form-item label-width="100" label="缴纳金额">
+            <el-input style="width:400px;" v-model="payForm.amount" placeholder="请输入缴纳金额"></el-input>
+          </el-form-item>
+          <el-form-item label-width="100" label="租客密码">
+            <el-input
+              style="width:400px;"
+              type="password"
+              v-model="payForm.password"
+              placeholder="请让租客输入密码"
+            ></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button :loading="paySubmiting" type="primary" @click.native.prevent="pMoney">提交</el-button>
+        </div>
+      </el-dialog>
+      <el-dialog title="退回租金" :visible.sync="returnVisible">
+        <el-form>
+          <el-form-item label-width="100" label="租客密码">
+            <el-input
+              style="width:400px;"
+              type="password"
+              v-model="returnForm.password"
+              placeholder="请让租客输入密码"
+            ></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button :loading="returnSubmiting" type="primary" @click.native.prevent="rMoney">提交</el-button>
+        </div>
+      </el-dialog>
       <el-form
         :model="changeUserInfoForm"
         ref="changeUserInfoForm"
@@ -51,7 +86,7 @@
 </template>
 
 <script>
-import { changeUserInfo } from "../main";
+import { changeUserInfo, payMoney, returnMoney } from "../main";
 export default {
   components: {},
   data() {
@@ -86,9 +121,24 @@ export default {
         return callback(new Error("省市地不能为空"));
       else callback();
     };
+
     return {
       dis: true,
       submiting: false,
+      paySubmiting: false,
+      returnSubmiting: false,
+      payVisible: false,
+      returnVisible: false,
+      returnAmount: "",
+      payForm: {
+        username: "",
+        password: "",
+        amount: 0
+      },
+      returnForm: {
+        username: "",
+        password: ""
+      },
       userInfo: {
         userType: "-1",
         name: "",
@@ -216,6 +266,61 @@ export default {
           });
         }
       });
+    },
+    pMoney() {
+      this.paySubmiting = true;
+      this.payForm.username = this.userInfo.username;
+      console.log(this.payForm);
+      if (!Number.isInteger(this.payForm.amount) || this.payForm.amount < 0) {
+        this.$message({
+          type: "error",
+          message: "缴纳金额必须是正整数"
+        });
+        this.paySubmiting = false;
+        return;
+      }
+      let params = {
+        username: this.payForm.username,
+        password: this.payForm.password,
+        amount: this.payForm.amount
+      };
+      payMoney(params).then(res => {
+        if (res.data.result == true) {
+          this.$message({
+            type: "success",
+            message: "租金缴纳成功"
+          });
+        } else {
+          this.$message({
+            type: "error",
+            message: "租金缴纳失败，请检查租客密码"
+          });
+        }
+        this.paySubmiting = false;
+      });
+    },
+    rMoney() {
+      this.returnSubmiting = true;
+      this.returnForm.username = this.userInfo.username;
+      console.log(this.returnForm);
+      let params = {
+        username: this.returnForm.username,
+        password: this.returnForm.password
+      };
+      returnMoney(params).then(res => {
+        if (res.data.result == true) {
+          this.$message({
+            type: "success",
+            message: "租金退回成功，共" + res.data.amount + "元"
+          });
+        } else {
+          this.$message({
+            type: "error",
+            message: "租金退回失败，请检查租客密码"
+          });
+        }
+        this.returnSubmiting = false;
+      });
     }
   },
   mounted() {
@@ -247,5 +352,12 @@ export default {
   width: 700px;
   background: #fff;
   padding: 30px 30px 30px 30px;
+}
+.el-dialog {
+  margin: auto auto;
+  width: 500px;
+  background: #fff;
+  padding: 30px 30px 30px 30px;
+  border-radius: 30px;
 }
 </style>
