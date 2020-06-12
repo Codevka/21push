@@ -56,6 +56,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     新增 manageUserInfo 客服修改租客的用户信息
     修改 getRepair 返回值增加 维修人员电话，维修反馈 字段
       发现后端的一个问题：SubmitRepairWorkCallback 中要同时把工单对应的报修状态设置成 未评价
+    新增 exportContract 导出合同（返回链接）
+    关于长租：后端再 ContractStatus 里增加 "未签订合同" "已签订合同" 作为长租订单的状态
 */
 
 export /**
@@ -287,6 +289,15 @@ export /**
 const leaseRenew = (params) => {
   return axios.post('/leaseRenew', params);
 };
+
+export /**
+ * 导出租房合同
+ * @param contractId 订单编号
+ * @returns {result, url} result：true为成功，url: 文件下载链接
+ */
+const exportContract = (contractId) => {
+  return axios.post('/exportContract', contractId);
+}
 
 //租房相关
 export /**
