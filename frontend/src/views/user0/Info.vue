@@ -212,6 +212,7 @@ export default {
       this.$refs.changeUserInfoForm.validate(valid => {
         if (valid) {
           this.submiting = true;
+          this.changeUserInfoForm.tel = this.changeUserInfoForm.tel.toString();
           changeUserInfo(this.changeUserInfoForm).then(res => {
             if (res.data.result == true) {
               this.logining = false;
@@ -224,7 +225,7 @@ export default {
                 userType: this.changeUserInfoForm.userType,
                 username: this.changeUserInfoForm.username,
                 password: this.changeUserInfo.password,
-                tel: this.changeUserInfoForm.tel,
+                tel: this.changeUserInfoForm.tel.toString(),
                 email: this.changeUserInfoForm.email,
                 name: this.changeUserInfoForm.name,
                 city: this.changeUserInfoForm.city,

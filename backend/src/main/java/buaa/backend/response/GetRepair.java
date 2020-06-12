@@ -21,6 +21,7 @@ public class GetRepair {
     @RequestMapping(value = "/getRepair", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
+        //TODO 返回值增加 维修人员电话，维修反馈 字段
         System.out.println(body);
         return jdbcTemplate.execute(con -> {
             String storedProc = "select * from Repair where repairId = ?";

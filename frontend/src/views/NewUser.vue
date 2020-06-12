@@ -163,8 +163,9 @@ export default {
           //console.log('submitting')
           let RegisterParams = {
             //username: this.RegisterForm.username,
+            userType: this.RegisterForm.userType,
             password: this.RegisterForm.password,
-            tel: this.RegisterForm.tel,
+            tel: this.RegisterForm.tel.toString(),
             email: this.RegisterForm.email,
             name: this.RegisterForm.name,
             province: this.RegisterForm.province,
@@ -189,7 +190,7 @@ export default {
                 message: res.data.username,
                 duration: 0
               });
-              this.$router.push("/login");
+              this.goBack();
             } else {
               this.$message.error({
                 message: "导入失败"
@@ -211,9 +212,6 @@ export default {
     },
     onChangeArea(data) {
       this.RegisterForm.area = data.value;
-    },
-    tologin() {
-      this.$router.push("/login");
     },
     goBack() {
       this.$router.push("user1/userManage");

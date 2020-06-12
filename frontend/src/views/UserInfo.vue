@@ -231,7 +231,7 @@ export default {
           this.submiting = true;
           let changeParams = {
             username: this.manageUserInfoForm.username,
-            tel: this.manageUserInfoForm.tel,
+            tel: this.manageUserInfoForm.tel.toString(),
             email: this.manageUserInfoForm.email,
             name: this.manageUserInfoForm.name,
             city: this.manageUserInfoForm.city,

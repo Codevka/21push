@@ -163,6 +163,7 @@ export default {
           console.log("submitting");
           let RegisterParams = {
             //username: this.RegisterForm.username,
+            userType: "0",
             password: this.RegisterForm.password,
             tel: this.RegisterForm.tel,
             email: this.RegisterForm.email,
@@ -180,10 +181,10 @@ export default {
                 message: "注册成功"
               });
               RegisterParams.username = res.data.username;
-              sessionStorage.setItem(
+              /*sessionStorage.setItem(
                 "userInfo",
                 JSON.stringify(RegisterParams)
-              );
+              );*/
               this.$notify({
                 title: "您的账号是",
                 message: res.data.username,

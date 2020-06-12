@@ -6,31 +6,33 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class SubmitRepairWorkCallback {
+public class ChangeUserPassword {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @CrossOrigin//("http://localhost:8080")
-    @RequestMapping(value = "/submitRepairWorkCallback", method = RequestMethod.POST,
+    @CrossOrigin
+    @RequestMapping(value = "/changeUserPassword", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        //TODO 发现后端的一个问题：SubmitRepairWorkCallback 中要同时把工单对应的报修状态设置成 未评价
+        System.out.println(body);
         Map<String, Object> result = new HashMap<>();
-        result.put("result", true);
         jdbcTemplate.execute((CallableStatementCreator) con -> {
-            String storedProc = "update WorkOrder set callback = ? where repairWorkId = ?";
+            String storedProc = "update Account set password = ? where username = ?";
             CallableStatement cs = con.prepareCall(storedProc);
-            cs.setString(1, (String) body.get("callback"));
-            cs.setInt(2, Integer.parseInt((String) body.get("repairWorkId")));
+            cs.setString(1, (String) body.get("password"));
+            cs.setInt(2, Integer.parseInt((String) body.get("username")));
             return cs;
         }, cs -> {
             cs.execute();
             return true;
         });
+        result.put("result", true);
         return result;
     }
 }

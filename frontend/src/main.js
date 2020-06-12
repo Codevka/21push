@@ -17,8 +17,8 @@ Vue.config.productionTip = false;
 
 Vue.prototype.$http = axios;
 
-
-axios.defaults.baseURL = 'http://123.57.41.160:18888';
+// axios.defaults.baseURL = 'http://123.57.41.160:18888';
+axios.defaults.baseURL = 'http://localhost:18888';
 axios.defaults.timeout = 2000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 //06.03:4453L
@@ -61,11 +61,13 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     关于长租：后端再 ContractStatus 里增加 "未签订合同" "已签订合同" 作为长租订单的状态
     新增 changeUserPassword 用户修改自己的密码
     changeUserInfo 的参数去掉密码password
+    RegisterUser 新增参数 userType
 */
 
 export /**
  * 用户注册
- * @param {password, tel, email, name, province, city, area} params 密码, 手机, 邮箱, 昵称, 省, 市, 地
+ * @param {userType, password, tel, email, name, province, city, area} params 
+ * 用户类型("0":租客 "1":客服 "2":维修人员), 密码, 手机, 邮箱, 昵称, 省, 市, 地
  * @returns {result,username} result:true为成功 username:账号
  */
   const RegisterUser = (params) => {
@@ -92,11 +94,11 @@ export /**
     return axios.post('/changeUserInfo', params);
   };
 export /**
-  * 用户修改自己的密码
-  * @param {username, password} params 账号, 新密码
-  * @returns result: true为成功
-  * @see LoginUser
-  */
+ * 用户修改自己的密码
+ * @param {username, password} params 账号, 新密码
+ * @returns result: true为成功
+ * @see LoginUser
+ */
   const changeUserPassword = (params) => {
     return axios.post('/changeUserPassword', params);
   };
@@ -236,7 +238,7 @@ export /**
  */
   const getUser = (params) => {
     return axios.post('/getUser', params);
-  }
+  };
 export /**
  * 请求订单信息
  * @param {contractId} params 订单编号
@@ -306,9 +308,18 @@ export /**
  * @param contractId 订单编号
  * @returns {result, url} result：true为成功，url: 文件下载链接
  */
-const exportContract = (contractId) => {
-  return axios.post('/exportContract', contractId);
-}
+  const exportContract = (contractId) => {
+    return axios.post('/exportContract', contractId);
+  };
+
+export /**
+ * 审核申请
+ * @param {contractId, isAccept} params
+ * @returns result result：true为成功
+ */
+  const dealApplication = (params) => {
+    return axios.post('dealApplication', params);
+  };
 
 //租房相关
 export /**
@@ -496,7 +507,6 @@ export /**
  */ const returnMoney = (params) => {
     return axios.post('/returnMoney', params);
   };
-
 
 //导航守卫
 /*调试时注释掉

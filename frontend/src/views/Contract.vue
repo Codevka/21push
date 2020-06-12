@@ -14,6 +14,14 @@
       @click.native.prevent="dialogFormVisible = true"
     >续租</el-button>
     <el-button
+      v-if="contractInfo.contractStatus=='未审核'&&usertype==1"
+      @click.native.prevent="acceptApplication"
+    >同意申请</el-button>
+    <el-button
+      v-if="contractInfo.contractStatus=='未审核'&&usertype==1"
+      @click.native.prevent="denyApplication"
+    >拒绝申请</el-button>
+    <el-button
       :loading="exporting"
       v-if="contractInfo.contractStatus!='未审核'&&contractInfo.contractStatus!='已退租'&&contractInfo.rentType=='长租'"
       @click.native.prevent="eContract"
@@ -34,11 +42,13 @@
 import { getContract, exportContract } from "../main";
 import { leaseBack } from "../main";
 import { leaseRenew } from "../main";
+import { dealApplication } from "../main";
 export default {
   data() {
     return {
       dialogFormVisible: false,
       exporting: false,
+      isAccept: "",
       contractInfo: {
         contractId: "",
         username: "",
@@ -143,6 +153,32 @@ export default {
         }
         this.exporting = false;
       });
+    },
+    dApplication() {
+      let params = {
+        contractId: this.contractInfo.contractId,
+        isAccept: this.isAccept
+      };
+      dealApplication(params).then(res => {
+        if (res.data.result == true) {
+          this.$message({
+            type: "success",
+            message: "处理成功！"
+          });
+        } else {
+          this.$message.error({
+            message: "处理失败，请稍后再试"
+          });
+        }
+      });
+    },
+    acceptApplication() {
+      this.isAccept = "true";
+      this.dApplication();
+    },
+    denyApplication() {
+      this.isAccept = "false";
+      this.dApplication();
     }
   },
   mounted() {

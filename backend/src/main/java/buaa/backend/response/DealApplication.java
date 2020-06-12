@@ -1,5 +1,6 @@
 package buaa.backend.response;
 
+import buaa.backend.metadata.ContractStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,27 +11,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class SubmitRepairWorkCallback {
+public class DealApplication {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @CrossOrigin//("http://localhost:8080")
-    @RequestMapping(value = "/submitRepairWorkCallback", method = RequestMethod.POST,
+    @CrossOrigin
+    @RequestMapping(value = "/dealApplication", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        //TODO 发现后端的一个问题：SubmitRepairWorkCallback 中要同时把工单对应的报修状态设置成 未评价
-        Map<String, Object> result = new HashMap<>();
-        result.put("result", true);
+        System.out.println(body);
         jdbcTemplate.execute((CallableStatementCreator) con -> {
-            String storedProc = "update WorkOrder set callback = ? where repairWorkId = ?";
+            String storedProc = "update Orders set status = ? where contractId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
-            cs.setString(1, (String) body.get("callback"));
-            cs.setInt(2, Integer.parseInt((String) body.get("repairWorkId")));
+            cs.setInt(1, ContractStatus.REFUSED.ordinal());
+            cs.setInt(2, Integer.parseInt((String) body.get("contractId")));
             return cs;
         }, cs -> {
             cs.execute();
             return true;
         });
+        Map<String, Object> result = new HashMap<>();
+        result.put("result", true);
         return result;
     }
 }
