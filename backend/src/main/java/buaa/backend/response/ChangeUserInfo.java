@@ -29,7 +29,7 @@ public class ChangeUserInfo {
                     "province = ?,city = ?,email = ?,userType = ? where username = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setString(1, (String) body.get("name"));
-            cs.setString(2, ((Long) body.get("tel")).toString());
+            cs.setString(2, (String) body.get("tel"));
             cs.setString(3, (String) body.get("area"));
             cs.setString(4, (String) body.get("province"));
             cs.setString(5, (String) body.get("city"));
