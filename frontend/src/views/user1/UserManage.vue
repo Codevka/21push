@@ -11,7 +11,7 @@
             style="float: right"
           >导入客服</el-button>
         </el-form-item>
-        <el-form-item label-width="100" label="搜索用户:">
+        <el-form-item label-width="100" label="搜索租客:">
           <el-input style="width:400px;" v-model="keyword" placeholder="请输入用户账号或手机号">
             <el-button slot="append" icon="el-icon-search" circle @click.native.prevent="sUsers"></el-button>
           </el-input>
