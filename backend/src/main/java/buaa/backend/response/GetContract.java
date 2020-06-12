@@ -68,8 +68,6 @@ public class GetContract {
             res.put("houseLocation", rs.getString("address"));
             res.put("houseType", HouseType.values()[rs.getInt("houseType")].getText());
             res.put("ownerTel", rs.getString("ownerTel"));
-            res.put("houseId", String.valueOf(rs.getInt("houseId")));
-            res.put("price", String.valueOf(rs.getInt("price")));
             res.put("housestatus", HouseStatus.values()[rs.getInt("houseStatus")].getText());
             res.put("rentType", RentType.values()[rs.getInt("rentType")]);
         }

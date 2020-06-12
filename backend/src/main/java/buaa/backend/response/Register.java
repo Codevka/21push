@@ -51,6 +51,19 @@ public class Register {
             }
             return res;
         });
+        addMoneyAccount((String) result.get("username"));
         return result;
+    }
+
+    private void addMoneyAccount(String username) {
+        jdbcTemplate.execute((CallableStatementCreator) con -> {
+            String storedProc = "insert into AccountMoney values (?,0)";
+            CallableStatement cs = con.prepareCall(storedProc);
+            cs.setInt(1, Integer.parseInt(username));
+            return cs;
+        }, cs -> {
+            cs.execute();
+            return true;
+        });
     }
 }
