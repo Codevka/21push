@@ -178,6 +178,7 @@ export default {
       this.$refs.HouseForm.validate(valid => {
         if (valid) {
           this.HouseForm.price = this.HouseForm.price.toString();
+          this.HouseForm.tel = this.HouseForm.tel.toString();
           newHouse(this.HouseForm).then(res => {
             if (res.data.result == true) {
               this.$message({
