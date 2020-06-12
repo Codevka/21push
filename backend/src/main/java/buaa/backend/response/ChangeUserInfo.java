@@ -23,20 +23,18 @@ public class ChangeUserInfo {
     @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/changeUserInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        //TODO changeUserInfo 的参数去掉密码password
         System.out.println(body);
         jdbcTemplate.execute((CallableStatementCreator) con -> {
-            String storedProc = "{call allUpdateSelfInfo(?,?,?,?,?,?,?,?,?)}";
+            String storedProc = "update Account set name = ?,tel = ?,area = ?," +
+                    "province = ?,city = ?,email = ?,userType = ? where username = ?";
             CallableStatement cs = con.prepareCall(storedProc);
-            cs.registerOutParameter(1, Types.INTEGER);
-            cs.setInt(2, Integer.parseInt((String) body.get("username")));
-            cs.setString(3, (String) body.get("password"));
-            cs.setString(4, ((Long) body.get("tel")).toString());
-            cs.setString(5, (String) body.get("email"));
-            cs.setString(6, (String) body.get("name"));
-            cs.setString(7, (String) body.get("province"));
-            cs.setString(8, (String) body.get("city"));
-            cs.setString(9, (String) body.get("area"));
+            cs.setString(1, (String) body.get("name"));
+            cs.setString(2, ((Long) body.get("tel")).toString());
+            cs.setString(3, (String) body.get("area"));
+            cs.setString(4, (String) body.get("province"));
+            cs.setString(5, (String) body.get("city"));
+            cs.setString(6, (String) body.get("email"));
+            cs.setInt(7, Integer.parseInt((String) body.get("userType")));
             return cs;
         }, cs -> {
             cs.execute();
