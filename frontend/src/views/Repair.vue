@@ -160,13 +160,13 @@ export default {
   computed: {
     showRepairInfo: function() {
       return {
-        repairId: this.repairId,
-        houseId: this.houseId,
-        username: this.username,
-        content: this.content,
-        status: this.status,
-        evaluation: this.evaluation,
-        score: this.score
+        repairId: this.repairInfo.repairId,
+        houseId: this.repairInfo.houseId,
+        username: this.repairInfo.username,
+        content: this.repairInfo.content,
+        status: this.repairInfo.status,
+        evaluation: this.repairInfo.evaluation,
+        score: this.repairInfo.score
       };
     }
   }
