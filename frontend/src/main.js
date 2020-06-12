@@ -52,6 +52,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     searchUsers现在只能搜索到租客
     新增 getUser 按账号请求租客的用户信息
     新增 manageUserInfo 客服修改租客的用户信息
+    新增 changeUserPassword 用户修改自己的密码
+    changeUserInfo 的参数去掉密码password
 */
 
 export /**
@@ -75,14 +77,22 @@ export /**
 
 export /**
  * 用户修改自己的用户信息
- * @param {userType, username, password, tel, email, name, province, city, area} params
+ * @param {userType, username, tel, email, name, province, city, area} params
  * @returns result: true为成功
  * @see LoginUser
  */
   const changeUserInfo = (params) => {
     return axios.post('/changeUserInfo', params);
   };
-
+export /**
+  * 用户修改自己的密码
+  * @param {username, password} params 账号, 新密码
+  * @returns result: true为成功
+  * @see LoginUser
+  */
+  const changeUserPassword = (params) => {
+    return axios.post('/changeUserPassword', params);
+  };
 export /**
  * 客服修改租客的用户信息
  * @param {username, tel, email, name, province, city, area} params
