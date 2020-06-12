@@ -1,7 +1,7 @@
 create procedure adminChangeHouseInfo(OUT status int, IN HID int, IN provinc varchar(20),
-                                                            IN cit varchar(20), IN are varchar(30),
-                                                            IN addres varchar(50), IN rentTyp int, IN houseTyp int,
-                                                            IN pi text, IN intr text, IN ownerTe varchar(11),
+                                                            IN cit nvarchar(20), IN are nvarchar(30),
+                                                            IN addres nvarchar(50), IN rentTyp int, IN houseTyp int,
+                                                            IN pi text, IN intr text, IN ownerTe nvarchar(11),
                                                             IN pric int, IN houseStatu int)
 begin
      select -1 into  status;

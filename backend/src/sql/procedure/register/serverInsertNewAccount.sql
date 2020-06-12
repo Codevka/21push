@@ -1,8 +1,8 @@
 create
-    definer = root@localhost procedure serverInsertNewAccount(OUT status int, IN Passwor varchar(30), IN userTyp int,
-                                                              IN Nam varchar(30), IN Te char(11), IN Are varchar(30),
-                                                              IN IdNumbe char(18), IN Provinc varchar(20),
-                                                              IN Cit varchar(20), IN emai varchar(64))
+    definer = root@localhost procedure serverInsertNewAccount(OUT status int, IN Passwor nvarchar(30), IN userTyp int,
+                                                              IN Nam nvarchar(30), IN Te char(11), IN Are nvarchar(30),
+                                                              IN IdNumbe char(18), IN Provinc nvarchar(20),
+                                                              IN Cit nvarchar(20), IN emai nvarchar(64))
 begin
     if exists(select tel from Account i where i.tel = Te) or exists(select email from  Account g where  g.email =emai)
     then

@@ -15,7 +15,7 @@
       <el-dialog title="缴纳租金" :visible.sync="payVisible">
         <el-form>
           <el-form-item label-width="100" label="缴纳金额">
-            <el-input style="width:400px;" v-model="payForm.amount" placeholder="请输入缴纳金额"></el-input>
+            <el-input style="width:400px;" v-model="payAmount" placeholder="请输入缴纳金额"></el-input>
           </el-form-item>
           <el-form-item label-width="100" label="租客密码">
             <el-input
@@ -132,10 +132,11 @@ export default {
       payVisible: false,
       returnVisible: false,
       returnAmount: "",
+      payAmount: 0,
       payForm: {
         username: "",
         password: "",
-        amount: 0
+        amount: ""
       },
       returnForm: {
         username: "",
@@ -266,8 +267,7 @@ export default {
     pMoney() {
       this.paySubmiting = true;
       this.payForm.username = this.userInfo.username;
-      console.log(this.payForm);
-      if (!Number.isInteger(this.payForm.amount) || this.payForm.amount < 0) {
+      if (!Number.isInteger(this.payAmount) || this.payAmount < 0) {
         this.$message({
           type: "error",
           message: "缴纳金额必须是正整数"
@@ -275,6 +275,8 @@ export default {
         this.paySubmiting = false;
         return;
       }
+      this.payForm.amount = this.payAmount.toString();
+      console.log(this.payForm);
 
       payMoney(this.payForm).then(res => {
         if (res.data.result == true) {

@@ -1,6 +1,6 @@
 create  procedure adminChangeUserInfo (OUT status int, in ID int, IN Te char(11),
-                                   IN Emai varchar(64), IN Nam varchar(30), IN Provinc varchar(20),
-                                   IN Cit varchar(20), IN Are varchar(30))
+                                   IN Emai nvarchar(64), IN Nam nvarchar(30), IN Provinc nvarchar(20),
+                                   IN Cit nvarchar(20), IN Are nvarchar(30))
 begin
     select 1 into status;
     update Account a

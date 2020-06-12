@@ -1,15 +1,15 @@
 create table Account
 (
     username int auto_increment,
-    password varchar(30) not null,
+    password nvarchar(30) not null,
     userType int         not null,
-    name     varchar(30) not null,
+    name     nvarchar(30) not null,
     tel      char(11)    null,
-    area     varchar(30) null,
+    area     nvarchar(30) null,
     Idnumber char(18)    null,
-    province varchar(20) not null,
-    city     varchar(20) not null,
-    email    varchar(64) null,
+    province nvarchar(20) not null,
+    city     nvarchar(20) not null,
+    email    nvarchar(64) null,
     constraint Account_UID_uindex
         unique (username)
 );
