@@ -11,7 +11,7 @@ begin
     else
         insert into Account
             (password, userType, name, tel, area, Idnumber, province, city)
-        values (passwor,3 , Nam, Te, Are, IdNumbe, Provinc, Cit);
+        values (passwor,2 , Nam, Te, Are, IdNumbe, Provinc, Cit);
         select LAST_INSERT_ID();
         select 1 into status;
     end if;
