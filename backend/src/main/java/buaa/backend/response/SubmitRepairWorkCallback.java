@@ -18,6 +18,7 @@ public class SubmitRepairWorkCallback {
     @RequestMapping(value = "/submitRepairWorkCallback", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
+        //TODO 发现后端的一个问题：SubmitRepairWorkCallback 中要同时把工单对应的报修状态设置成 未评价
         Map<String, Object> result = new HashMap<>();
         result.put("result", true);
         jdbcTemplate.execute((CallableStatementCreator) con -> {

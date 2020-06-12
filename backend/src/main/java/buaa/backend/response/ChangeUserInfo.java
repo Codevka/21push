@@ -23,6 +23,7 @@ public class ChangeUserInfo {
     @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/changeUserInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
+        //TODO changeUserInfo 的参数去掉密码password
         System.out.println(body);
         jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "{call allUpdateSelfInfo(?,?,?,?,?,?,?,?,?)}";
