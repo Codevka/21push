@@ -44,7 +44,7 @@ export default {
         "状态",
         "回复",
         "评价",
-        "租户手机号"
+        "租客手机号"
       ],
       callbackForm: {
         repairWorkId: "",
