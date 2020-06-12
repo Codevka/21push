@@ -49,8 +49,9 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     修改 getComplaint 返回值中增加 pic 字段（图片url数组）
     rentHouse 新增 rentTime为"yyyy-MM-dd"格式的字符串表示租房开始时间
   6月12日：
-    新增 payMoney 缴纳租金（字符串），需要验证密码
+    新增 payMoney 缴纳租金，需要验证密码
     新增 returnMoney 退回租金，需要验证密码，且返回退回的金额
+      (以上租金都是字符串，缴纳租金验证了是否是正整数)
     searchUsers现在只能搜索到租客
     新增 getUser 按账号请求租客的用户信息
     新增 manageUserInfo 客服修改租客的用户信息
@@ -480,7 +481,7 @@ export /**
  * 缴纳租金
  * 账号密码匹配成功才返回 true
  * @param {username, password, amount}
- *         租客账号，租客密码，金额（数字）
+ *         租客账号，租客密码，金额
  * @return result：true为成功
  */ const payMoney = (params) => {
     return axios.post('/payMoney', params);
