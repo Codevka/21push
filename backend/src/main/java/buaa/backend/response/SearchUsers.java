@@ -27,7 +27,7 @@ public class SearchUsers {
             String storedProc = "select * from Account where username = ? and userType = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(1, Integer.parseInt((String) body.get("keyword")));
-            cs.setInt(1, UserType.RENTER.ordinal());
+            cs.setInt(2, UserType.RENTER.ordinal());
             return cs;
         }, this::getResult);
         assert result != null;
