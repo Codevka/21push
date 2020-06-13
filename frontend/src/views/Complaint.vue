@@ -1,7 +1,16 @@
 <template>
   <el-main class="infoC">
     <el-page-header @back="goBack" content="投诉详情"></el-page-header>
-    <p v-for="(item,key,index) in showComplaintInfo" :key="key">{{complaintLabel[index]}}：{{item}}</p>
+    <!--<p v-for="(item,key,index) in showComplaintInfo" :key="key">{{complaintLabel[index]}}：{{item}}</p>-->
+    <p>投诉编号: {{complaintInfo.complaintId}}</p>
+    <p>房源编号: {{complaintInfo.houseId}}</p>
+    <p>投诉人账号: {{complaintInfo.username}}</p>
+    <p>投诉内容: {{complaintInfo.content}}</p>
+    <p>处理状态: {{complaintInfo.status}}</p>
+    <p>客服编号: {{complaintInfo.adminId}}</p>
+    <p>客服回复: {{complaintInfo.reply}}</p>
+    <p>评价内容: {{complaintInfo.evaluation}}</p>
+    <p>评分: {{complaintInfo.score}}</p>
     <div class="image">
       <el-image v-for="url in complaintInfo.pic" :key="url" :src="url" fit="scale-down"></el-image>
     </div>
