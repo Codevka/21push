@@ -173,7 +173,7 @@ export /**
  *        关键词(你们自己定吧), 租房类型, 房间类型
  *        租房形式: '0':任意租房形式 '1':短租 '2':长租
  *        房间类型: '0':任意房间类型 '1':单人间 '2':二人间 '3':三人间 '4':四人间
- * @returns [{houseId, area, address, rentType, houseType}]
+ * @returns [{houseId, area, address, rentType, houseType, status}]
  *           房源编号, 地区, 具体地址, 租房类型, 房间类型
  *           租房类型: '短租' '长租'
  *           房间类型: '单人间' '双人间' '三人间' '四人间'

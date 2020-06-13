@@ -27,7 +27,7 @@ public class LeaseRenew {
             String storedProc = "update Orders set contractDuration = contractDuration + ? where contractId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(1, (Integer) body.get("month"));
-            cs.setInt(2, (Integer) body.get("contractId"));
+            cs.setInt(2, Integer.parseInt((String) body.get("contractId")));
             return cs;
         }, cs -> {
             cs.execute();

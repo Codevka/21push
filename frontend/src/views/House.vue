@@ -34,10 +34,10 @@
           <p style="font-size:10px" v-if="houseInfo.rentType=='长租'">(长租的租房开始时间为每月一号)</p>
         </el-form-item>
         <el-form-item label="月数" label-width="100px" v-if="houseInfo.rentType=='长租'">
-          <el-input-number v-model="rentHouseForm.rentDuration" :min="1"></el-input-number>
+          <el-input-number v-model.number="rentHouseForm.rentDuration" :min="1"></el-input-number>
         </el-form-item>
         <el-form-item label="天数" label-width="100px" v-if="houseInfo.rentType=='短租'">
-          <el-input-number v-model="rentHouseForm.rentDuration" :min="1"></el-input-number>
+          <el-input-number v-model.number="rentHouseForm.rentDuration" :min="1"></el-input-number>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -59,7 +59,7 @@ export default {
         city: "",
         area: "",
         address: "",
-        rentType: "",
+        rentType: "长租",
         houseType: "",
         intro: "",
         tel: "",
@@ -88,7 +88,7 @@ export default {
         username: "",
         rentType: "",
         rentTime: null,
-        rentDuration: ""
+        rentDuration: null,
       }
     };
   },
@@ -100,7 +100,6 @@ export default {
       this.rentHouseForm.username = this.$store.state.userInfo.username;
       this.rentHouseForm.rentType = this.houseInfo.rentType;
       this.rentHouseForm.houseId = this.houseInfo.houseId;
-      this.rentHouseForm.rentDuration = this.rentHouseForm.rentDuration.toString();
       if (this.rentHouseForm.rentTime == null) {
         this.$message({
           type: "warning",
@@ -115,6 +114,7 @@ export default {
           message: "租房开始时间不能早于今天"
         });
       } else {
+        this.rentHouseForm.rentDuration = this.rentHouseForm.rentDuration.toString();
         rentHouse(this.rentHouseForm).then(res => {
           //console.log(res);
           if (res.data.result == true)

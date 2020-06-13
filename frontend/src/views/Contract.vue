@@ -60,15 +60,15 @@ export default {
       exporting: false,
       isAccept: "",
       contractInfo: {
-        contractId: "",
-        username: "",
-        houseId: "",
-        houseLocation: "",
-        houseType: "",
-        ownerTel: "",
-        price: "",
+        contractId: "1",
+        username: "1",
+        houseId: "1",
+        houseLocation: "1",
+        houseType: "1",
+        ownerTel: "1",
+        price: "1",
         housestatus: "",
-        contractStatus: "已缴费",
+        contractStatus: "已签订合同",
         rentType: "长租"
       },
       leaseBackForm: {
@@ -76,7 +76,7 @@ export default {
       },
       leaseRenewForm: {
         contractId: "",
-        month: ""
+        month: null
       },
       usertype: 0,
       //租房形式: 短租 长租
@@ -128,7 +128,7 @@ export default {
     },
     lRenew() {
       this.leaseRenewForm.contractId = this.contractInfo.contractId;
-      this.leaseRenewForm.month = this.leaseRenewForm.month.toString();
+      //this.leaseRenewForm.month = this.leaseRenewForm.month.toString();
       //console.log(this.leaseRenewForm);
       leaseRenew(this.leaseRenewForm).then(res => {
         if (res.data.result == true) {

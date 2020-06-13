@@ -23,13 +23,18 @@ public class DeleteRent {
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         logger.trace("body is {}", body);
+        //TODO 可删已出租词源
         jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "delete from House where houseId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(1, Integer.parseInt((String) body.get("houseId")));
             return cs;
         }, cs -> {
-            cs.execute();
+            try {
+                cs.execute();
+            } catch (Exception e) {
+                return false;
+            }
             return true;
         });
         Map<String, Object> result = new HashMap<>();
