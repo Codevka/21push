@@ -379,18 +379,6 @@ export default {
       if (this.houseInfo.rentType == "短租") this.houseInfo.price += "元/日";
       else this.houseInfo.price += "元/月";
     });
-    //this.changeHouseForm = this.houseInfo;
-    this.changeHouseForm.houseId = this.houseInfo.houseId;
-    this.changeHouseForm.province = this.houseInfo.province;
-    this.changeHouseForm.city = this.houseInfo.city;
-    this.changeHouseForm.area = this.houseInfo.area;
-    this.changeHouseForm.address = this.houseInfo.address;
-    this.changeHouseForm.rentType = this.houseInfo.rentType;
-    this.changeHouseForm.houseType = this.houseInfo.houseType;
-    this.changeHouseForm.intro = this.houseInfo.intro;
-    this.changeHouseForm.tel = Number.parseInt(this.houseInfo.tel);
-    this.changeHouseForm.price = Number.parseInt(this.houseInfo.price);
-    this.changeHouseForm.housestatus = this.houseInfo.housestatus;
   },
   created() {
     var token;

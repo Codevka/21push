@@ -63,10 +63,6 @@ public class RentHouse {
             return cs;
         }, cs -> {
             cs.execute();
-            ResultSet rs = cs.getResultSet();
-            while (rs.next()) {
-                return rs.getInt("rentType");
-            }
             return 0;
         });
         result.put("result", true);
