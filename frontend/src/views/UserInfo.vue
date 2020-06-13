@@ -229,15 +229,7 @@ export default {
       this.$refs.manageUserInfoForm.validate(valid => {
         if (valid) {
           this.submiting = true;
-          let changeParams = {
-            username: this.manageUserInfoForm.username,
-            tel: this.manageUserInfoForm.tel.toString(),
-            email: this.manageUserInfoForm.email,
-            name: this.manageUserInfoForm.name,
-            city: this.manageUserInfoForm.city,
-            area: this.manageUserInfoForm.area,
-            province: this.manageUserInfoForm.province
-          };
+          this.manageUserInfoForm.tel = this.manageUserInfoForm.tel.toString();
           manageUserInfo(this.manageUserInfoForm).then(res => {
             if (res.data.result == true) {
               this.logining = false;
@@ -247,8 +239,8 @@ export default {
               });
               this.submiting = false;
               //console.log(changeParams);
-              sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
-              this.$store.dispatch("commitLogin");
+              //sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
+              //this.$store.dispatch("commitLogin");
               this.dis = true;
               this.goBack();
             } else {
