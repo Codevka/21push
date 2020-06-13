@@ -23,6 +23,14 @@ public class SearchUsers {
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
         logger.trace("body is {}", body);
+        if (body.get("keyword").equals("")) {
+            return jdbcTemplate.execute(con -> {
+                String storedProc = "select * from Account where userType = ?";
+                CallableStatement cs = con.prepareCall(storedProc);
+                cs.setInt(1, UserType.RENTER.ordinal());
+                return cs;
+            }, this::getResult);
+        }
         List<Map<String, Object>> result = jdbcTemplate.execute(con -> {
             String storedProc = "select * from Account where username = ? and userType = ?";
             CallableStatement cs = con.prepareCall(storedProc);

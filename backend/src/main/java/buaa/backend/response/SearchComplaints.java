@@ -23,6 +23,12 @@ public class SearchComplaints {
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
         logger.trace("body is {}", body);
+        if (body.get("keyword").equals("")) {
+            return jdbcTemplate.execute(con -> {
+                String storedProc = "select * from Complaint";
+                return con.prepareCall(storedProc);
+            }, this::getResult);
+        }
         List<Map<String, Object>> result = jdbcTemplate.execute(con -> {
             String storedProc = "select * from Complaint where complaintId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
