@@ -41,7 +41,8 @@
         <el-table-column prop="tel" label="手机号" min-width="25%" :resizable="false"></el-table-column>
         <el-table-column fixed="right" label="操作" min-width="25%" :resizable="false">
           <template slot-scope="scope">
-            <el-button @click.native.prevent="importRepairer(scope.$index)" size="small">导入</el-button>
+            <el-button v-if="!importing" @click.native.prevent="importRepairer(scope.$index)" size="small">导入</el-button>
+            <el-button v-if="importing" @click.native.prevent="deleteImportedRepairer()" type="danger" size="small">移除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -63,6 +64,7 @@ export default {
     return {
       keyword: "",
       dialogVisible: false,
+      importing: false,
       repairInfo: {
         repairId: "",
         houseId: "",
@@ -168,6 +170,11 @@ export default {
     },
     importRepairer(index) {
       this.selectedRepairerUsername = this.repairerInfo[index].username;
+      this.importing = true;
+    },
+    deleteImportedRepairer() {
+      this.selectedRepairerUsername = "";
+      this.importing = false;
     }
   },
   mounted() {
