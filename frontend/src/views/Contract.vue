@@ -2,7 +2,7 @@
   <el-main class="infoC">
     <el-page-header @back="goBack" content="订单详情"></el-page-header>
     <!--<p v-for="(item,key,index) in contractInfo" :key="key">{{contractLabel[index]}}:{{item}}</p>-->
-    <p>订单编号: {{contractInfo.contractId}}</p>
+    <!-- <p>订单编号: {{contractInfo.contractId}}</p>
     <p>账号: {{contractInfo.username}}</p>
     <p>房源编号: {{contractInfo.houseId}}</p>
     <p>房源地址: {{contractInfo.houseLocation}}</p>
@@ -11,7 +11,50 @@
     <p>价格: {{contractInfo.price}}</p>
     <p>房源状态: {{contractInfo.housestatus}}</p>
     <p>订单状态: {{contractInfo.contractStatus}}</p>
-    <p>租房形式: {{contractInfo.rentType}}</p>
+    <p>租房形式: {{contractInfo.rentType}}</p>-->
+
+    <table border="0" cellspacing="20" style="margin: 0 auto;">
+      <tr>
+        <td>订单编号：</td>
+        <td>{{contractInfo.contractId}}</td>
+      </tr>
+      <tr>
+        <td>账号：</td>
+        <td>{{contractInfo.username}}</td>
+      </tr>
+      <tr>
+        <td>房源编号：</td>
+        <td>{{contractInfo.houseId}}</td>
+      </tr>
+      <tr>
+        <td>房源地址：</td>
+        <td>{{contractInfo.houseLocation}}</td>
+      </tr>
+      <tr>
+        <td>房源类型：</td>
+        <td>{{contractInfo.houseType}}</td>
+      </tr>
+      <tr>
+        <td>户主手机号:</td>
+        <td>{{contractInfo.ownerTel}}</td>
+      </tr>
+      <tr>
+        <td>价格:</td>
+        <td>{{contractInfo.price}}</td>
+      </tr>
+      <tr>
+        <td>房源状态：</td>
+        <td>{{contractInfo.housestatus}}</td>
+      </tr>
+      <tr>
+        <td>订单状态:</td>
+        <td>{{contractInfo.contractStatus}}</td>
+      </tr>
+      <tr>
+        <td>租房形式：</td>
+        <td>{{contractInfo.rentType}}</td>
+      </tr>
+    </table>
     <p v-if="contractInfo.contractStatus=='未审核'&&usertype==0">请等待审核通过</p>
     <p v-if="contractInfo.contractStatus=='未缴费'&&usertype==0">请尽快进行线下缴费</p>
     <p v-if="contractInfo.contractStatus=='未签订合同'&&usertype==0">请尽快导出并打印合同，进行线下签订</p>
