@@ -39,8 +39,8 @@ export default {
         evaluation: "",
         score: "",
         pic: [
-          "http://qbi3ylqqu.bkt.clouddn.com/6eKVd3ZUonkS5bd2",
-          "http://qbi3ylqqu.bkt.clouddn.com/7hXAE3tAQSLXyYa0"
+          /*"http://qbi3ylqqu.bkt.clouddn.com/6eKVd3ZUonkS5bd2",
+          "http://qbi3ylqqu.bkt.clouddn.com/7hXAE3tAQSLXyYa0"*/
         ]
       },
       complaintLabel: [
