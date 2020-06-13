@@ -85,7 +85,7 @@ public class GetRepair {
             map.put("repairId", String.valueOf(rs.getInt("repairId")));
             map.put("houseId", String.valueOf(rs.getInt("houseId")));
             map.put("content", rs.getString("content"));
-            map.put("status", RepairStatus.values()[rs.getInt("dealingStatus")].getText());
+            map.put("status", RepairStatus.values()[rs.getInt("status")].getText());
             map.put("evaluation", rs.getString("evaluation"));
             map.put("score", rs.getInt("score"));
             map.put("username", rs.getInt("username"));
