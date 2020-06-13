@@ -224,7 +224,7 @@ export default {
               let changeParams = {
                 userType: this.changeUserInfoForm.userType,
                 username: this.changeUserInfoForm.username,
-                password: this.changeUserInfo.password,
+                password: this.userInfo.password,
                 tel: this.changeUserInfoForm.tel.toString(),
                 email: this.changeUserInfoForm.email,
                 name: this.changeUserInfoForm.name,
