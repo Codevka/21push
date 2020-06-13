@@ -230,15 +230,6 @@ export default {
         if (valid) {
           this.submiting = true;
           this.manageUserInfoForm.tel = this.manageUserInfoForm.tel.toString();
-          let changeParams = {
-            username: this.manageUserInfoForm.username,
-            tel: this.manageUserInfoForm.tel,
-            email: this.manageUserInfoForm.email,
-            name: this.manageUserInfoForm.name,
-            city: this.manageUserInfoForm.city,
-            area: this.manageUserInfoForm.area,
-            province: this.manageUserInfoForm.province
-          };
           manageUserInfo(this.manageUserInfoForm).then(res => {
             if (res.data.result == true) {
               this.logining = false;
