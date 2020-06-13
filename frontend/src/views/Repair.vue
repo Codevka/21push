@@ -87,13 +87,14 @@ export default {
         "评价内容",
         "评分"
       ],
-      repairerInfo: [
+      repairerInfo: [],
+      /*repairerInfo: [
         {
-          username: "1234567",
+          username: "",
           name: "",
           tel: ""
         }
-      ],
+      ],*/
       selectedRepairerUsername: "",
       workOrderForm: {
         repairId: "",
