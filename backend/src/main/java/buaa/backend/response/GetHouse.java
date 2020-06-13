@@ -3,6 +3,7 @@ package buaa.backend.response;
 import buaa.backend.metadata.HouseStatus;
 import buaa.backend.metadata.HouseType;
 import buaa.backend.metadata.RentType;
+import buaa.backend.service.HouseRentCount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class GetHouse {
     @RequestMapping(value = "/getHouse", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         return jdbcTemplate.execute(con -> {
             String storedProc = "select * from House where houseId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
@@ -51,6 +52,12 @@ public class GetHouse {
             map.put("tel", rs.getString("ownerTel"));
             map.put("price", String.valueOf(rs.getInt("price")));
             map.put("housestatus", HouseStatus.values()[rs.getInt("houseStatus")].getText());
+//            if (HouseStatus.values()[rs.getInt("houseStatus")] == HouseStatus.INT) {
+//                map.put("housestatus", HouseStatus.INT.getText());
+//            } else {
+//                map.put("housestatus", (HouseRentCount.count(rs.getInt("houseId")) == rs.getInt("houseType") ?
+//                        HouseStatus.FULL : HouseStatus.OK).getText());
+//            }
             map.put("pic", rs.getString("pic").split(";"));
         }
         return map;

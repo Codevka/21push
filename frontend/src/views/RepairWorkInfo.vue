@@ -1,7 +1,55 @@
 <template>
   <el-main class="infoRwi">
     <el-page-header @back="goBack" content="维修详情"></el-page-header>
-    <p v-for="(item,key,index) in repairWorkInfo" :key="key">{{repairWorkLabel[index]}}:{{item}}</p>
+    <!-- <p v-for="(item,key,index) in repairWorkInfo" :key="key">{{repairWorkLabel[index]}}:{{item}}</p> -->
+    <tr>
+      <td>工单编号：</td>
+      <td>{{repairWorkInfo.repairWorkId}}</td>
+    </tr>
+    <tr>
+      <td>报修编号：</td>
+      <td>{{repairWorkInfo.repairId}}</td>
+    </tr>
+    <tr>
+      <td>房源编号：</td>
+      <td>{{repairWorkInfo.houseId}}</td>
+    </tr>
+    <tr>
+      <td>房源地址：</td>
+      <td>{{repairWorkInfo.location}}</td>
+    </tr>
+    <tr>
+      <td>报修内容：</td>
+      <td>{{repairWorkInfo.content}}</td>
+    </tr>
+    <tr>
+      <td>状态：</td>
+      <td>{{repairWorkInfo.status}}</td>
+    </tr>
+    <tr>
+      <td>回复：</td>
+      <td>{{repairWorkInfo.callback}}</td>
+    </tr>
+    <tr>
+      <td>评价：</td>
+      <td>{{repairWorkInfo.evaluation}}</td>
+    </tr>
+    <tr>
+      <td>租客手机号：</td>
+      <td>{{repairWorkInfo.tel}}</td>
+    </tr>
+    <div class="image">
+      <!-- <el-image v-for="url in repairInfo.pic" :key="url" :src="url" fit="scale-down" lazy></el-image> -->
+      <el-carousel v-if="repairWorkInfo.pic!=[]" :interval="5000" arrow="always" :width="500">
+        <el-carousel-item v-for="item in repairWorkInfo.pic" :key="item.id">
+          <el-row>
+            <el-col>
+              <el-image :src="item" fit="scale-down" />
+            </el-col>
+          </el-row>
+        </el-carousel-item>
+      </el-carousel>
+    </div>
     <el-button @click.native.prevent="dialogVisible = true" v-if="repairWorkInfo.status=='未处理'">回复工单</el-button>
     <el-dialog title="回复工单" :visible.sync="dialogVisible">
       <el-form :model="callbackForm" ref="callbackForm" :rules="rule">
@@ -28,7 +76,7 @@ export default {
         houseId: "",
         location: "",
         content: "",
-        pic: "",
+        pic: [],
         status: "未处理",
         callback: "",
         evaluation: "",
@@ -113,5 +161,9 @@ export default {
   background: #fff;
   padding: 30px 30px 30px 30px;
   border-radius: 30px;
+}
+.image {
+  margin: auto auto;
+  width: 500px;
 }
 </style>

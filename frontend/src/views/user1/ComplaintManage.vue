@@ -8,7 +8,7 @@
               slot="append"
               icon="el-icon-search"
               circle
-              @click.native.prevent="sComaplaints"
+              @click.native.prevent="sComplaints"
             ></el-button>
           </el-input>
         </el-form-item>
@@ -35,15 +35,15 @@ export default {
   data() {
     return {
       keyword: "",
-      //complaintData:[],
-      complaintData: [
+      complaintData: []
+      /*complaintData: [
         {
           comaplaintId: "1",
           houseId: "",
           username: "",
           status: ""
         }
-      ]
+      ]*/
     };
   },
   methods: {

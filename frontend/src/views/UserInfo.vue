@@ -2,13 +2,43 @@
   <el-container>
     <el-main class="info">
       <el-page-header @back="goBack" content="用户详情"></el-page-header>
-      <p>账号: {{userInfo.username}}</p>
+      <!-- <p>账号: {{userInfo.username}}</p>
       <p>手机: {{userInfo.tel}}</p>
       <p>邮箱: {{userInfo.email}}</p>
       <p>昵称: {{userInfo.name}}</p>
       <p>省份: {{userInfo.province}}</p>
       <p>城市: {{userInfo.city}}</p>
-      <p>地区: {{userInfo.area}}</p>
+      <p>地区: {{userInfo.area}}</p> -->
+      <table border="0" cellspacing="20" style="margin:0 auto;">
+      <tr>
+        <td>账号：</td>
+        <td>{{userInfo.username}}</td>
+      </tr>
+      <tr>
+        <td>手机：</td>
+        <td>{{userInfo.tel}}</td>
+      </tr>
+      <tr>
+        <td>邮箱：</td>
+        <td>{{userInfo.email}}</td>
+      </tr>
+      <tr>
+        <td>昵称：</td>
+        <td>{{userInfo.name}}</td>
+      </tr>
+      <tr>
+        <td>省份：</td>
+        <td>{{userInfo.province}}</td>
+      </tr>
+      <tr>
+        <td>城市：</td>
+        <td>{{userInfo.city}}</td>
+      </tr>
+      <tr>
+        <td>地区：</td>
+        <td>{{userInfo.area}}</td>
+      </tr>
+    </table>
       <el-button @click.native.prevent="change">修改个人信息</el-button>
       <el-button @click.native.prevent="payVisible = true">缴纳租金</el-button>
       <el-button @click.native.prevent="returnVisible = true">退回租金</el-button>
@@ -132,7 +162,7 @@ export default {
       payVisible: false,
       returnVisible: false,
       returnAmount: "",
-      payAmount: 0,
+      payAmount: "",
       payForm: {
         username: "",
         password: "",
@@ -200,7 +230,7 @@ export default {
       },
       manageUserInfoForm: {
         username: "",
-        tel: "",
+        tel: null,
         email: "",
         name: "",
         province: "",
@@ -229,15 +259,7 @@ export default {
       this.$refs.manageUserInfoForm.validate(valid => {
         if (valid) {
           this.submiting = true;
-          let changeParams = {
-            username: this.manageUserInfoForm.username,
-            tel: this.manageUserInfoForm.tel.toString(),
-            email: this.manageUserInfoForm.email,
-            name: this.manageUserInfoForm.name,
-            city: this.manageUserInfoForm.city,
-            area: this.manageUserInfoForm.area,
-            province: this.manageUserInfoForm.province
-          };
+          this.manageUserInfoForm.tel = this.manageUserInfoForm.tel.toString();
           manageUserInfo(this.manageUserInfoForm).then(res => {
             if (res.data.result == true) {
               this.logining = false;
@@ -247,8 +269,8 @@ export default {
               });
               this.submiting = false;
               //console.log(changeParams);
-              sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
-              this.$store.dispatch("commitLogin");
+              //sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
+              //this.$store.dispatch("commitLogin");
               this.dis = true;
               this.goBack();
             } else {
@@ -267,7 +289,8 @@ export default {
     pMoney() {
       this.paySubmiting = true;
       this.payForm.username = this.userInfo.username;
-      if (!Number.isInteger(this.payAmount) || this.payAmount < 0) {
+      let number = parseInt(this.payAmount);
+      if (this.payAmount != number.toString() || number < 0) {
         this.$message({
           type: "error",
           message: "缴纳金额必须是正整数"
@@ -275,7 +298,7 @@ export default {
         this.paySubmiting = false;
         return;
       }
-      this.payForm.amount = this.payAmount.toString();
+      this.payForm.amount = this.payAmount;
       console.log(this.payForm);
 
       payMoney(this.payForm).then(res => {
@@ -317,6 +340,13 @@ export default {
   mounted() {
     getUser({ username: this.$route.query.username }).then(res => {
       this.userInfo = res.data;
+      this.manageUserInfoForm.username = this.userInfo.username;
+      this.manageUserInfoForm.tel = Number.parseInt(this.userInfo.tel);
+      this.manageUserInfoForm.email = this.userInfo.email;
+      this.manageUserInfoForm.name = this.userInfo.name;
+      this.manageUserInfoForm.province = this.userInfo.province;
+      this.manageUserInfoForm.city = this.userInfo.city;
+      this.manageUserInfoForm.area = this.userInfo.area;
     });
   }
 };

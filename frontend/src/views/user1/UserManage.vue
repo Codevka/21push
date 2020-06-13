@@ -78,7 +78,7 @@ export default {
     }
   },
   mounted() {
-    isSuperAdmin().then(res => {
+    isSuperAdmin({username: this.$store.state.userInfo.username}).then(res => {
       this.isSAdmin = res.data.isSuperAdmin;
     });
   }

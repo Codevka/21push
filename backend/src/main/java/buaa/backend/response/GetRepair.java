@@ -25,7 +25,7 @@ public class GetRepair {
     @RequestMapping(value = "/getRepair", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         Map<String, Object> res = jdbcTemplate.execute(con -> {
             String storedProc = "select * from Repair where repairId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
@@ -33,7 +33,8 @@ public class GetRepair {
             return cs;
         }, this::getResult);
         assert res != null;
-        if (res.get("status").equals(RepairStatus.UNSOLVED.getText())) {
+        if (res.get("status").equals(RepairStatus.UNSOLVED.getText()) ||
+                res.get("status").equals(RepairStatus.DENY.getText())) {
             res.put("tel", "");
             res.put("callback", "");
         } else {
@@ -48,15 +49,17 @@ public class GetRepair {
                 Map<String, Object> m = new HashMap<>();
                 while (rs.next()) {
                     m.put("username", rs.getInt("username"));
+                    logger.trace("username is {}", rs.getInt("username"));
                     m.put("callback", rs.getString("callback"));
                 }
                 return m;
             });
             assert map != null;
+            logger.trace("map is {}", map);
             String tel = jdbcTemplate.execute((CallableStatementCreator) con -> {
                 String storedProc = "select * from Account where username = ?";
                 CallableStatement cs = con.prepareCall(storedProc);
-                cs.setInt(1, Integer.parseInt((String) map.get("username")));
+                cs.setInt(1, (Integer) map.get("username"));
                 return cs;
             }, cs -> {
                 cs.execute();
@@ -85,10 +88,10 @@ public class GetRepair {
             map.put("repairId", String.valueOf(rs.getInt("repairId")));
             map.put("houseId", String.valueOf(rs.getInt("houseId")));
             map.put("content", rs.getString("content"));
-            map.put("status", RepairStatus.values()[rs.getInt("dealingStatus")].getText());
+            map.put("status", RepairStatus.values()[rs.getInt("status")].getText());
             map.put("evaluation", rs.getString("evaluation"));
             map.put("score", rs.getInt("score"));
-            map.put("username", rs.getInt("username"));
+            map.put("username", String.valueOf(rs.getInt("username")));
             map.put("pic", rs.getString("pic").split(";"));
         }
         return map;

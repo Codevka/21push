@@ -23,7 +23,7 @@ public class GetComplaint {
     @RequestMapping(value = "/getComplaint", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         return jdbcTemplate.execute(con -> {
             String storedProc = "select * from Complaint where complaintId = ?";
             CallableStatement cs = con.prepareCall(storedProc);

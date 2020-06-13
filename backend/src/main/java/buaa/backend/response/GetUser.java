@@ -24,7 +24,7 @@ public class GetUser {
     @RequestMapping(value = "/getUser", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        logger.trace(body.toString());
+        logger.trace("body is {}", body);
         Map<String, Object> res = jdbcTemplate.execute(con -> {
             String storedProc = "select * from Account where username = ?";
             CallableStatement cs = con.prepareCall(storedProc);
@@ -32,7 +32,7 @@ public class GetUser {
             return cs;
         }, this::getResult);
         assert res != null;
-        logger.trace(res.toString());
+        logger.trace("res is {}", res);
         return res;
     }
 

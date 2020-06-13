@@ -23,7 +23,7 @@ public class Register {
     @CrossOrigin
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         Map<String, Object> result = jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "{call serverInsertNewAccount(?,?,?,?,?,?,?,?,?,?)}";
             CallableStatement cs = con.prepareCall(storedProc);
@@ -34,7 +34,7 @@ public class Register {
             if (Integer.parseInt((String) body.get("userType")) == UserType.RENTER.ordinal()) {
                 cs.setString(5, ((Long) body.get("tel")).toString());
             } else {
-            cs.setString(5, (String) body.get("tel"));
+                cs.setString(5, (String) body.get("tel"));
             }
             cs.setString(6, (String) body.get("area"));
             cs.setString(7, "nouse");
@@ -56,8 +56,10 @@ public class Register {
             return res;
         });
         if (Integer.parseInt((String) body.get("userType")) == UserType.RENTER.ordinal()) {
+            assert result != null;
             addMoneyAccount((String) result.get("username"));
         }
+        logger.trace("res is {}", result);
         return result;
     }
 

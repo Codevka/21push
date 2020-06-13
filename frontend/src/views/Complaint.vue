@@ -1,9 +1,65 @@
 <template>
   <el-main class="infoC">
     <el-page-header @back="goBack" content="投诉详情"></el-page-header>
-    <p v-for="(item,key,index) in showComplaintInfo" :key="key">{{complaintLabel[index]}}：{{item}}</p>
+    <!--<p v-for="(item,key,index) in showComplaintInfo" :key="key">{{complaintLabel[index]}}：{{item}}</p>-->
+    <!-- <p>投诉编号: {{complaintInfo.complaintId}}</p>
+    <p>房源编号: {{complaintInfo.houseId}}</p>
+    <p>投诉人账号: {{complaintInfo.username}}</p>
+    <p>投诉内容: {{complaintInfo.content}}</p>
+    <p>处理状态: {{complaintInfo.status}}</p>
+    <p>客服编号: {{complaintInfo.adminId}}</p>
+    <p>客服回复: {{complaintInfo.reply}}</p>
+    <p>评价内容: {{complaintInfo.evaluation}}</p>
+    <p>评分: {{complaintInfo.score}}</p>-->
+    <table border="0" cellspacing="20" style="margin: 0 auto;">
+      <tr>
+        <td>投诉编号：</td>
+        <td>{{complaintInfo.complaintId}}</td>
+      </tr>
+      <tr>
+        <td>房源编号：</td>
+        <td>{{complaintInfo.houseId}}</td>
+      </tr>
+      <tr>
+        <td>投诉人账号：</td>
+        <td>{{complaintInfo.username}}</td>
+      </tr>
+      <tr>
+        <td>投诉内容：</td>
+        <td>{{complaintInfo.content}}</td>
+      </tr>
+      <tr>
+        <td>处理状态：</td>
+        <td>{{complaintInfo.status}}</td>
+      </tr>
+      <tr>
+        <td>客服编号：</td>
+        <td>{{complaintInfo.adminId}}</td>
+      </tr>
+      <tr>
+        <td>客服回复：</td>
+        <td>{{complaintInfo.reply}}</td>
+      </tr>
+      <tr>
+        <td>评价内容：</td>
+        <td>{{complaintInfo.evaluation}}</td>
+      </tr>
+      <tr>
+        <td>评分：</td>
+        <td>{{complaintInfo.score}}</td>
+      </tr>
+    </table>
     <div class="image">
-      <el-image v-for="url in complaintInfo.pic" :key="url" :src="url" fit="scale-down"></el-image>
+      <!-- <el-image v-for="url in complaintInfo.pic" :key="url" :src="url" width="100px" height="100px" fit="scale-down" lazy></el-image> -->
+      <el-carousel v-if="complaintInfo.pic!=[]" :interval="5000" arrow="always" :width="500">
+        <el-carousel-item v-for="item in complaintInfo.pic" :key="item.id">
+          <el-row>
+            <el-col>
+              <el-image :src="item" fit="scale-down" />
+            </el-col>
+          </el-row>
+        </el-carousel-item>
+      </el-carousel>
     </div>
     <el-button @click.native.prevent="dialogVisible = true" v-if="complaintInfo.status=='未处理'">处理</el-button>
     <el-dialog title="处理投诉" :visible.sync="dialogVisible">
@@ -36,8 +92,8 @@ export default {
         evaluation: "",
         score: "",
         pic: [
-          "http://qbi3ylqqu.bkt.clouddn.com/6eKVd3ZUonkS5bd2",
-          "http://qbi3ylqqu.bkt.clouddn.com/7hXAE3tAQSLXyYa0"
+          // "http://qbi3ylqqu.bkt.clouddn.com/6eKVd3ZUonkS5bd2",
+          // "http://qbi3ylqqu.bkt.clouddn.com/7hXAE3tAQSLXyYa0"
         ]
       },
       complaintLabel: [
@@ -72,7 +128,7 @@ export default {
       this.$router.push("/user1/complaintManage");
     },
     makeComplaintReply() {
-      this.$refs.commentForm.validate(valid => {
+      this.$refs.replyForm.validate(valid => {
         if (valid) {
           this.replyForm.complaintId = this.complaintInfo.complaintId;
           this.replyForm.username = this.$store.state.userInfo.username;
@@ -139,6 +195,6 @@ export default {
 }
 .image {
   margin: auto auto;
-  width: 1200px;
+  width: 500px;
 }
 </style>

@@ -1,26 +1,92 @@
 <template>
   <el-main class="infoHi">
     <el-page-header @back="goBack" content="房源详情"></el-page-header>
-    <p v-for="(item,key,index) in houseInfo" :key="key">{{houseLabel[index]}}:{{item}}</p>
+    <!-- <p v-for="(item,key,index) in houseInfo" :key="key">{{houseLabel[index]}}:{{item}}</p> -->
+    <table border="0" cellspacing="20" style="margin:0 auto;">
+      <tr>
+        <td>房源编号：</td>
+        <td>{{houseInfo.houseId}}</td>
+      </tr>
+      <tr>
+        <td>省份：</td>
+        <td>{{houseInfo.province}}</td>
+      </tr>
+      <tr>
+        <td>城市：</td>
+        <td>{{houseInfo.city}}</td>
+      </tr>
+      <tr>
+        <td>地区：</td>
+        <td>{{houseInfo.area}}</td>
+      </tr>
+      <tr>
+        <td>地址：</td>
+        <td>{{houseInfo.address}}</td>
+      </tr>
+      <tr>
+        <td>租房形式：</td>
+        <td>{{houseInfo.rentType}}</td>
+      </tr>
+      <tr>
+        <td>房间类型：</td>
+        <td>{{houseInfo.houseType}}</td>
+      </tr>
+      <tr>
+        <td>介绍：</td>
+        <td>{{houseInfo.intro}}</td>
+      </tr>
+      <tr>
+        <td>户主电话：</td>
+        <td>{{houseInfo.tel}}</td>
+      </tr>
+      <tr>
+        <td>价格：</td>
+        <td>{{houseInfo.price}}</td>
+      </tr>
+      <tr>
+        <td>房源状态：</td>
+        <td>{{houseInfo.housestatus}}</td>
+      </tr>
+    </table>
+    <!--<p>房源编号：{{houseInfo.houseId}}</p>
+    <p>省份：{{houseInfo.province}}</p>
+    <p>城市：{{houseInfo.city}}</p>
+    <p>地区：{{houseInfo.area}}</p>
+    <p>地址：{{houseInfo.address}}</p>
+    <p>租房形式：{{houseInfo.rentType}}</p>
+    <p>房间类型：{{houseInfo.houseType}}</p>
+    <p>介绍：{{houseInfo.intro}}</p>
+    <p>户主电话：{{houseInfo.tel}}</p>
+    <p>价格：{{houseInfo.price}}</p>
+    <p>房源状态：{{houseInfo.housestatus}}</p>-->
     <div class="image">
-      <el-image v-for="url in pic" :key="url" :src="url" fit="scale-down" lazy></el-image>
+      <!-- <el-image v-for="url in pic" :key="url" :src="url" fit="scale-down" lazy></el-image> -->
+      <el-carousel v-if="pic!=[]" :interval="5000" arrow="always" :width="500">
+        <el-carousel-item v-for="item in pic" :key="item.id">
+          <el-row>
+            <el-col>
+              <el-image :src="item" fit="scale-down" />
+            </el-col>
+          </el-row>
+        </el-carousel-item>
+      </el-carousel>
     </div>
     <el-button @click.prevent.native="changeVisible=true" type="primary" plain round>修改房源信息</el-button>
     <el-button
       v-if="houseInfo.housestatus!='暂停出租'"
-      @click.prevent.native="stopRent"
+      @click.prevent.native="sRent"
       type="warning"
       plain
       round
     >暂停出租房源</el-button>
     <el-button
       v-if="houseInfo.housestatus=='暂停出租'"
-      @click.prevent.native="restoreRent"
+      @click.prevent.native="rRent"
       type="success"
       plain
       round
     >恢复出租房源</el-button>
-    <el-button @click.prevent.native="deleteRent" type="danger" plain round>删除房源</el-button>
+    <el-button @click.prevent.native="dRent" type="danger" plain round>删除房源</el-button>
     <el-dialog title="修改房源信息" :visible.sync="changeVisible">
       <el-form
         :model="changeHouseForm"
@@ -76,6 +142,7 @@ import { stopRent } from "../main";
 import { restoreRent } from "../main";
 import { deleteRent } from "../main";
 import { changeHouseInfo } from "../main";
+
 export default {
   data() {
     let cityCheck = (rule, value, callback) => {
@@ -111,6 +178,14 @@ export default {
     return {
       changeVisible: false,
       submiting: false,
+      actionPath: "https://upload-z2.qiniup.com", // 华南
+      photoUrl: "http://qbi3ylqqu.bkt.clouddn.com/", //! for test
+      limitNumber: 3,
+      postData: {
+        token: "",
+        key: ""
+      },
+      photoList: [],
       houseInfo: {
         houseId: "",
         province: "",
@@ -268,8 +343,11 @@ export default {
     cHouseInfo() {
       this.$refs.changeHouseForm.validate(valid => {
         if (valid) {
-          this.changeHouseForm.tel = this.changeHouseForm.tel.toString()
-          this.changeHouseForm.price = this.changeHouseForm.price.toString()
+          this.changeHouseForm.tel = this.changeHouseForm.tel.toString();
+          this.changeHouseForm.price = this.changeHouseForm.price.toString();
+          this.changeHouseForm.housestatus = this.houseInfo.housestatus;
+          // this.changeHouseForm.pic = this.pic;
+          console.log(this.changeHouseForm);
           changeHouseInfo(this.changeHouseForm).then(res => {
             if (res.data.result == true) {
               this.$message({
@@ -298,8 +376,19 @@ export default {
       this.pic = res.data.pic;
       if (this.houseInfo.rentType == "短租") this.houseInfo.price += "元/日";
       else this.houseInfo.price += "元/月";
+      this.changeHouseForm.houseId = this.houseInfo.houseId;
+      this.changeHouseForm.province = this.houseInfo.province;
+      this.changeHouseForm.city = this.houseInfo.city;
+      this.changeHouseForm.area = this.houseInfo.area;
+      this.changeHouseForm.address = this.houseInfo.address;
+      this.changeHouseForm.rentType = this.houseInfo.rentType;
+      this.changeHouseForm.houseType = this.houseInfo.houseType;
+      this.changeHouseForm.housestatus = this.houseInfo.housestatus;
+      this.changeHouseForm.intro = this.houseInfo.intro;
+      this.changeHouseForm.tel = Number.parseInt(this.houseInfo.tel);
+      this.changeHouseForm.price = Number.parseInt(this.houseInfo.price);
+      this.changeHouseForm.pic = this.pic;
     });
-    this.changeHouseForm = this.houseInfo;
   }
 };
 </script>

@@ -1,9 +1,55 @@
 <template>
   <el-main class="infoRepair">
     <el-page-header @back="goBack" content="报修详情"></el-page-header>
-    <p v-for="(item,key,index) in showRepairInfo" :key="key">{{repairLabel[index]}}：{{item}}</p>
+    <!-- <p v-for="(item,key,index) in showRepairInfo" :key="key">{{repairLabel[index]}}：{{item}}</p> -->
+    <table border="0" cellspacing="20" style="margin:0 auto;">
+      <tr>
+        <td>报修编号：</td>
+        <td>{{repairInfo.repairId}}</td>
+      </tr>
+      <tr>
+        <td>房源编号：</td>
+        <td>{{repairInfo.houseId}}</td>
+      </tr>
+      <tr>
+        <td>报修账号：</td>
+        <td>{{repairInfo.username}}</td>
+      </tr>
+      <tr>
+        <td>报修内容：</td>
+        <td>{{repairInfo.content}}</td>
+      </tr>
+      <tr>
+        <td>处理状态：</td>
+        <td>{{repairInfo.status}}</td>
+      </tr>
+      <tr>
+        <td>评价内容：</td>
+        <td>{{repairInfo.evaluation}}</td>
+      </tr>
+      <tr>
+        <td>评分：</td>
+        <td>{{repairInfo.score}}</td>
+      </tr>
+    </table>
+    <!--<p>报修编号：{{repairInfo.repairId}}</p>
+    <p>房源编号：{{repairInfo.houseId}}</p>
+    <p>报修账号：{{repairInfo.username}}</p>
+    <p>报修内容：{{repairInfo.content}}</p>
+    <p>处理状态：{{repairInfo.status}}</p>
+    <p>评价内容：{{repairInfo.evaluation}}</p>
+    <p>评分：{{repairInfo.score}}</p>-->
     <div class="image">
-      <el-image v-for="url in repairInfo.pic" :key="url" :src="url" fit="scale-down" lazy></el-image>
+      <!-- <el-image v-for="url in repairInfo.pic" :key="url" :src="url" fit="scale-down" lazy></el-image> -->
+      <el-carousel v-if="repairInfo.pic!=[]" :interval="5000" arrow="always" :width="500">
+        <el-carousel-item v-for="item in repairInfo.pic" :key="item.id">
+          <el-row>
+            <el-col>
+              <el-image :src="item" fit="scale-down" />
+            </el-col>
+          </el-row>
+        </el-carousel-item>
+      </el-carousel>
     </div>
     <el-button @click.native.prevent="dialogVisible = true" v-if="repairInfo.status=='未处理'">处理</el-button>
     <el-dialog title="处理报修" :visible.sync="dialogVisible">
@@ -25,7 +71,8 @@
         <el-table-column prop="tel" label="手机号" min-width="25%" :resizable="false"></el-table-column>
         <el-table-column fixed="right" label="操作" min-width="25%" :resizable="false">
           <template slot-scope="scope">
-            <el-button @click.native.prevent="importRepairer(scope.$index)" size="small">导入维修人员</el-button>
+            <el-button v-if="!importing" @click.native.prevent="importRepairer(scope.$index)" size="small">导入</el-button>
+            <el-button v-if="importing" @click.native.prevent="deleteImportedRepairer()" type="danger" size="small">移除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -47,6 +94,7 @@ export default {
     return {
       keyword: "",
       dialogVisible: false,
+      importing: false,
       repairInfo: {
         repairId: "",
         houseId: "",
@@ -71,13 +119,14 @@ export default {
         "评价内容",
         "评分"
       ],
-      repairerInfo: [
+      repairerInfo: [],
+      /*repairerInfo: [
         {
-          username: "1234567",
+          username: "",
           name: "",
           tel: ""
         }
-      ],
+      ],*/
       selectedRepairerUsername: "",
       workOrderForm: {
         repairId: "",
@@ -152,6 +201,11 @@ export default {
     },
     importRepairer(index) {
       this.selectedRepairerUsername = this.repairerInfo[index].username;
+      this.importing = true;
+    },
+    deleteImportedRepairer() {
+      this.selectedRepairerUsername = "";
+      this.importing = false;
     }
   },
   mounted() {
@@ -193,6 +247,6 @@ export default {
 }
 .image {
   margin: auto auto;
-  width: 1200px;
+  width: 500px;
 }
 </style>

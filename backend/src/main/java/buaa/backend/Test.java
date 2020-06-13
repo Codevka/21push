@@ -1,5 +1,6 @@
 package buaa.backend;
 
+import buaa.backend.service.HouseRentCount;
 import buaa.backend.service.Mail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCreator;
@@ -52,6 +53,11 @@ public class Test {
             return cs.getResultSet();
         });
         return res;
+    }
+
+    @RequestMapping("/fff")
+    public int tt() {
+        return HouseRentCount.count(1);
     }
 
     @RequestMapping("/ttt")

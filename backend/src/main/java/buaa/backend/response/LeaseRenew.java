@@ -21,12 +21,13 @@ public class LeaseRenew {
     @RequestMapping(value = "/leaseRenew", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
+        logger.trace("body is {}", body);
         Map<String, Object> result = new HashMap<>();
         jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "update Orders set contractDuration = contractDuration + ? where contractId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
-            cs.setInt(1, (Integer) result.get("month"));
-            cs.setInt(2, (Integer) result.get("contractId"));
+            cs.setInt(1, (Integer) body.get("month"));
+            cs.setInt(2, Integer.parseInt((String) body.get("contractId")));
             return cs;
         }, cs -> {
             cs.execute();

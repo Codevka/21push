@@ -26,7 +26,7 @@ public class NewHouse {
     @RequestMapping(value = "/newHouse", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
 //        System.out.println(body.get("test").getClass());
         jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "{call adminImportNewHouse(?,?,?,?,?,?,?,?,?,?,?)}";

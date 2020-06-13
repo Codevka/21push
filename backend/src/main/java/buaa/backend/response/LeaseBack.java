@@ -26,7 +26,7 @@ public class LeaseBack {
     @RequestMapping(value = "/leaseBack", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         Map<String, Object> result = jdbcTemplate.execute(con -> {
             String storedProc = "select * from Orders where contractId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
@@ -76,7 +76,9 @@ public class LeaseBack {
             cs.execute();
             return true;
         });
-        return result;
+        Map<String, Object> res = new HashMap<>();
+        res.put("result", true);
+        return res;
     }
 
     private Map<String, Object> getOrderResult(CallableStatement cs) throws SQLException {

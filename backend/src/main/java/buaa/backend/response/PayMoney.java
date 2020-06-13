@@ -1,5 +1,6 @@
 package buaa.backend.response;
 
+import buaa.backend.metadata.ContractStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,17 @@ public class PayMoney {
     @CrossOrigin
     @RequestMapping(value = "/payMoney", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        logger.trace(body.toString());
+        logger.trace("body is {}", body);
+        jdbcTemplate.execute((CallableStatementCreator) con -> {
+            String storedProc = "update Orders set status = ? where username = ? order by orderGenerateTime desc limit 1";
+            CallableStatement cs = con.prepareCall(storedProc);
+            cs.setInt(1, ContractStatus.FINISHED.ordinal());
+            cs.setInt(2, Integer.parseInt((String) body.get("username")));
+            return cs;
+        }, cs -> {
+            cs.execute();
+            return true;
+        });
         String pwd = jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "select * from Account where username = ?";
             CallableStatement cs = con.prepareCall(storedProc);

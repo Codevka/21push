@@ -22,12 +22,20 @@ public class SearchUsers {
     @RequestMapping(value = "/searchUsers", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
-        logger.trace(body.toString());
+        logger.trace("body is {}", body);
+        if (body.get("keyword").equals("")) {
+            return jdbcTemplate.execute(con -> {
+                String storedProc = "select * from Account where userType = ?";
+                CallableStatement cs = con.prepareCall(storedProc);
+                cs.setInt(1, UserType.RENTER.ordinal());
+                return cs;
+            }, this::getResult);
+        }
         List<Map<String, Object>> result = jdbcTemplate.execute(con -> {
             String storedProc = "select * from Account where username = ? and userType = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(1, Integer.parseInt((String) body.get("keyword")));
-            cs.setInt(1, UserType.RENTER.ordinal());
+            cs.setInt(2, UserType.RENTER.ordinal());
             return cs;
         }, this::getResult);
         assert result != null;
@@ -35,14 +43,16 @@ public class SearchUsers {
             String storedProc = "select * from Account where tel = ? and userType = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setString(1, (String) body.get("keyword"));
-            cs.setInt(1, UserType.RENTER.ordinal());
+            cs.setInt(2, UserType.RENTER.ordinal());
             return cs;
         }, this::getResult)));
         Map<String, Map<String, Object>> tmp = new HashMap<>();
         for (Map<String, Object> m : result) {
             tmp.put((String) m.get("username"), m);
         }
-        return new ArrayList<>(tmp.values());
+        List<Map<String, Object>> res = new ArrayList<>(tmp.values());
+        logger.trace("res is {}", res);
+        return res;
     }
 
     private List<Map<String, Object>> getResult(CallableStatement cs) throws SQLException {

@@ -1,16 +1,69 @@
 <template>
   <el-main class="infoC">
     <el-page-header @back="goBack" content="订单详情"></el-page-header>
-    <p v-for="(item,key,index) in contractInfo" :key="key">{{contractLabel[index]}}:{{item}}</p>
+    <!--<p v-for="(item,key,index) in contractInfo" :key="key">{{contractLabel[index]}}:{{item}}</p>-->
+    <!-- <p>订单编号: {{contractInfo.contractId}}</p>
+    <p>账号: {{contractInfo.username}}</p>
+    <p>房源编号: {{contractInfo.houseId}}</p>
+    <p>房源地址: {{contractInfo.houseLocation}}</p>
+    <p>房源类型: {{contractInfo.houseType}}</p>
+    <p>户主手机号: {{contractInfo.ownerTel}}</p>
+    <p>价格: {{contractInfo.price}}</p>
+    <p>房源状态: {{contractInfo.housestatus}}</p>
+    <p>订单状态: {{contractInfo.contractStatus}}</p>
+    <p>租房形式: {{contractInfo.rentType}}</p>-->
+
+    <table border="0" cellspacing="20" style="margin: 0 auto;">
+      <tr>
+        <td>订单编号：</td>
+        <td>{{contractInfo.contractId}}</td>
+      </tr>
+      <tr>
+        <td>账号：</td>
+        <td>{{contractInfo.username}}</td>
+      </tr>
+      <tr>
+        <td>房源编号：</td>
+        <td>{{contractInfo.houseId}}</td>
+      </tr>
+      <tr>
+        <td>房源地址：</td>
+        <td>{{contractInfo.houseLocation}}</td>
+      </tr>
+      <tr>
+        <td>房源类型：</td>
+        <td>{{contractInfo.houseType}}</td>
+      </tr>
+      <tr>
+        <td>户主手机号:</td>
+        <td>{{contractInfo.ownerTel}}</td>
+      </tr>
+      <tr>
+        <td>价格:</td>
+        <td>{{contractInfo.price}}</td>
+      </tr>
+      <tr>
+        <td>房源状态：</td>
+        <td>{{contractInfo.housestatus}}</td>
+      </tr>
+      <tr>
+        <td>订单状态:</td>
+        <td>{{contractInfo.contractStatus}}</td>
+      </tr>
+      <tr>
+        <td>租房形式：</td>
+        <td>{{contractInfo.rentType}}</td>
+      </tr>
+    </table>
     <p v-if="contractInfo.contractStatus=='未审核'&&usertype==0">请等待审核通过</p>
     <p v-if="contractInfo.contractStatus=='未缴费'&&usertype==0">请尽快进行线下缴费</p>
     <p v-if="contractInfo.contractStatus=='未签订合同'&&usertype==0">请尽快导出并打印合同，进行线下签订</p>
     <el-button
-      v-if="contractInfo.contractStatus=='已签订合同'&&contractInfo.rentType=='长租'&&usertype==0"
+      v-if="(contractInfo.contractStatus=='已签订合同'&&contractInfo.rentType=='长租'&&usertype==0)||(contractInfo.contractStatus=='已缴费'&&contractInfo.rentType=='短租'&&usertype==0)"
       @click.native.prevent="lBack"
     >退租</el-button>
     <el-button
-      v-if="contractInfo.contractStatus=='已签订合同'&&contractInfo.rentType=='长租'&&usertype==0"
+      v-if="(contractInfo.contractStatus=='已签订合同'&&contractInfo.rentType=='长租'&&usertype==0)||(contractInfo.contractStatus=='已缴费'&&contractInfo.rentType=='短租'&&usertype==0)"
       @click.native.prevent="dialogFormVisible = true"
     >续租</el-button>
     <el-button
@@ -58,15 +111,15 @@ export default {
         ownerTel: "",
         price: "",
         housestatus: "",
-        contractStatus: "已缴费",
-        rentType: "长租"
+        contractStatus: "",
+        rentType: ""
       },
       leaseBackForm: {
         contractId: ""
       },
       leaseRenewForm: {
         contractId: "",
-        month: ""
+        month: null
       },
       usertype: 0,
       //租房形式: 短租 长租
@@ -98,7 +151,8 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/user0/query");
+      if (this.usertype == 0) this.$router.push("/user0/query");
+      else if (this.usertype == 1) this.$router.push("/user1/rentManage");
     },
     lBack() {
       let params = { contractId: this.contractInfo.contractId };
@@ -108,16 +162,17 @@ export default {
             type: "success",
             message: "退租成功，请在线下门店退回租金"
           });
+          this.$router.push("/user0/query");
         } else {
           this.$message.error({
             message: "退租失败，请稍后再试"
           });
         }
-        this.$router.push("/user0/query");
       });
     },
     lRenew() {
       this.leaseRenewForm.contractId = this.contractInfo.contractId;
+      this.leaseRenewForm.month = this.leaseRenewForm.month.toString();
       //console.log(this.leaseRenewForm);
       leaseRenew(this.leaseRenewForm).then(res => {
         if (res.data.result == true) {
@@ -135,7 +190,8 @@ export default {
     },
     eContract() {
       this.exporting = true;
-      exportContract(this.contractInfo.contractId).then(res => {
+      let params = { contractId: this.contractInfo.contractId };
+      exportContract(params).then(res => {
         if (res.data.result == true) {
           const iframe = document.createElement("iframe");
           iframe.style.display = "none";
@@ -182,7 +238,7 @@ export default {
     }
   },
   mounted() {
-    getContract(this.$route.query.contractId).then(res => {
+    getContract({ contractId: this.$route.query.contractId }).then(res => {
       this.contractInfo = res.data;
     });
     this.usertype = this.$route.query.usertype;

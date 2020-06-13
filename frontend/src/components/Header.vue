@@ -1,6 +1,9 @@
 <template>
   <el-row class="header">
-    <el-col :span="20">
+    <el-col :class="logo" :span="2">
+      <img src="../assets/qj.png" alt />
+    </el-col>
+    <el-col :span="18">
       <el-menu
         :default-active="$route.path"
         class="menu"
@@ -28,7 +31,7 @@
     </el-col>
     <el-col :span="4">
       <div style="text-align:center">
-        <el-button class="button" v-if="userType>=0" @click.native="logout">退出登录</el-button>
+        <el-button class="button" v-if="userType>=0" @click.native="logout" type="danger">退出登录</el-button>
       </div>
     </el-col>
   </el-row>
@@ -78,5 +81,10 @@ export default {
 }
 .button {
   margin: 10px 0;
+}
+.logo img {
+  width: 80px;
+  height: 50px;
+  cursor: pointer;
 }
 </style>

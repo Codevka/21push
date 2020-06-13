@@ -23,7 +23,7 @@ public class Login {
     @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         Map<String, Object> result = new HashMap<>();
 
         //login with tel
@@ -35,7 +35,7 @@ public class Login {
             return cs;
         }, cs -> callLogin(cs, body));
         assert ok != null;
-        System.out.println("tel:" + ok);
+        logger.trace("login with tel:{}", ok);
         if (ok) {
             return jdbcTemplate.execute((CallableStatementCreator) con -> {
                 String storedProc = "select * from Account where tel = ?";
@@ -62,7 +62,7 @@ public class Login {
             return cs;
         }, cs -> callLogin(cs, body));
         assert ok != null;
-        System.out.println("username:" + ok);
+        logger.trace("login with username:{}", ok);
         if (ok) {
             return jdbcTemplate.execute((CallableStatementCreator) con -> {
                 String storedProc = "select * from Account where username = ?";
@@ -106,6 +106,7 @@ public class Login {
             result.put("city", rs.getString("city"));
             result.put("area", rs.getString("area"));
         }
+        logger.trace("user info:{}", result);
         return result;
     }
 }
