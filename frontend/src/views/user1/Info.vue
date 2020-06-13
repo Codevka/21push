@@ -235,7 +235,7 @@ export default {
               sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
               this.$store.dispatch("commitLogin");
               this.dis0 = false;
-              this.$router.push("/user1/info");
+              this.$router.push("/user1");
             } else {
               this.$message.error({
                 message: "信息修改失败,请稍后再试"
@@ -279,7 +279,7 @@ export default {
               sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
               this.$store.dispatch("commitLogin");
               this.dis1 = false;
-              this.$router.push("/user1/info");
+              this.$router.push("/user1");
             } else {
               this.$message.error({
                 message: "密码修改失败,请稍后再试"
