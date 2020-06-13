@@ -42,7 +42,7 @@ public class GetUserComplaint {
             Map<String, Object> tmp = new HashMap<>();
             tmp.put("complaintId", String.valueOf(rs.getInt("complaintId")));
             tmp.put("houseId", String.valueOf(rs.getInt("houseId")));
-            tmp.put("status", ComplaintStatus.values()[rs.getInt("status")].getText());
+            tmp.put("status", ComplaintStatus.values()[rs.getInt("dealingStatus")].getText());
             tmp.put("adminId", String.valueOf(rs.getInt("adminId")));
             res.add(tmp);
         }
