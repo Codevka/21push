@@ -2,13 +2,36 @@
   <el-container>
     <el-main class="info0">
       <h3>用户信息</h3>
-      <p>账号: {{userInfo.username}}</p>
-      <p>手机: {{userInfo.tel}}</p>
-      <p>邮箱: {{userInfo.email}}</p>
-      <p>昵称: {{userInfo.name}}</p>
-      <p>省份: {{userInfo.province}}</p>
-      <p>城市: {{userInfo.city}}</p>
-      <p>地区: {{userInfo.area}}</p>
+      <table border="0" cellspacing="20" style="margin:0 auto;">
+        <tr>
+          <td>账号:</td>
+          <td>{{userInfo.username}}</td>
+        </tr>
+        <tr>
+          <td>手机:</td>
+          <td>{{userInfo.tel}}</td>
+        </tr>
+        <tr>
+          <td>邮箱:</td>
+          <td>{{userInfo.email}}</td>
+        </tr>
+        <tr>
+          <td>昵称:</td>
+          <td>{{userInfo.name}}</td>
+        </tr>
+        <tr>
+          <td>省份:</td>
+          <td>{{userInfo.province}}</td>
+        </tr>
+        <tr>
+          <td>城市:</td>
+          <td>{{userInfo.city}}</td>
+        </tr>
+        <tr>
+          <td>地区:</td>
+          <td>{{userInfo.area}}</td>
+        </tr>
+      </table>
       <el-button @click.native.prevent="dis0=true">修改个人信息</el-button>
       <el-button @click.native.prevent="dis1=true">修改密码</el-button>
       <el-dialog :visible.sync="dis0" title="修改个人信息">
@@ -235,7 +258,7 @@ export default {
               sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
               this.$store.dispatch("commitLogin");
               this.dis0 = false;
-              this.mounted()
+              this.mounted();
               this.$router.push("/user0");
             } else {
               this.$message.error({
