@@ -97,7 +97,7 @@ public class DownLoad {
         data = data.replace("{{startDate}}", info.get("{{startDate}}"));
         data = data.replace("{{endDate}}", info.get("{{endDate}}"));
 
-//        System.out.println(String.join("\n", s));
+        logger.trace(data);
         return new ByteArrayInputStream(data.getBytes());
     }
 
