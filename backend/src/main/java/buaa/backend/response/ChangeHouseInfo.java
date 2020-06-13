@@ -27,7 +27,7 @@ public class ChangeHouseInfo {
     @RequestMapping(value = "/changeHouseInfo", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace(body.toString());
         jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "{call adminChangeHouseInfo(?,?,?,?,?,?,?,?,?,?,?)}";
             CallableStatement cs = con.prepareCall(storedProc);

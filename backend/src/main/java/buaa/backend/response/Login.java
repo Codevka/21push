@@ -23,7 +23,7 @@ public class Login {
     @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace(body.toString());
         Map<String, Object> result = new HashMap<>();
 
         //login with tel

@@ -27,7 +27,7 @@ public class RentHouse {
     @RequestMapping(value = "/rentHouse", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace(body.toString());
         Map<String, Object> result = new HashMap<>();
         List<?> t = jdbcTemplate.queryForList("select * from Orders where houseId = ?",
                 Integer.parseInt((String) body.get("houseId")));
@@ -59,7 +59,7 @@ public class RentHouse {
             cs.setInt(2, Integer.parseInt((String) body.get("houseId")));
             cs.setInt(3, Integer.parseInt((String) body.get("houseId")));
             cs.setDate(4, Date.valueOf((String) body.get("rentTime")));
-            cs.setInt(5, Integer.parseInt((String) body.get("rentDuration")) * i[1]);
+            cs.setInt(5, ((Integer) body.get("rentDuration")) * i[1]);
             return cs;
         }, cs -> {
             cs.execute();
