@@ -181,10 +181,6 @@ export default {
                 message: "导入成功"
               });
               RegisterParams.username = res.data.username;
-              sessionStorage.setItem(
-                "userInfo",
-                JSON.stringify(RegisterParams)
-              );
               this.$notify({
                 title: "该用户的账号是",
                 message: res.data.username,

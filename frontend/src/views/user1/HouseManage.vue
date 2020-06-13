@@ -34,8 +34,8 @@ export default {
   data() {
     return {
       keyword: "",
-      //houseData: []
-      houseData: [
+      houseData: []
+      /*houseData: [
         {
           houseId: "",
           area: "",
@@ -44,7 +44,7 @@ export default {
           houseType: "",
           status: "未租满"
         }
-      ]
+      ]*/
     };
   },
   methods: {

@@ -116,8 +116,8 @@ export default {
         province: "",
         city: "",
         area: "",
-        address: "123123",
-        rentType: "短租",
+        address: "",
+        rentType: "",
         houseType: "",
         intro: "",
         tel: "",
@@ -292,7 +292,7 @@ export default {
     }
   },
   mounted() {
-    getHouse({ houseId: this.route.query.houseId }).then(res => {
+    getHouse({ houseId: this.$route.query.houseId }).then(res => {
       this.houseInfo = res.data;
       delete this.houseInfo.pic;
       this.pic = res.data.pic;
