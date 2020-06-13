@@ -26,10 +26,10 @@ public class DeleteRent {
         logger.trace("body is {}", body);
         Map<String, Object> result = new HashMap<>();
         //TODO 可删已出租词源
-        if (HouseRentCount.count(Integer.parseInt((String) body.get("houseId"))) != 0) {
-            result.put("result", false);
-            return result;
-        }
+//        if (HouseRentCount.count(Integer.parseInt((String) body.get("houseId"))) != 0) {
+//            result.put("result", false);
+//            return result;
+//        }
         jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "delete from House where houseId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
