@@ -276,7 +276,7 @@ export default {
         this.paySubmiting = false;
         return;
       }
-      this.payForm.amount = this.payAmount.toString();
+      this.payForm.amount = this.payAmount;
       console.log(this.payForm);
 
       payMoney(this.payForm).then(res => {
