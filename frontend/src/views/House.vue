@@ -70,8 +70,8 @@ export default {
         housestatus: ""
       },
       pic: [
-        /*"http://qbi3ylqqu.bkt.clouddn.com/6eKVd3ZUonkS5bd2",
-        "http://qbi3ylqqu.bkt.clouddn.com/7hXAE3tAQSLXyYa0"*/
+        // "http://qbi3ylqqu.bkt.clouddn.com/6eKVd3ZUonkS5bd2",
+        // "http://qbi3ylqqu.bkt.clouddn.com/7hXAE3tAQSLXyYa0"
       ],
       houseLabel: [
         "房源编号",

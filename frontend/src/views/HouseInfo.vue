@@ -308,6 +308,7 @@ export default {
         if (valid) {
           this.changeHouseForm.tel = this.changeHouseForm.tel.toString();
           this.changeHouseForm.price = this.changeHouseForm.price.toString();
+          this.changeHouseForm.pic = this.pic;
           changeHouseInfo(this.changeHouseForm).then(res => {
             if (res.data.result == true) {
               this.$message({
