@@ -56,7 +56,7 @@ public class GetRepair {
             String tel = jdbcTemplate.execute((CallableStatementCreator) con -> {
                 String storedProc = "select * from Account where username = ?";
                 CallableStatement cs = con.prepareCall(storedProc);
-                cs.setInt(1, Integer.parseInt((String) map.get("username")));
+                cs.setInt(1, (Integer) map.get("username"));
                 return cs;
             }, cs -> {
                 cs.execute();
