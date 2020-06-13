@@ -34,10 +34,10 @@
           <p style="font-size:10px" v-if="houseInfo.rentType=='长租'">(长租的租房开始时间为每月一号)</p>
         </el-form-item>
         <el-form-item label="月数" label-width="100px" v-if="houseInfo.rentType=='长租'">
-          <el-input-number v-model="rentHouseForm.rentDuration" :min="1"></el-input-number>
+          <el-input-number v-model.number="rentHouseForm.rentDuration" :min="1"></el-input-number>
         </el-form-item>
         <el-form-item label="天数" label-width="100px" v-if="houseInfo.rentType=='短租'">
-          <el-input-number v-model="rentHouseForm.rentDuration" :min="1"></el-input-number>
+          <el-input-number v-model.number="rentHouseForm.rentDuration" :min="1"></el-input-number>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -59,7 +59,7 @@ export default {
         city: "",
         area: "",
         address: "",
-        rentType: "",
+        rentType: "长租",
         houseType: "",
         intro: "",
         tel: "",
