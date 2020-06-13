@@ -48,11 +48,13 @@ public class GetRepair {
                 Map<String, Object> m = new HashMap<>();
                 while (rs.next()) {
                     m.put("username", rs.getInt("username"));
+                    logger.trace("username is {}", rs.getInt("username"));
                     m.put("callback", rs.getString("callback"));
                 }
                 return m;
             });
             assert map != null;
+            logger.trace("map is {}", map);
             String tel = jdbcTemplate.execute((CallableStatementCreator) con -> {
                 String storedProc = "select * from Account where username = ?";
                 CallableStatement cs = con.prepareCall(storedProc);
