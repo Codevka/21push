@@ -27,7 +27,7 @@ public class SearchRepairers {
     @RequestMapping(value = "/searchRepairers", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         jdbcTemplate.execute(con -> {
             String storedProc = "select * from Account where username = ?";
             CallableStatement cs = con.prepareCall(storedProc);

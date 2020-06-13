@@ -22,7 +22,7 @@ public class DealApplication {
     @RequestMapping(value = "/dealApplication", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "update Orders set status = ? where contractId = ?";
             CallableStatement cs = con.prepareCall(storedProc);

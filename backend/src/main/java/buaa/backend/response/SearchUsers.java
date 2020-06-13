@@ -22,7 +22,7 @@ public class SearchUsers {
     @RequestMapping(value = "/searchUsers", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
-        logger.trace(body.toString());
+        logger.trace("body is {}", body);
         List<Map<String, Object>> result = jdbcTemplate.execute(con -> {
             String storedProc = "select * from Account where username = ? and userType = ?";
             CallableStatement cs = con.prepareCall(storedProc);

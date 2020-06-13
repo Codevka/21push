@@ -22,7 +22,7 @@ public class StopRent {
     @RequestMapping(value = "/stopRent", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         Boolean r = jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "{call adminCloseHouse(?,?)}";
             CallableStatement cs = con.prepareCall(storedProc);

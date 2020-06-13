@@ -23,7 +23,7 @@ public class ChangeUserPassword {
     @RequestMapping(value = "/changeUserPassword", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         Map<String, Object> result = new HashMap<>();
         jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "update Account set password = ? where username = ?";

@@ -29,7 +29,7 @@ public class SearchHouses {
     @RequestMapping(value = "/searchHouses", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         String key = "%" + body.get("keyword") + "%";
         ht = Integer.parseInt((String) body.get("houseType"));
         rt = Integer.parseInt((String) body.get("rentType"));

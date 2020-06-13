@@ -25,7 +25,7 @@ public class GetUserComplaint {
     @RequestMapping(value = "/gtUserComplaint", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         return jdbcTemplate.execute(con -> {
             String storedProc = "select * from Complaint where username = ?";
             CallableStatement cs = con.prepareCall(storedProc);

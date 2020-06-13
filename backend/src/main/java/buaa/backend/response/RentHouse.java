@@ -27,7 +27,7 @@ public class RentHouse {
     @RequestMapping(value = "/rentHouse", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        logger.trace(body.toString());
+        logger.trace("body is {}", body);
         Map<String, Object> result = new HashMap<>();
         List<?> t = jdbcTemplate.queryForList("select * from Orders where houseId = ?",
                 Integer.parseInt((String) body.get("houseId")));

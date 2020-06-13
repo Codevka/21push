@@ -27,7 +27,7 @@ public class SearchAllHouses {
     @RequestMapping(value = "/searchAllHouses", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         String key = "%" + body.get("keyword") + "%";
         List<Map<String, Object>> result = jdbcTemplate.execute(con -> {
             String storedProc = "select * from House where address like ? or intro like ?";

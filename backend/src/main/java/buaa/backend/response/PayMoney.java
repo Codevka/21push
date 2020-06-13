@@ -21,7 +21,7 @@ public class PayMoney {
     @CrossOrigin
     @RequestMapping(value = "/payMoney", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        logger.trace(body.toString());
+        logger.trace("body is {}", body);
         String pwd = jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "select * from Account where username = ?";
             CallableStatement cs = con.prepareCall(storedProc);

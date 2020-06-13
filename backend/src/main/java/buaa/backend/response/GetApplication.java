@@ -25,7 +25,7 @@ public class GetApplication {
     @RequestMapping(value = "/getApplication", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         List<Map<String, Object>> result = jdbcTemplate.execute(con -> {
             String storedProc = "select * from Orders where status = 0";
             return con.prepareCall(storedProc);
