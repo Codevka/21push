@@ -65,7 +65,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 export /**
  * 用户注册
- * @param {userType, password, tel, email, name, province, city, area} params 
+ * @param {userType, password, tel, email, name, province, city, area} params
  * 用户类型("0":租客 "1":客服 "2":维修人员), 密码, 手机, 邮箱, 昵称, 省, 市, 地
  * @returns {result,username} result:true为成功 username:账号
  */
@@ -468,8 +468,8 @@ export /**
 
 export /**
  * 修改房源信息
- * @param {houseId, province, city, area, address, rentType, houseType, intro, tel, price, housestatus}
- *          房源编号,省份,城市,地区,具体地址,租房类型,房间类型,介绍,户主手机号,价格,房源状态
+ * @param {houseId, province, city, area, address, rentType, houseType, intro, tel, price, pic, housestatus}
+ *          房源编号,省份,城市,地区,具体地址,租房类型,房间类型,介绍,户主手机号,价格,图片列表,房源状态
  * @returns result: true为成功
  */
   const changeHouseInfo = (params) => {
