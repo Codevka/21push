@@ -52,6 +52,7 @@ public class SearchComplaints {
         for (Map<String, Object> m : result) {
             tmp.put((String) m.get("complaintId"), m);
         }
+        logger.trace("res is {}", tmp.values());
         return new ArrayList<>(tmp.values());
     }
 
