@@ -22,7 +22,7 @@ public class ChangeUserInfo {
     @CrossOrigin
     @RequestMapping(value = "/changeUserInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+        logger.trace("body is {}", body);
         jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "update Account set name = ?,tel = ?,area = ?," +
                     "province = ?,city = ?,email = ?,userType = ? where username = ?";
@@ -42,6 +42,7 @@ public class ChangeUserInfo {
         });
         Map<String, Object> result = new HashMap<>();
         result.put("result", true);
+        logger.trace("res is {}", result);
         return result;
     }
 }

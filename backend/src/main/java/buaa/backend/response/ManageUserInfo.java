@@ -20,7 +20,7 @@ public class ManageUserInfo {
     @CrossOrigin
     @RequestMapping(value = "/manageUserInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
-        logger.trace(body.toString());
+        logger.trace("body is {}", body);
         jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "update Account set name = ?,tel = ?,area = ?," +
                     "province = ?,city = ?,email = ? where username = ?";
@@ -39,7 +39,7 @@ public class ManageUserInfo {
         });
         Map<String, Object> result = new HashMap<>();
         result.put("result", true);
-        logger.trace(result.toString());
+        logger.trace("res is {}", result);
         return result;
     }
 }
