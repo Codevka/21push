@@ -8,7 +8,7 @@
     <p>地区：{{houseInfo.area}}</p>
     <p>地址：{{houseInfo.address}}</p>
     <p>租房形式：{{houseInfo.rentType}}</p>
-    <p>房间类型：{{houeInfo.houseType}}</p>
+    <p>房间类型：{{houseInfo.houseType}}</p>
     <p>介绍：{{houseInfo.intro}}</p>
     <p>户主电话：{{houseInfo.tel}}</p>
     <p>价格：{{houseInfo.price}}</p>
