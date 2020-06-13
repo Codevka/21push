@@ -290,6 +290,7 @@ export default {
         if (valid) {
           this.changeHouseForm.tel = this.changeHouseForm.tel.toString();
           this.changeHouseForm.price = this.changeHouseForm.price.toString();
+          this.changeHouseForm.status = this.houseInfo.status;
           // this.changeHouseForm.pic = this.pic;
           console.log(this.changeHouseForm);
           changeHouseInfo(this.changeHouseForm).then(res => {
