@@ -19,6 +19,16 @@ dependencies {
     compile 'com.itextpdf:itextpdf:5.5.9'
     compile 'com.itextpdf:itext-asian:5.2.0'
     compile 'com.itextpdf.tool:xmlworker:5.5.9'
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-aop")
+    compile("org.springframework:spring-context-support")
+
+    compile 'com.itextpdf:itextpdf:5.5.9'
+    compile 'com.itextpdf:itext-asian:5.2.0'
+    compile 'com.itextpdf.tool:xmlworker:5.5.9'
+
+    //compile 'com.itextpdf:itext-xtra:5.5.8'
+
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'

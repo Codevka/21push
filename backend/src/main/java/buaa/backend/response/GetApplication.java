@@ -1,9 +1,6 @@
 package buaa.backend.response;
 
 import buaa.backend.metadata.ContractStatus;
-import buaa.backend.metadata.HouseStatus;
-import buaa.backend.metadata.HouseType;
-import buaa.backend.metadata.RentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class GetApplication {
@@ -40,7 +40,7 @@ public class GetApplication {
             res.put("houseId", String.valueOf(rs.getInt("houseId")));
             res.put("rentTime", rs.getDate("rentTime").toString());
             res.put("orderGenerateTime", rs.getDate("orderGenerateTime").toString());
-            res.put("contractDuration", rs.getInt("contractDuration"));
+            res.put("contractDuration", String.valueOf(rs.getInt("contractDuration")));
             res.put("price", String.valueOf(rs.getInt("price")));
             res.put("contractStatus", ContractStatus.values()[rs.getInt("status")].getText());
             list.add(res);
