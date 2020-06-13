@@ -1,6 +1,8 @@
 package buaa.backend.response;
 
 import buaa.backend.metadata.UserType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,13 +16,10 @@ import java.util.Map;
 
 @RestController
 public class Register {
+    private static final Logger logger = LoggerFactory.getLogger(Register.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    /**
-     * @param body {username, password, tel, email, name, province, city, area} params 账号, 密码, 手机, 邮箱, 昵称, 省, 市, 地
-     * @return {result,username} result:true为成功 username:账号
-     */
     @CrossOrigin
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {

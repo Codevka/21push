@@ -3,6 +3,8 @@ package buaa.backend.response;
 import buaa.backend.metadata.HouseStatus;
 import buaa.backend.metadata.HouseType;
 import buaa.backend.metadata.RentType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,10 +19,11 @@ import java.util.Objects;
 
 @RestController
 public class ChangeHouseInfo {
+    private static final Logger logger = LoggerFactory.getLogger(ChangeHouseInfo.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @CrossOrigin//("http://localhost:8080")
+    @CrossOrigin
     @RequestMapping(value = "/changeHouseInfo", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {

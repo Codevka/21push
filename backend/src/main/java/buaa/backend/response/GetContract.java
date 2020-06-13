@@ -4,6 +4,8 @@ import buaa.backend.metadata.ContractStatus;
 import buaa.backend.metadata.HouseStatus;
 import buaa.backend.metadata.HouseType;
 import buaa.backend.metadata.RentType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +19,10 @@ import java.util.Objects;
 
 @RestController
 public class GetContract {
+    private static final Logger logger = LoggerFactory.getLogger(GetContract.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    /**
-     * @param body {contractId} params 订单编号
-     * @return {contractId, username, houseId, houseLocation, houseType, ownerTel, price, housestatus, contractStatus, rentType}
-     * 订单编号, 账号, 房源编号, 房源具体地址, 房间类型, 户主手机号, 价格, 房源状态 ,订单状态, 租房类型
-     */
     @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/getContract", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")

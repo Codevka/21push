@@ -1,5 +1,7 @@
 package buaa.backend.response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,13 +16,10 @@ import java.util.Map;
 
 @RestController
 public class Login {
+    private static final Logger logger = LoggerFactory.getLogger(Login.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    /**
-     * @param body {userType, username, password} params 用户类型:0租户 1客服 2维修师傅, 账号或手机, 密码
-     * @return result: true为成功, 成功时还返回:{userType, username, password, tel, email, name, province, city, area}
-     */
     @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {

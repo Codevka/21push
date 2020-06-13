@@ -1,6 +1,8 @@
 package buaa.backend.response;
 
 import buaa.backend.metadata.ComplaintStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -13,16 +15,10 @@ import java.util.Map;
 
 @RestController
 public class GetComplaint {
+    private static final Logger logger = LoggerFactory.getLogger(GetComplaint.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    /**
-     * @param body {complaintId} params 投诉编号
-     * @return {complaintId,houseId,content,status,adminId,reply,evaluation,score}
-     * 投诉编号, 房源编号, 投诉内容, 状态, 客服编号, 回复, 评价内容, 评分
-     * 状态: '未处理' '未评价' '已评价'
-     * 评分: range[1,5]
-     */
     @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/getComplaint", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")

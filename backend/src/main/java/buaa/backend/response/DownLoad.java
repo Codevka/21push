@@ -8,6 +8,8 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerFontProvider;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.ResourceUtils;
@@ -28,6 +30,7 @@ import java.util.*;
 
 @RestController
 public class DownLoad {
+    private static final Logger logger = LoggerFactory.getLogger(DownLoad.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
