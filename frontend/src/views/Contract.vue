@@ -76,7 +76,7 @@ export default {
       },
       leaseRenewForm: {
         contractId: "",
-        month: ""
+        month: null
       },
       usertype: 0,
       //租房形式: 短租 长租
@@ -128,6 +128,7 @@ export default {
     },
     lRenew() {
       this.leaseRenewForm.contractId = this.contractInfo.contractId;
+      this.leaseRenewForm.month = this.leaseRenewForm.month.toString();
       //console.log(this.leaseRenewForm);
       leaseRenew(this.leaseRenewForm).then(res => {
         if (res.data.result == true) {
