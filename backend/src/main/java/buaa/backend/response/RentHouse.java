@@ -1,5 +1,6 @@
 package buaa.backend.response;
 
+import buaa.backend.metadata.RentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,6 @@ public class RentHouse {
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         logger.trace("body is {}", body);
         Map<String, Object> result = new HashMap<>();
-        List<?> t = jdbcTemplate.queryForList("select * from Orders where houseId = ?",
-                Integer.parseInt((String) body.get("houseId")));
         int[] i = jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "select * from House where houseId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
@@ -47,6 +46,7 @@ public class RentHouse {
             return f;
         });
         assert i != null;
+        RentType r = RentType.values()[i[0]];
         if (i[0] == 0) {
             result.put("result", false);
             return result;
@@ -58,7 +58,7 @@ public class RentHouse {
             cs.setInt(1, Integer.parseInt((String) body.get("username")));
             cs.setInt(2, Integer.parseInt((String) body.get("houseId")));
             cs.setDate(3, Date.valueOf((String) body.get("rentTime")));
-            cs.setInt(4, Integer.parseInt((String) body.get("rentDuration")));
+            cs.setInt(4, (Integer) body.get("rentDuration"));
             cs.setInt(5, i[1]);
             return cs;
         }, cs -> {
@@ -72,4 +72,5 @@ public class RentHouse {
         result.put("result", true);
         return result;
     }
+
 }
