@@ -468,8 +468,8 @@ export /**
 
 export /**
  * 修改房源信息
- * @param {houseId, province, city, area, address, rentType, houseType, intro, tel, price, pic, housestatus}
- *          房源编号,省份,城市,地区,具体地址,租房类型,房间类型,介绍,户主手机号,价格,图片列表,房源状态
+ * @param {houseId, province, city, area, address, rentType, houseType, intro, tel, price, housestatus}
+ *          房源编号,省份,城市,地区,具体地址,租房类型,房间类型,介绍,户主手机号,价格,房源状态
  * @returns result: true为成功
  */
   const changeHouseInfo = (params) => {

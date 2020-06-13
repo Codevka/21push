@@ -76,21 +76,6 @@
         <el-form-item label="价格" prop="price">
           <el-input v-model.number="changeHouseForm.price" placeholder="每日或每月单价"></el-input>
         </el-form-item>
-        <el-upload
-          :multiple="true"
-          list-type="picture-card"
-          :on-remove="handleRemove"
-          :action="actionPath"
-          accept="image/jpeg, image/png, image/jpg"
-          :before-upload="beforeUpload"
-          :data="postData"
-          :file-list="photoList"
-          :on-success="handleSuccess"
-          :on-exceed="handleExceed"
-          :limit="limitNumber"
-        >
-          <i class="el-icon-plus"></i>
-        </el-upload>
         <el-button :loading="submiting" @click.native.prevent="cHouseInfo">确认修改</el-button>
       </el-form>
     </el-dialog>
@@ -98,12 +83,10 @@
 </template>
 <script>
 import { getHouse } from "../main";
-import { genToken } from "../genToken";
 import { stopRent } from "../main";
 import { restoreRent } from "../main";
 import { deleteRent } from "../main";
 import { changeHouseInfo } from "../main";
-import random from "string-random";
 
 export default {
   data() {
@@ -186,7 +169,6 @@ export default {
         intro: "",
         tel: null,
         price: null,
-        pic: [],
         housestatus: ""
       },
       rule: {
@@ -329,49 +311,6 @@ export default {
           });
         }
       });
-    },
-    beforeUpload(file) {
-      const checkFileType =
-        file.type === "image/jpeg" ||
-        file.type === "image/jpg" ||
-        file.type === "image/png";
-      const checkFileSize = file.size / 1024 / 1024 < 5;
-      if (!checkFileType) {
-        this.$message.error("上传图片必须是 jpeg/jpg/png 格式！");
-      }
-      if (!checkFileSize) {
-        this.$message.error("上传图片大小不能超过 5MB！");
-      }
-      if (checkFileType && checkFileSize) this.postData.key = random(16);
-      return checkFileType && checkFileSize;
-    },
-    handleSuccess(response) {
-      this.changeHouseForm.pic.push(this.photoUrl + response.key);
-      //console.log(this.photoUrl + response.key);
-      console.log(this.changeHouseForm.pic);
-    },
-    handleRemove(file) {
-      Array.prototype.remove = function(val) {
-        var index = this.indexOf(val);
-        if (index > -1) {
-          this.splice(index, 1);
-        }
-      };
-
-      if (file.url) {
-        let removePicture = file.url.substr(file.url.lastIndexOf("/"));
-        this.changeHouseForm.pic.remove(removePicture);
-        if (!this.changeHouseForm.pic.length) {
-          this.hasFmt = false;
-          this.$refs.image.validate();
-        }
-      }
-      if (file.response.key) {
-        this.changeHouseForm.pic.remove(this.photoUrl + file.response.key);
-      }
-    },
-    handleExceed() {
-      this.$message.warning("最多上传 3 张图片");
     }
   },
   mounted() {
@@ -393,23 +332,6 @@ export default {
       this.changeHouseForm.price = Number.parseInt(this.houseInfo.price);
       this.changeHouseForm.pic = this.pic;
     });
-  },
-  created() {
-    var token;
-    var policy = {};
-    // var bucketName = "21push";
-    // var AK = "K96MCAU7eCnSWz4XUbxIBe9Q9PUm_gBHfacmsAEf";
-    // var SK = "g0eagx-yjztmAo0iVi-Nj8QrsCRGrKhdGKIjpVr9";
-    var bucketName = "push21";
-    var AK = "slnMazKaSrCowN_nA5Y4i0QwFo62AaZKZQ8h2xOj";
-    var SK = "wh8pr5uMd8_SNCxdGZvEh8-Hzy11swN6UaXwhlCF";
-    var deadline = 1594028031; // 2020-07-06
-    policy.scope = bucketName;
-    policy.deadline = deadline;
-    token = genToken(AK, SK, policy);
-    this.postData.token = token;
-
-    //console.log("token = " + token);
   }
 };
 </script>
