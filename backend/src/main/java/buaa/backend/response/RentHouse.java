@@ -57,9 +57,9 @@ public class RentHouse {
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(1, Integer.parseInt((String) body.get("username")));
             cs.setInt(2, Integer.parseInt((String) body.get("houseId")));
-            cs.setInt(3, Integer.parseInt((String) body.get("houseId")));
-            cs.setDate(4, Date.valueOf((String) body.get("rentTime")));
-            cs.setInt(5, ((Integer) body.get("rentDuration")) * i[1]);
+            cs.setDate(3, Date.valueOf((String) body.get("rentTime")));
+            cs.setInt(4, Integer.parseInt((String) body.get("rentDuration")));
+            cs.setInt(5, i[1]);
             return cs;
         }, cs -> {
             cs.execute();
