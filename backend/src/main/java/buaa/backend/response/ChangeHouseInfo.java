@@ -29,7 +29,8 @@ public class ChangeHouseInfo {
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         logger.trace(body.toString());
         jdbcTemplate.execute((CallableStatementCreator) con -> {
-            String storedProc = "{call adminChangeHouseInfo(?,?,?,?,?,?,?,?,?,?,?)}";
+            //TODO
+            String storedProc = "{call adminChangeHouseInfo(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.registerOutParameter(1, Types.INTEGER);
             cs.setInt(2, Integer.parseInt((String) body.get("houseId")));
@@ -39,7 +40,7 @@ public class ChangeHouseInfo {
             cs.setString(6, (String) body.get("address"));
             cs.setInt(7, Objects.requireNonNull(RentType.fromString((String) body.get("rentType"))).ordinal());
             cs.setInt(8, Objects.requireNonNull(HouseType.fromString((String) body.get("houseType"))).ordinal());
-            cs.setString(9, "");
+            cs.setString(9, String.join(";", (List<String>) body.get("pic")));
             cs.setString(10, (String) body.get("intro"));
             cs.setString(11, (String) body.get("tel"));
             cs.setString(12, (String) body.get("price"));

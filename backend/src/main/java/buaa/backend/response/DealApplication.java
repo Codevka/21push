@@ -26,7 +26,9 @@ public class DealApplication {
         jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "update Orders set status = ? where contractId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
-            cs.setInt(1, ContractStatus.REFUSED.ordinal());
+            //TODO
+            cs.setInt(1, (Boolean.parseBoolean((String) body.get("isAccept")) ?
+                    ContractStatus.UNPAY : ContractStatus.REFUSED).ordinal());
             cs.setInt(2, Integer.parseInt((String) body.get("contractId")));
             return cs;
         }, cs -> {
