@@ -8,14 +8,14 @@
     <el-button @click.prevent.native="changeVisible=true" type="primary" plain round>修改房源信息</el-button>
     <el-button
       v-if="houseInfo.housestatus!='暂停出租'"
-      @click.prevent.native="stopRent"
+      @click.prevent.native="sRent"
       type="warning"
       plain
       round
     >暂停出租房源</el-button>
     <el-button
       v-if="houseInfo.housestatus=='暂停出租'"
-      @click.prevent.native="restoreRent"
+      @click.prevent.native="rRent"
       type="success"
       plain
       round
