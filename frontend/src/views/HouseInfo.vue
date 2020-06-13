@@ -14,7 +14,16 @@
     <p>价格：{{houseInfo.price}}</p>
     <p>房源状态：{{houseInfo.housestatus}}</p>
     <div class="image">
-      <el-image v-for="url in pic" :key="url" :src="url" fit="scale-down" lazy></el-image>
+      <!-- <el-image v-for="url in pic" :key="url" :src="url" fit="scale-down" lazy></el-image> -->
+      <el-carousel v-if="pic!=[]" :interval="5000" arrow="always" :width="500">
+        <el-carousel-item v-for="item in complaintInfo.pic" :key="item.id">
+          <el-row>
+            <el-col>
+              <el-image :src="item" fit="scale-down" />
+            </el-col>
+          </el-row>
+        </el-carousel-item>
+      </el-carousel>
     </div>
     <el-button @click.prevent.native="changeVisible=true" type="primary" plain round>修改房源信息</el-button>
     <el-button

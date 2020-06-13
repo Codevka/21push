@@ -108,7 +108,8 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/user0/query");
+      if (this.usertype == 0) this.$router.push("/user0/query");
+      else if (this.usertype == 1) this.$router.push("/user1/rentManage");
     },
     lBack() {
       let params = { contractId: this.contractInfo.contractId };
