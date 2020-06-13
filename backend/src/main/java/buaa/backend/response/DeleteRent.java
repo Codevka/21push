@@ -1,5 +1,6 @@
 package buaa.backend.response;
 
+import buaa.backend.service.HouseRentCount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,12 @@ public class DeleteRent {
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         logger.trace("body is {}", body);
+        Map<String, Object> result = new HashMap<>();
         //TODO 可删已出租词源
+        if (HouseRentCount.count(Integer.parseInt((String) body.get("houseId"))) != 0) {
+            result.put("result", false);
+            return result;
+        }
         jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "delete from House where houseId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
@@ -37,8 +43,8 @@ public class DeleteRent {
             }
             return true;
         });
-        Map<String, Object> result = new HashMap<>();
-        result.put("result", false);
+
+        result.put("result", true);
         return result;
     }
 }

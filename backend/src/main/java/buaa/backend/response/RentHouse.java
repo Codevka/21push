@@ -1,6 +1,7 @@
 package buaa.backend.response;
 
 import buaa.backend.metadata.RentType;
+import buaa.backend.service.HouseRentCount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +41,13 @@ public class RentHouse {
             int[] f = new int[2];
             ResultSet rs = cs.getResultSet();
             while (rs.next()) {
-                f[0] = rs.getInt("rentType");
+                f[0] = rs.getInt("houseType");
                 f[1] = rs.getInt("price");
             }
             return f;
         });
         assert i != null;
-        RentType r = RentType.values()[i[0]];
-        if (i[0] == 0) {
+        if (i[0] == HouseRentCount.count(Integer.parseInt((String) body.get("houseId")))) {
             result.put("result", false);
             return result;
         }
