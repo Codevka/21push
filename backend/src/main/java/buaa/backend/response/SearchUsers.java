@@ -35,14 +35,16 @@ public class SearchUsers {
             String storedProc = "select * from Account where tel = ? and userType = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setString(1, (String) body.get("keyword"));
-            cs.setInt(1, UserType.RENTER.ordinal());
+            cs.setInt(2, UserType.RENTER.ordinal());
             return cs;
         }, this::getResult)));
         Map<String, Map<String, Object>> tmp = new HashMap<>();
         for (Map<String, Object> m : result) {
             tmp.put((String) m.get("username"), m);
         }
-        return new ArrayList<>(tmp.values());
+        List<Map<String, Object>> res = new ArrayList<>(tmp.values());
+        logger.trace("res is {}", res);
+        return res;
     }
 
     private List<Map<String, Object>> getResult(CallableStatement cs) throws SQLException {
