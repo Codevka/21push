@@ -1,6 +1,9 @@
 <template>
   <el-row class="header">
-    <el-col :span="20">
+    <el-col :class="logo" :span="2">
+      <img src="../assets/qj.png" alt />
+    </el-col>
+    <el-col :span="18">
       <el-menu
         :default-active="$route.path"
         class="menu"
@@ -78,5 +81,10 @@ export default {
 }
 .button {
   margin: 10px 0;
+}
+.logo img {
+  width: 80px;
+  height: 50px;
+  cursor: pointer;
 }
 </style>
