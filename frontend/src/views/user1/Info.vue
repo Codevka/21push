@@ -235,6 +235,7 @@ export default {
               sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
               this.$store.dispatch("commitLogin");
               this.dis0 = false;
+              this.mounted()
               this.$router.push("/user1");
             } else {
               this.$message.error({

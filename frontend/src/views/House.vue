@@ -100,6 +100,7 @@ export default {
       this.rentHouseForm.username = this.$store.state.userInfo.username;
       this.rentHouseForm.rentType = this.houseInfo.rentType;
       this.rentHouseForm.houseId = this.houseInfo.houseId;
+      this.rentHouseForm.rentDuration = this.rentHouseForm.rentDuration.toString();
       if (this.rentHouseForm.rentTime == null) {
         this.$message({
           type: "warning",
