@@ -51,9 +51,12 @@ public class GetHouse {
             map.put("intro", rs.getString("intro"));
             map.put("tel", rs.getString("ownerTel"));
             map.put("price", String.valueOf(rs.getInt("price")));
-            map.put("housestatus", HouseStatus.OK.getText());
-//            map.put("housestatus", (HouseRentCount.count(rs.getInt("houseId")) == rs.getInt("houseType") ?
-//                    HouseStatus.FULL : HouseStatus.OK).getText());
+            if (HouseStatus.values()[rs.getInt("houseStatus")] == HouseStatus.INT) {
+                map.put("housestatus", HouseStatus.INT.getText());
+            } else {
+                map.put("housestatus", (HouseRentCount.count(rs.getInt("houseId")) == rs.getInt("houseType") ?
+                        HouseStatus.FULL : HouseStatus.OK).getText());
+            }
             map.put("pic", rs.getString("pic").split(";"));
         }
         return map;
