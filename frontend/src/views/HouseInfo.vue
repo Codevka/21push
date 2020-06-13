@@ -308,7 +308,8 @@ export default {
         if (valid) {
           this.changeHouseForm.tel = this.changeHouseForm.tel.toString();
           this.changeHouseForm.price = this.changeHouseForm.price.toString();
-          this.changeHouseForm.pic = this.pic;
+          // this.changeHouseForm.pic = this.pic;
+          console.log(this.changeHouseForm);
           changeHouseInfo(this.changeHouseForm).then(res => {
             if (res.data.result == true) {
               this.$message({
@@ -347,6 +348,7 @@ export default {
     handleSuccess(response) {
       this.changeHouseForm.pic.push(this.photoUrl + response.key);
       //console.log(this.photoUrl + response.key);
+      console.log(this.changeHouseForm.pic);
     },
     handleRemove(file) {
       Array.prototype.remove = function(val) {
