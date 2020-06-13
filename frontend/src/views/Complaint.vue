@@ -12,7 +12,16 @@
     <p>评价内容: {{complaintInfo.evaluation}}</p>
     <p>评分: {{complaintInfo.score}}</p>
     <div class="image">
-      <el-image v-for="url in complaintInfo.pic" :key="url" :src="url" fit="scale-down"></el-image>
+      <!-- <el-image v-for="url in complaintInfo.pic" :key="url" :src="url" width="100px" height="100px" fit="scale-down" lazy></el-image> -->
+      <el-carousel v-if="complaintInfo.pic!=[]" :interval="5000" arrow="always" :width="500">
+        <el-carousel-item v-for="item in complaintInfo.pic" :key="item.id">
+          <el-row>
+            <el-col>
+              <el-image :src="item" fit="scale-down" />
+            </el-col>
+          </el-row>
+        </el-carousel-item>
+      </el-carousel>
     </div>
     <el-button @click.native.prevent="dialogVisible = true" v-if="complaintInfo.status=='未处理'">处理</el-button>
     <el-dialog title="处理投诉" :visible.sync="dialogVisible">
@@ -148,6 +157,6 @@ export default {
 }
 .image {
   margin: auto auto;
-  width: 1200px;
+  width: 500px;
 }
 </style>

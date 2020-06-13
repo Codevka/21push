@@ -10,9 +10,18 @@
     <p>客服编号：{{complaintInfo.adminId}}</p>
     <p>客服回复：{{complaintInfo.reply}}</p>
     <p>评价内容：{{complaintInfo.evaluation}}</p>
-    <p>评分:{{complaintInfo.score}}</p>
+    <p>评分：{{complaintInfo.score}}</p>
     <div class="image">
-      <el-image v-for="url in complaintInfo.pic" :key="url" :src="url" fit="scale-down" lazy></el-image>
+      <!-- <el-image v-for="url in complaintInfo.pic" :key="url" :src="url" fit="scale-down" width="100px" height="100px" lazy></el-image> -->
+      <el-carousel v-if="complaintInfo.pic!=[]" :interval="5000" arrow="always" :width="500">
+        <el-carousel-item v-for="item in complaintInfo.pic" :key="item.id">
+          <el-row>
+            <el-col>
+              <el-image :src="item" fit="scale-down" />
+            </el-col>
+          </el-row>
+        </el-carousel-item>
+      </el-carousel>
     </div>
     <el-button @click.native.prevent="dialogVisible = true" v-if="complaintInfo.status=='未评价'">评价</el-button>
     <el-dialog title="评价" :visible.sync="dialogVisible">
