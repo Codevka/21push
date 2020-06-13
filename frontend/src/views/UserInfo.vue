@@ -132,7 +132,7 @@ export default {
       payVisible: false,
       returnVisible: false,
       returnAmount: "",
-      payAmount: 0,
+      payAmount: "",
       payForm: {
         username: "",
         password: "",
@@ -267,7 +267,8 @@ export default {
     pMoney() {
       this.paySubmiting = true;
       this.payForm.username = this.userInfo.username;
-      if (!Number.isInteger(this.payAmount) || this.payAmount < 0) {
+      let number = parseInt(this.payAmount);
+      if (this.payAmount != number.toString() || number < 0) {
         this.$message({
           type: "error",
           message: "缴纳金额必须是正整数"
@@ -275,7 +276,7 @@ export default {
         this.paySubmiting = false;
         return;
       }
-      this.payForm.amount = this.payAmount.toString();
+      this.payForm.amount = this.payAmount;
       console.log(this.payForm);
 
       payMoney(this.payForm).then(res => {
