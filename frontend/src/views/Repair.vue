@@ -32,7 +32,7 @@
         <el-table-column prop="tel" label="手机号" min-width="25%" :resizable="false"></el-table-column>
         <el-table-column fixed="right" label="操作" min-width="25%" :resizable="false">
           <template slot-scope="scope">
-            <el-button @click.native.prevent="importRepairer(scope.$index)" size="small">导入维修人员</el-button>
+            <el-button @click.native.prevent="importRepairer(scope.$index)" size="small">导入</el-button>
           </template>
         </el-table-column>
       </el-table>
