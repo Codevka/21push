@@ -16,11 +16,11 @@
     <p v-if="contractInfo.contractStatus=='未缴费'&&usertype==0">请尽快进行线下缴费</p>
     <p v-if="contractInfo.contractStatus=='未签订合同'&&usertype==0">请尽快导出并打印合同，进行线下签订</p>
     <el-button
-      v-if="contractInfo.contractStatus=='已签订合同'&&contractInfo.rentType=='长租'&&usertype==0"
+      v-if="(contractInfo.contractStatus=='已签订合同'&&contractInfo.rentType=='长租'&&usertype==0)||(contractInfo.contractStatus=='已缴费'&&contractInfo.rentType=='短租'&&usertype==0)"
       @click.native.prevent="lBack"
     >退租</el-button>
     <el-button
-      v-if="contractInfo.contractStatus=='已签订合同'&&contractInfo.rentType=='长租'&&usertype==0"
+      v-if="(contractInfo.contractStatus=='已签订合同'&&contractInfo.rentType=='长租'&&usertype==0)||(contractInfo.contractStatus=='已缴费'&&contractInfo.rentType=='短租'&&usertype==0)"
       @click.native.prevent="dialogFormVisible = true"
     >续租</el-button>
     <el-button
