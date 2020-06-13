@@ -9,10 +9,7 @@ import org.springframework.stereotype.Component;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class HouseRentCount {
@@ -41,7 +38,23 @@ public class HouseRentCount {
             cs.setInt(1, houseId);
             return cs;
         }, HouseRentCount::getResult);
-        return 0;
+        int cnt = 0;
+        assert res != null;
+        assert i != null;
+        for (Map<String, Object> map : res) {
+            Date dt = (Date) ((Date) map.get("rentTime")).clone();
+            Calendar c = Calendar.getInstance();
+            c.setTime(dt);
+            int t = i[1] == 1 ? Calendar.DATE : Calendar.MONTH;
+            c.add(t, (Integer) map.get("contractDuration"));
+            dt = c.getTime();
+            Date now = new Date(System.currentTimeMillis());
+            if (now.after(dt)) {
+                continue;
+            }
+            cnt++;
+        }
+        return cnt;
     }
 
     private static List<Map<String, Object>> getResult(CallableStatement cs) throws SQLException {
@@ -50,10 +63,8 @@ public class HouseRentCount {
         ResultSet rs = cs.getResultSet();
         while (rs.next()) {
             Map<String, Object> tmp = new HashMap<>();
-            tmp.put("complaintId", String.valueOf(rs.getInt("complaintId")));
-            tmp.put("houseId", String.valueOf(rs.getInt("houseId")));
-            tmp.put("username", String.valueOf(rs.getInt("username")));
-            tmp.put("status", ComplaintStatus.values()[rs.getInt("dealingStatus")].getText());
+            tmp.put("rentTime", rs.getDate("rentTime"));
+            tmp.put("contractDuration", rs.getInt("contractDuration"));
             res.add(tmp);
         }
         return res;

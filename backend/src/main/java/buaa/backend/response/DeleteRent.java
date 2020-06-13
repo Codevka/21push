@@ -38,7 +38,7 @@ public class DeleteRent {
             return true;
         });
         Map<String, Object> result = new HashMap<>();
-        result.put("result", true);
+        result.put("result", false);
         return result;
     }
 }
