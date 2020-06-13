@@ -67,7 +67,7 @@ export default {
           label: "短租"
         },
         {
-          value: "12",
+          value: "2",
           label: "长租"
         }
       ],
