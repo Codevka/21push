@@ -134,6 +134,8 @@ public class DownLoad {
         res.put("{{name}}", (String) info.get("name"));
         res.put("{{city}}", (String) info.get("city"));
         res.put("{{area}}", (String) info.get("area"));
+        res.put("{{province}}", (String) info.get("province"));
+        res.put("{{address}}", (String) info.get("address"));
         res.put("{{durationTime}}", String.valueOf(info.get("contractDuration")));
         res.put("{{price}}", String.valueOf(info.get("price")));
         Integer price = (Integer) info.get("price");
