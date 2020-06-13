@@ -8,10 +8,14 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerFontProvider;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,25 +79,28 @@ public class DownLoad {
 //        info.put("{{totalPrice}}", "fdgsd");
 //        info.put("{{startDate}}", "fdgsd");
 //        info.put("{{endDate}}", "fdgsd");
-        File file = ResourceUtils.getFile(info.get("temp"));
-        Scanner scanner = new Scanner(file);
-        List<String> list = new ArrayList<>();
-        while (scanner.hasNextLine()) {
-            list.add(scanner.nextLine());
+        String data = "";
+        ClassPathResource cpr = new ClassPathResource(info.get("temp"));
+        try {
+            byte[] bdata = FileCopyUtils.copyToByteArray(cpr.getInputStream());
+            data = new String(bdata, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            logger.warn("IOException");
+            e.printStackTrace();
         }
-        String[] s = list.stream().map(str -> {
-            String tmp = str.replace("{{name}}", info.get("{{name}}"));
-            tmp = tmp.replace("{{city}}", info.get("{{city}}"));
-            tmp = tmp.replace("{{area}}", info.get("{{area}}"));
-            tmp = tmp.replace("{{durationTime}}", info.get("{{durationTime}}"));
-            tmp = tmp.replace("{{price}}", info.get("{{price}}"));
-            tmp = tmp.replace("{{totalPrice}}", info.get("{{totalPrice}}"));
-            tmp = tmp.replace("{{startDate}}", info.get("{{startDate}}"));
-            tmp = tmp.replace("{{endDate}}", info.get("{{endDate}}"));
-            return tmp;
-        }).toArray(String[]::new);
-//        System.out.println(String.join("\n", s));
-        return new ByteArrayInputStream(String.join("\n", s).getBytes());
+        data = data.replace("{{name}}", info.get("{{name}}"));
+        data = data.replace("{{city}}", info.get("{{city}}"));
+        data = data.replace("{{province}}", info.get("{{province}}"));
+        data = data.replace("{{address}}", info.get("{{address}}"));
+        data = data.replace("{{area}}", info.get("{{area}}"));
+        data = data.replace("{{durationTime}}", info.get("{{durationTime}}"));
+        data = data.replace("{{price}}", info.get("{{price}}"));
+        data = data.replace("{{totalPrice}}", info.get("{{totalPrice}}"));
+        data = data.replace("{{startDate}}", info.get("{{startDate}}"));
+        data = data.replace("{{endDate}}", info.get("{{endDate}}"));
+
+//        logger.trace(data);
+        return new ByteArrayInputStream(data.getBytes());
     }
 
     private Map<String, String> getInfo(String contractId) {
@@ -120,9 +127,9 @@ public class DownLoad {
         }, this::getHouseResult)));
         Map<String, String> res = new HashMap<>();
         if ((Integer) info.get("rentType") == RentType.LONG.ordinal()) {
-            res.put("temp", "classpath:templates/LongContract.html");
+            res.put("temp", "templates/LongContract.html");
         } else {
-            res.put("temp", "classpath:templates/ShortContract.html");
+            res.put("temp", "templates/ShortContract.html");
         }
         res.put("{{name}}", (String) info.get("name"));
         res.put("{{city}}", (String) info.get("city"));
