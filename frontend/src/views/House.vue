@@ -133,7 +133,6 @@ export default {
   mounted() {
     getHouse({ houseId: this.$route.query.houseId }).then(res => {
       this.houseInfo = res.data;
-      delete this.houseInfo.pic;
       this.pic = res.data.pic;
       if (this.houseInfo.rentType == "短租") this.houseInfo.price += "元/日";
       else this.houseInfo.price += "元/月";

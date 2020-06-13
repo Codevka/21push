@@ -290,7 +290,7 @@ export default {
         if (valid) {
           this.changeHouseForm.tel = this.changeHouseForm.tel.toString();
           this.changeHouseForm.price = this.changeHouseForm.price.toString();
-          this.changeHouseForm.status = this.houseInfo.status;
+          this.changeHouseForm.housestatus = this.houseInfo.housestatus;
           // this.changeHouseForm.pic = this.pic;
           console.log(this.changeHouseForm);
           changeHouseInfo(this.changeHouseForm).then(res => {
@@ -328,6 +328,7 @@ export default {
       this.changeHouseForm.address = this.houseInfo.address;
       this.changeHouseForm.rentType = this.houseInfo.rentType;
       this.changeHouseForm.houseType = this.houseInfo.houseType;
+      this.changeHouseForm.housestatus = this.houseInfo.housestatus;
       this.changeHouseForm.intro = this.houseInfo.intro;
       this.changeHouseForm.tel = Number.parseInt(this.houseInfo.tel);
       this.changeHouseForm.price = Number.parseInt(this.houseInfo.price);
