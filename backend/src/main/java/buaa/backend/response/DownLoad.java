@@ -90,6 +90,8 @@ public class DownLoad {
         }
         data = data.replace("{{name}}", info.get("{{name}}"));
         data = data.replace("{{city}}", info.get("{{city}}"));
+        data = data.replace("{{province}}", info.get("{{province}}"));
+        data = data.replace("{{address}}", info.get("{{address}}"));
         data = data.replace("{{area}}", info.get("{{area}}"));
         data = data.replace("{{durationTime}}", info.get("{{durationTime}}"));
         data = data.replace("{{price}}", info.get("{{price}}"));
@@ -97,7 +99,7 @@ public class DownLoad {
         data = data.replace("{{startDate}}", info.get("{{startDate}}"));
         data = data.replace("{{endDate}}", info.get("{{endDate}}"));
 
-        logger.trace(data);
+//        logger.trace(data);
         return new ByteArrayInputStream(data.getBytes());
     }
 
