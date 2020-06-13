@@ -1,7 +1,5 @@
 package buaa.backend.service;
 
-import buaa.backend.metadata.ComplaintStatus;
-import buaa.backend.response.ChangeHouseInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +16,10 @@ import java.util.*;
 public class HouseRentCount {
     private static final Logger logger = LoggerFactory.getLogger(HouseRentCount.class);
     @Autowired
-    private static JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     public static int count(int houseId) {
-        int[] i = jdbcTemplate.execute((CallableStatementCreator) con -> {
+        int[] i = new HouseRentCount().jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "select * from House where houseId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(1, houseId);
@@ -40,7 +38,7 @@ public class HouseRentCount {
             }
             return f;
         });
-        List<Map<String, Object>> res = jdbcTemplate.execute(con -> {
+        List<Map<String, Object>> res = new HouseRentCount().jdbcTemplate.execute(con -> {
             String storedProc = "select * from Orders where houseId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(1, houseId);

@@ -88,7 +88,7 @@ public class GetRepair {
             map.put("status", RepairStatus.values()[rs.getInt("status")].getText());
             map.put("evaluation", rs.getString("evaluation"));
             map.put("score", rs.getInt("score"));
-            map.put("username", rs.getInt("username"));
+            map.put("username", String.valueOf(rs.getInt("username")));
             map.put("pic", rs.getString("pic").split(";"));
         }
         return map;

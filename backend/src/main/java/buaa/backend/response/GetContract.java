@@ -67,7 +67,7 @@ public class GetContract {
             res.put("houseType", HouseType.values()[rs.getInt("houseType")].getText());
             res.put("ownerTel", rs.getString("ownerTel"));
             res.put("housestatus", HouseStatus.values()[rs.getInt("houseStatus")].getText());
-            res.put("rentType", RentType.values()[rs.getInt("rentType")]);
+            res.put("rentType", RentType.values()[rs.getInt("rentType")].getText());
         }
         return res;
     }
