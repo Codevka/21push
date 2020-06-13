@@ -44,6 +44,14 @@ import { getComplaint } from "../main";
 import { submitComplaintComment } from "../main";
 export default {
   data() {
+    let scoreCheck = (rule, value, callback) => {
+      //console.log(value);
+      if (Number.isInteger(value) && value >= 1 && value <= 5) {
+        return callback();
+      } else {
+        return callback("评分不能为空");
+      }
+    };
     return {
       dialogVisible: false,
       complaintInfo: {
@@ -75,7 +83,7 @@ export default {
       commentForm: {
         complaintId: "",
         evaluation: "",
-        score: ""
+        score: null
       },
       rule: {
         evaluation: [
@@ -88,8 +96,7 @@ export default {
         score: [
           {
             required: true,
-            range: [1, 5],
-            message: "评分不能为空",
+            validator: scoreCheck,
             trigger: "blur"
           }
         ]
