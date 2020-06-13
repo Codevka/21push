@@ -200,7 +200,7 @@ export default {
       },
       manageUserInfoForm: {
         username: "",
-        tel: "",
+        tel: null,
         email: "",
         name: "",
         province: "",
@@ -318,6 +318,13 @@ export default {
   mounted() {
     getUser({ username: this.$route.query.username }).then(res => {
       this.userInfo = res.data;
+      this.manageUserInfoForm.username = this.userInfo.username;
+      this.manageUserInfoForm.tel = Number.parseInt(this.userInfo.tel);
+      this.manageUserInfoForm.email = this.userInfo.email;
+      this.manageUserInfoForm.name = this.userInfo.name;
+      this.manageUserInfoForm.province = this.userInfo.province;
+      this.manageUserInfoForm.city = this.userInfo.city;
+      this.manageUserInfoForm.area = this.userInfo.area;
     });
   }
 };
