@@ -193,7 +193,7 @@ export default {
     }
   },
   mounted() {
-    getContract(this.$route.query.contractId).then(res => {
+    getContract({ contractId: this.$route.query.contractId }).then(res => {
       this.contractInfo = res.data;
     });
     this.usertype = this.$route.query.usertype;
