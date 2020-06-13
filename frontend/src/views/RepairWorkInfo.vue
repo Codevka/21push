@@ -1,7 +1,16 @@
 <template>
   <el-main class="infoRwi">
     <el-page-header @back="goBack" content="维修详情"></el-page-header>
-    <p v-for="(item,key,index) in repairWorkInfo" :key="key">{{repairWorkLabel[index]}}:{{item}}</p>
+    <!-- <p v-for="(item,key,index) in repairWorkInfo" :key="key">{{repairWorkLabel[index]}}:{{item}}</p> -->
+        <p>工单编号：{{repairWorkInfo.repairWorkId}}</p>
+        <p>报修编号：{{repairWorkInfo.repairId}}</p>
+        <p>房源编号：{{repairWorkInfo.houseId}}</p>
+        <p>房源地址：{{repairWorkInfo.location}}</p>
+        <p>报修内容：{{repairWorkInfo.content}}</p>
+        <p>状态：{{repairWorkInfo.status}}</p>
+        <p>回复：{{repairWorkInfo.callback}}</p>
+        <p>评价：{{repairWorkInfo.evaluation}}</p>
+        <p>租客手机号：{{repairWorkInfo.tel}}</p>
     <el-button @click.native.prevent="dialogVisible = true" v-if="repairWorkInfo.status=='未处理'">回复工单</el-button>
     <el-dialog title="回复工单" :visible.sync="dialogVisible">
       <el-form :model="callbackForm" ref="callbackForm" :rules="rule">
