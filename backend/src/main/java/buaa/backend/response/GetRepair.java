@@ -33,7 +33,8 @@ public class GetRepair {
             return cs;
         }, this::getResult);
         assert res != null;
-        if (res.get("status").equals(RepairStatus.UNSOLVED.getText())) {
+        if (res.get("status").equals(RepairStatus.UNSOLVED.getText()) ||
+                res.get("status").equals(RepairStatus.DENY.getText())) {
             res.put("tel", "");
             res.put("callback", "");
         } else {
