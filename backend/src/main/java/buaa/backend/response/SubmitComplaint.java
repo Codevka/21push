@@ -24,8 +24,8 @@ public class SubmitComplaint {
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         logger.trace("body is {}", body);
         Map<String, Object> result = new HashMap<>();
-        result.put("result", true);
-        jdbcTemplate.execute((CallableStatementCreator) con -> {
+
+        Boolean b = jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "insert into Complaint (username, houseId, dealingStatus, content, pic)" +
                     " values(?,?,0,?,?) ";
             CallableStatement cs = con.prepareCall(storedProc);
@@ -35,9 +35,15 @@ public class SubmitComplaint {
             cs.setString(4, String.join(";", (List<String>) body.get("pic")));
             return cs;
         }, cs -> {
-            cs.execute();
-            return true;
+            try {
+                cs.execute();
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+
         });
+        result.put("result", b);
         return result;
     }
 }
