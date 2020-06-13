@@ -35,6 +35,7 @@ public class ChangeUserInfo {
             cs.setString(5, (String) body.get("city"));
             cs.setString(6, (String) body.get("email"));
             cs.setInt(7, Integer.parseInt((String) body.get("userType")));
+            cs.setInt(8, Integer.parseInt((String) body.get("username")));
             return cs;
         }, cs -> {
             cs.execute();
