@@ -147,7 +147,8 @@ export default {
     },
     eContract() {
       this.exporting = true;
-      exportContract(this.contractInfo.contractId).then(res => {
+      let params = { contractId: this.contractInfo.contractId };
+      exportContract(params).then(res => {
         if (res.data.result == true) {
           const iframe = document.createElement("iframe");
           iframe.style.display = "none";

@@ -2,15 +2,15 @@
   <el-main class="infoRi">
     <el-page-header @back="goBack" content="报修详情"></el-page-header>
     <!-- <p v-for="(item,key,index) in showRepairInfo" :key="key">{{repairLabel[index]}}:{{item}}</p> -->
-        <p>报修编号：{{repairInfo.repairId}}</p>
-        <p>房源编号：{{repairInfo.houseId}}</p>
-        <p>维修人员电话：{{repairInfo.tel}}</p>
-        <p>报修账号：{{repairInfo.username}}</p>
-        <p>报修内容：{{repairInfo.content}}</p>
-        <p>处理状态：{{repairInfo.status}}</p>
-        <p>维修反馈：{{repairInfo.callback}}</p>
-        <p>评价内容：{{repairInfo.evaluation}}</p>
-        <p>评分：{{repairInfo.score}}</p>
+    <p>报修编号：{{repairInfo.repairId}}</p>
+    <p>房源编号：{{repairInfo.houseId}}</p>
+    <p>维修人员电话：{{repairInfo.tel}}</p>
+    <p>报修账号：{{repairInfo.username}}</p>
+    <p>报修内容：{{repairInfo.content}}</p>
+    <p>处理状态：{{repairInfo.status}}</p>
+    <p>维修反馈：{{repairInfo.callback}}</p>
+    <p>评价内容：{{repairInfo.evaluation}}</p>
+    <p>评分：{{repairInfo.score}}</p>
     <div class="image">
       <!-- <el-image v-for="url in repairInfo.pic" :key="url" :src="url" fit="scale-down" lazy></el-image> -->
       <el-carousel v-if="repairInfo.pic!=[]" :interval="5000" arrow="always" :width="500">
