@@ -15,8 +15,8 @@
     <p>房源状态：{{houseInfo.housestatus}}</p>
     <div class="image">
       <!-- <el-image v-for="url in pic" :key="url" :src="url" fit="scale-down" lazy></el-image> -->
-      <el-carousel v-if="houseInfo.pic!=[]" :interval="5000" arrow="always" :width="500">
-        <el-carousel-item v-for="item in houseInfo.pic" :key="item.id">
+      <el-carousel v-if="pic!=[]" :interval="5000" arrow="always" :width="500">
+        <el-carousel-item v-for="item in pic" :key="item.id">
           <el-row>
             <el-col>
               <el-image :src="item" fit="scale-down" />
