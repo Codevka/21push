@@ -1,5 +1,6 @@
 package buaa.backend.response;
 
+import buaa.backend.metadata.ComplaintStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,12 @@ public class SubmitComplaintReply {
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         logger.trace("body is {}", body);
         jdbcTemplate.execute((CallableStatementCreator) con -> {
-            String storedProc = "update Complaint set reply = ?, adminID = ? where complaintId = ?";
+            String storedProc = "update Complaint set reply = ?, adminID = ?,dealingStatus = ?where complaintId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setString(1, (String) body.get("reply"));
             cs.setInt(2, Integer.parseInt((String) body.get("username")));
             cs.setInt(3, Integer.parseInt((String) body.get("complaintId")));
+            cs.setInt(4, ComplaintStatus.UNEVAL.ordinal());
             return cs;
         }, cs -> {
             cs.execute();
