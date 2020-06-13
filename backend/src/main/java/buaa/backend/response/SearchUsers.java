@@ -1,6 +1,8 @@
 package buaa.backend.response;
 
 import buaa.backend.metadata.UserType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import java.util.*;
 
 @RestController
 public class SearchUsers {
+    private static final Logger logger = LoggerFactory.getLogger(SearchUsers.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -19,19 +22,20 @@ public class SearchUsers {
     @RequestMapping(value = "/searchUsers", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
-        //TODO change to only search users
-        System.out.println(body);
+        logger.trace(body.toString());
         List<Map<String, Object>> result = jdbcTemplate.execute(con -> {
-            String storedProc = "select * from Account where username = ?";
+            String storedProc = "select * from Account where username = ? and userType = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(1, Integer.parseInt((String) body.get("keyword")));
+            cs.setInt(1, UserType.RENTER.ordinal());
             return cs;
         }, this::getResult);
         assert result != null;
         result.addAll(Objects.requireNonNull(jdbcTemplate.execute(con -> {
-            String storedProc = "select * from Account where tel = ?";
+            String storedProc = "select * from Account where tel = ? and userType = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setString(1, (String) body.get("keyword"));
+            cs.setInt(1, UserType.RENTER.ordinal());
             return cs;
         }, this::getResult)));
         Map<String, Map<String, Object>> tmp = new HashMap<>();

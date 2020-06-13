@@ -1,6 +1,8 @@
 package buaa.backend.response;
 
 import buaa.backend.metadata.ContractStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,6 +14,7 @@ import java.util.Map;
 
 @RestController
 public class DealApplication {
+    private static final Logger logger = LoggerFactory.getLogger(DealApplication.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 

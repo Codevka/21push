@@ -1,5 +1,7 @@
 package buaa.backend.response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -7,10 +9,8 @@ import java.util.Map;
 
 @RestController
 public class IsSuperAdmin {
-    /**
-     * @param body {username} params 账号
-     * @return isSuperAdmin: true为当前用户是超级管理员
-     */
+    private static final Logger logger = LoggerFactory.getLogger(IsSuperAdmin.class);
+
     @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/isSuperAdmin", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")

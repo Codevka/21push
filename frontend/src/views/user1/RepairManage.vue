@@ -30,15 +30,15 @@ export default {
   data() {
     return {
       keyword: "",
-      // repairData: []
-      repairData: [
+      repairData: []
+      /*repairData: [
         {
           repairId: "1",
           houseId: "",
           username: "",
           status: ""
         }
-      ]
+      ]*/
     };
   },
   methods: {

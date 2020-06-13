@@ -1,6 +1,8 @@
 package buaa.backend.response;
 
 import buaa.backend.metadata.ContractStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -12,15 +14,10 @@ import java.util.*;
 
 @RestController
 public class GetUserContract {
+    private static final Logger logger = LoggerFactory.getLogger(GetUserContract.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    /**
-     * @param body {username} params 账号
-     * @return [{contractId, houseId, rentTime, contractTime,contractDuration, price, status}]
-     * 订单编号,房源编号,租房时间,订单时间,订单持续时间,价格,状态
-     * 状态:'未审核' '未缴费' '已缴费'
-     */
     @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/getUserContract", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")

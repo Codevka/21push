@@ -1,6 +1,8 @@
 package buaa.backend.response;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,14 +15,11 @@ import java.util.Map;
 
 @RestController
 public class ChangeUserInfo {
+    private static final Logger logger = LoggerFactory.getLogger(ChangeUserInfo.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    /**
-     * @param body {userType, username, password, tel, email, name, province, city, area} params
-     * @return result: true为成功
-     */
-    @CrossOrigin//("http://localhost:8080")
+    @CrossOrigin
     @RequestMapping(value = "/changeUserInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         System.out.println(body);
@@ -35,6 +34,7 @@ public class ChangeUserInfo {
             cs.setString(5, (String) body.get("city"));
             cs.setString(6, (String) body.get("email"));
             cs.setInt(7, Integer.parseInt((String) body.get("userType")));
+            cs.setInt(8, Integer.parseInt((String) body.get("username")));
             return cs;
         }, cs -> {
             cs.execute();

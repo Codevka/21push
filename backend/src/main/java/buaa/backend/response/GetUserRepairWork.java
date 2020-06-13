@@ -1,6 +1,8 @@
 package buaa.backend.response;
 
 import buaa.backend.metadata.WorkStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -15,15 +17,10 @@ import java.util.Map;
 
 @RestController
 public class GetUserRepairWork {
+    private static final Logger logger = LoggerFactory.getLogger(GetUserRepairWork.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    /**
-     * @param body {username} params 账号
-     * @return [{repairWorkId, repairId, status, callback}]
-     * 维修工单编号, 报修编号, 状态, 回复内容
-     * 状态: '未处理' '已处理'
-     */
     @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/getUserRepairWork", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")

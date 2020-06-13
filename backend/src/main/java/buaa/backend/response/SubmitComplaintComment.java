@@ -1,5 +1,7 @@
 package buaa.backend.response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,13 +14,10 @@ import java.util.Map;
 
 @RestController
 public class SubmitComplaintComment {
+    private static final Logger logger = LoggerFactory.getLogger(SubmitComplaintComment.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    /**
-     * @param body {complaintId, evaluation, score} params 投诉编号, 评价内容, 评分
-     * @return result: true为成功
-     */
     @CrossOrigin//("http://localhost:8080")
     @RequestMapping(value = "/submitComplaintComment", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")

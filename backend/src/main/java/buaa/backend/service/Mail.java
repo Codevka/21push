@@ -24,6 +24,6 @@ public class Mail {
         message.setText(content);
         message.setFrom(from);
         mailSender.send(message);
-        logger.info("sent to {}, with content \"{}\"", to, content);
+        logger.trace("sent to {}, with content \"{}\"", to, content);
     }
 }
