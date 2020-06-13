@@ -64,7 +64,7 @@ public class SearchComplaints {
             tmp.put("complaintId", String.valueOf(rs.getInt("complaintId")));
             tmp.put("houseId", String.valueOf(rs.getInt("houseId")));
             tmp.put("username", String.valueOf(rs.getInt("username")));
-            tmp.put("status", ComplaintStatus.values()[rs.getInt("status")].getText());
+            tmp.put("status", ComplaintStatus.values()[rs.getInt("dealingStatus")].getText());
             res.add(tmp);
         }
         return res;
