@@ -155,6 +155,7 @@ public class DownLoad {
             res.put("rentTime", rs.getDate("rentTime"));
             res.put("contractDuration", rs.getInt("contractDuration"));
             res.put("price", rs.getInt("price"));
+            res.put("username", rs.getInt("username"));
         }
         return res;
     }

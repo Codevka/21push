@@ -119,12 +119,12 @@ export default {
             type: "success",
             message: "退租成功，请在线下门店退回租金"
           });
+          this.$router.push("/user0/query");
         } else {
           this.$message.error({
             message: "退租失败，请稍后再试"
           });
         }
-        this.$router.push("/user0/query");
       });
     },
     lRenew() {
