@@ -81,7 +81,7 @@ export default {
       this.$router.push("/user1/complaintManage");
     },
     makeComplaintReply() {
-      this.$refs.commentForm.validate(valid => {
+      this.$refs.replyForm.validate(valid => {
         if (valid) {
           this.replyForm.complaintId = this.complaintInfo.complaintId;
           this.replyForm.username = this.$store.state.userInfo.username;
