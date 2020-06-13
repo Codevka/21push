@@ -1,7 +1,18 @@
 <template>
   <el-main class="infoH">
     <el-page-header @back="goBack" content="房源详情"></el-page-header>
-    <p v-for="(item,key,index) in houseInfo" :key="key">{{houseLabel[index]}}:{{item}}</p>
+    <!--<p v-for="(item,key,index) in houseInfo" :key="key">{{houseLabel[index]}}:{{item}}</p>-->
+    <p>房源编号: {{houseInfo.houseId}}</p>
+    <p>省份: {{houseInfo.province}}</p>
+    <p>城市: {{houseInfo.city}}</p>
+    <p>地区: {{houseInfo.area}}</p>
+    <p>地址: {{houseInfo.address}}</p>
+    <p>租房形式: {{houseInfo.rentType}}</p>
+    <p>房间类型: {{houseInfo.houseType}}</p>
+    <p>介绍: {{houseInfo.intro}}</p>
+    <p>户主电话: {{houseInfo.tel}}</p>
+    <p>价格: {{houseInfo.price}}</p>
+    <p>房源状态: {{houseInfo.housestatus}}</p>
     <el-button @click.native.prevent="dialogFormVisible = true">租房</el-button>
     <el-dialog title="租房时间" :visible.sync="dialogFormVisible">
       <el-form v-model="rentHouseForm">

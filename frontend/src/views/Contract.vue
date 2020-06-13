@@ -1,7 +1,17 @@
 <template>
   <el-main class="infoC">
     <el-page-header @back="goBack" content="订单详情"></el-page-header>
-    <p v-for="(item,key,index) in contractInfo" :key="key">{{contractLabel[index]}}:{{item}}</p>
+    <!--<p v-for="(item,key,index) in contractInfo" :key="key">{{contractLabel[index]}}:{{item}}</p>-->
+    <p>订单编号: {{contractInfo.contractId}}</p>
+    <p>账号: {{contractInfo.username}}</p>
+    <p>房源编号: {{contractInfo.houseId}}</p>
+    <p>房源地址: {{contractInfo.houseLocation}}</p>
+    <p>房源类型: {{contractInfo.houseType}}</p>
+    <p>户主手机号: {{contractInfo.ownerTel}}</p>
+    <p>价格: {{contractInfo.price}}</p>
+    <p>房源状态: {{contractInfo.housestatus}}</p>
+    <p>订单状态: {{contractInfo.contractStatus}}</p>
+    <p>租房形式: {{contractInfo.rentType}}</p>
     <p v-if="contractInfo.contractStatus=='未审核'&&usertype==0">请等待审核通过</p>
     <p v-if="contractInfo.contractStatus=='未缴费'&&usertype==0">请尽快进行线下缴费</p>
     <p v-if="contractInfo.contractStatus=='未签订合同'&&usertype==0">请尽快导出并打印合同，进行线下签订</p>

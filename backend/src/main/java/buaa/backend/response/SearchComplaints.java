@@ -23,6 +23,12 @@ public class SearchComplaints {
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
         logger.trace("body is {}", body);
+        if (body.get("keyword").equals("")) {
+            return jdbcTemplate.execute(con -> {
+                String storedProc = "select * from Complaint";
+                return con.prepareCall(storedProc);
+            }, this::getResult);
+        }
         List<Map<String, Object>> result = jdbcTemplate.execute(con -> {
             String storedProc = "select * from Complaint where complaintId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
@@ -58,7 +64,7 @@ public class SearchComplaints {
             tmp.put("complaintId", String.valueOf(rs.getInt("complaintId")));
             tmp.put("houseId", String.valueOf(rs.getInt("houseId")));
             tmp.put("username", String.valueOf(rs.getInt("username")));
-            tmp.put("status", ComplaintStatus.values()[rs.getInt("status")].getText());
+            tmp.put("status", ComplaintStatus.values()[rs.getInt("dealingStatus")].getText());
             res.add(tmp);
         }
         return res;

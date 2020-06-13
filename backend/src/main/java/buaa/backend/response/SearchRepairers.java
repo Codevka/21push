@@ -28,12 +28,23 @@ public class SearchRepairers {
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
         logger.trace("body is {}", body);
+
         jdbcTemplate.execute(con -> {
             String storedProc = "select * from Account where username = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(1, Integer.parseInt((String) body.get("username")));
             return cs;
         }, this::getPCA);
+        if (body.get("keyword").equals("")) {
+            jdbcTemplate.execute(con -> {
+                String storedProc = "select * from Account where userType = 2 and province = ? and city = ? and area = ?";
+                CallableStatement cs = con.prepareCall(storedProc);
+                cs.setString(1, province);
+                cs.setString(2, city);
+                cs.setString(3, area);
+                return cs;
+            }, this::getResult);
+        }
         String key = "%" + body.get("keyword") + "%";
         return jdbcTemplate.execute(con -> {
             String storedProc = "select * from Account where userType = 2 and province = ? and city = ? and area = ?" +
