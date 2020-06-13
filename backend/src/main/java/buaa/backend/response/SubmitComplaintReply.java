@@ -31,8 +31,8 @@ public class SubmitComplaintReply {
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setString(1, (String) body.get("reply"));
             cs.setInt(2, Integer.parseInt((String) body.get("username")));
-            cs.setInt(3, Integer.parseInt((String) body.get("complaintId")));
-            cs.setInt(4, ComplaintStatus.UNEVAL.ordinal());
+            cs.setInt(3, ComplaintStatus.UNEVAL.ordinal());
+            cs.setInt(4, Integer.parseInt((String) body.get("complaintId")));
             return cs;
         }, cs -> {
             cs.execute();
