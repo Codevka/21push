@@ -18,7 +18,7 @@ public class ExportContract {
         logger.trace("body is {}", body);
         Map<String, Object> result = new HashMap<>();
         result.put("result", true);
-        result.put("url", "http://123.57.41.160/download?id=" + body.get("contractId"));
+        result.put("url", "http://123.57.41.160:18888/download?id=" + body.get("contractId"));
         return result;
     }
 }
