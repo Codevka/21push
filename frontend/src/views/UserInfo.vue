@@ -2,13 +2,43 @@
   <el-container>
     <el-main class="info">
       <el-page-header @back="goBack" content="用户详情"></el-page-header>
-      <p>账号: {{userInfo.username}}</p>
+      <!-- <p>账号: {{userInfo.username}}</p>
       <p>手机: {{userInfo.tel}}</p>
       <p>邮箱: {{userInfo.email}}</p>
       <p>昵称: {{userInfo.name}}</p>
       <p>省份: {{userInfo.province}}</p>
       <p>城市: {{userInfo.city}}</p>
-      <p>地区: {{userInfo.area}}</p>
+      <p>地区: {{userInfo.area}}</p> -->
+      <table border="0" cellspacing="20" style="margin:0 auto;">
+      <tr>
+        <td>账号：</td>
+        <td>{{userInfo.username}}</td>
+      </tr>
+      <tr>
+        <td>手机：</td>
+        <td>{{userInfo.tel}}</td>
+      </tr>
+      <tr>
+        <td>邮箱：</td>
+        <td>{{userInfo.email}}</td>
+      </tr>
+      <tr>
+        <td>昵称：</td>
+        <td>{{userInfo.name}}</td>
+      </tr>
+      <tr>
+        <td>省份：</td>
+        <td>{{userInfo.province}}</td>
+      </tr>
+      <tr>
+        <td>城市：</td>
+        <td>{{userInfo.city}}</td>
+      </tr>
+      <tr>
+        <td>地区：</td>
+        <td>{{userInfo.area}}</td>
+      </tr>
+    </table>
       <el-button @click.native.prevent="change">修改个人信息</el-button>
       <el-button @click.native.prevent="payVisible = true">缴纳租金</el-button>
       <el-button @click.native.prevent="returnVisible = true">退回租金</el-button>
