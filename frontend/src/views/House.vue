@@ -13,6 +13,9 @@
     <p>户主电话: {{houseInfo.tel}}</p>
     <p>价格: {{houseInfo.price}}</p>
     <p>房源状态: {{houseInfo.housestatus}}</p>
+    <div class="image">
+      <el-image v-for="url in pic" :key="url" :src="url" fit="scale-down" lazy></el-image>
+    </div>
     <el-button @click.native.prevent="dialogFormVisible = true">租房</el-button>
     <el-dialog title="租房时间" :visible.sync="dialogFormVisible">
       <el-form v-model="rentHouseForm">
