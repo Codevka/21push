@@ -22,7 +22,7 @@ public class GetUserComplaint {
     private JdbcTemplate jdbcTemplate;
 
     @CrossOrigin//("http://localhost:8080")
-    @RequestMapping(value = "/gtUserComplaint", method = RequestMethod.POST,
+    @RequestMapping(value = "/getUserComplaint", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
         logger.trace("body is {}", body);
