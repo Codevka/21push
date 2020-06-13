@@ -88,7 +88,7 @@ export default {
         username: "",
         rentType: "",
         rentTime: null,
-        rentDuration: ""
+        rentDuration: null,
       }
     };
   },
@@ -100,7 +100,6 @@ export default {
       this.rentHouseForm.username = this.$store.state.userInfo.username;
       this.rentHouseForm.rentType = this.houseInfo.rentType;
       this.rentHouseForm.houseId = this.houseInfo.houseId;
-      this.rentHouseForm.rentDuration = this.rentHouseForm.rentDuration.toString();
       if (this.rentHouseForm.rentTime == null) {
         this.$message({
           type: "warning",
@@ -115,6 +114,7 @@ export default {
           message: "租房开始时间不能早于今天"
         });
       } else {
+        this.rentHouseForm.rentDuration = this.rentHouseForm.rentDuration.toString();
         rentHouse(this.rentHouseForm).then(res => {
           //console.log(res);
           if (res.data.result == true)

@@ -76,7 +76,7 @@ export default {
       },
       leaseRenewForm: {
         contractId: "",
-        month: ""
+        month: null
       },
       usertype: 0,
       //租房形式: 短租 长租
