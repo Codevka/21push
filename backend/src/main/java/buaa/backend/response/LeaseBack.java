@@ -76,7 +76,9 @@ public class LeaseBack {
             cs.execute();
             return true;
         });
-        return result;
+        Map<String, Object> res = new HashMap<>();
+        res.put("result", true);
+        return res;
     }
 
     private Map<String, Object> getOrderResult(CallableStatement cs) throws SQLException {
