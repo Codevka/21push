@@ -1,6 +1,9 @@
 package buaa.backend.service;
 
 import buaa.backend.metadata.ComplaintStatus;
+import buaa.backend.response.ChangeHouseInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,6 +16,7 @@ import java.util.*;
 
 @Component
 public class HouseRentCount {
+    private static final Logger logger = LoggerFactory.getLogger(HouseRentCount.class);
     @Autowired
     private static JdbcTemplate jdbcTemplate;
 
@@ -23,10 +27,14 @@ public class HouseRentCount {
             cs.setInt(1, houseId);
             return cs;
         }, cs -> {
+            logger.trace("before execute");
             cs.execute();
+            logger.trace("after execute");
             int[] f = new int[2];
             ResultSet rs = cs.getResultSet();
+            logger.trace("after get rs");
             while (rs.next()) {
+                logger.trace("rentType {} houseType {}", rs.getInt("rentType"), rs.getInt("houseType"));
                 f[0] = rs.getInt("rentType");
                 f[1] = rs.getInt("houseType");
             }
