@@ -3,6 +3,7 @@ package buaa.backend.response;
 import buaa.backend.metadata.HouseStatus;
 import buaa.backend.metadata.HouseType;
 import buaa.backend.metadata.RentType;
+import buaa.backend.service.HouseRentCount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,8 @@ public class GetHouse {
             map.put("intro", rs.getString("intro"));
             map.put("tel", rs.getString("ownerTel"));
             map.put("price", String.valueOf(rs.getInt("price")));
-            map.put("housestatus", HouseStatus.values()[rs.getInt("houseStatus")].getText());
+            map.put("housestatus", (HouseRentCount.count(rs.getInt("houseId")) == rs.getInt("houseType") ?
+                    HouseStatus.FULL : HouseStatus.OK).getText());
             map.put("pic", rs.getString("pic").split(";"));
         }
         return map;
