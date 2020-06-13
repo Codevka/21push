@@ -31,7 +31,7 @@
     </el-col>
     <el-col :span="4">
       <div style="text-align:center">
-        <el-button class="button" v-if="userType>=0" @click.native="logout">退出登录</el-button>
+        <el-button class="button" v-if="userType>=0" @click.native="logout" type="danger">退出登录</el-button>
       </div>
     </el-col>
   </el-row>
