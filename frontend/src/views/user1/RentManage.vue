@@ -69,7 +69,7 @@ export default {
       this.$router.push({
         path: "/contract",
         query: {
-          contractId: this.userContract[index].contractId,
+          contractId: this.contractData[index].contractId,
           usertype: 1
         }
       });
