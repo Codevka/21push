@@ -2,15 +2,44 @@
   <el-main class="infoRi">
     <el-page-header @back="goBack" content="报修详情"></el-page-header>
     <!-- <p v-for="(item,key,index) in showRepairInfo" :key="key">{{repairLabel[index]}}:{{item}}</p> -->
-    <p>报修编号：{{repairInfo.repairId}}</p>
-    <p>房源编号：{{repairInfo.houseId}}</p>
-    <p>维修人员电话：{{repairInfo.tel}}</p>
-    <p>报修账号：{{repairInfo.username}}</p>
-    <p>报修内容：{{repairInfo.content}}</p>
-    <p>处理状态：{{repairInfo.status}}</p>
-    <p>维修反馈：{{repairInfo.callback}}</p>
-    <p>评价内容：{{repairInfo.evaluation}}</p>
-    <p>评分：{{repairInfo.score}}</p>
+    <table border="0" cellspacing="20" style="margin:0 auto;">
+      <tr>
+        <td>报修编号：</td>
+        <td>{{repairInfo.repairId}}</td>
+      </tr>
+      <tr>
+        <td>房源编号：</td>
+        <td>{{repairInfo.houseId}}</td>
+      </tr>
+      <tr>
+        <td>维修人员电话：</td>
+        <td>{{repairInfo.tel}}</td>
+      </tr>
+      <tr>
+        <td>报修账号：</td>
+        <td>{{repairInfo.username}}</td>
+      </tr>
+      <tr>
+        <td>报修内容：</td>
+        <td>{{repairInfo.content}}</td>
+      </tr>
+      <tr>
+        <td>处理状态：</td>
+        <td>{{repairInfo.status}}</td>
+      </tr>
+      <tr>
+        <td>维修反馈：</td>
+        <td>{{repairInfo.callback}}</td>
+      </tr>
+      <tr>
+        <td>评价内容：</td>
+        <td>{{repairInfo.evaluation}}</td>
+      </tr>
+      <tr>
+        <td>评分：</td>
+        <td>{{repairInfo.score}}</td>
+      </tr>
+    </table>
     <div class="image">
       <!-- <el-image v-for="url in repairInfo.pic" :key="url" :src="url" fit="scale-down" lazy></el-image> -->
       <el-carousel v-if="repairInfo.pic!=[]" :interval="5000" arrow="always" :width="500">

@@ -2,7 +2,53 @@
   <el-main class="infoHi">
     <el-page-header @back="goBack" content="房源详情"></el-page-header>
     <!-- <p v-for="(item,key,index) in houseInfo" :key="key">{{houseLabel[index]}}:{{item}}</p> -->
-    <p>房源编号：{{houseInfo.houseId}}</p>
+    <table border="0" cellspacing="20" style="margin:0 auto;">
+      <tr>
+        <td>房源编号：</td>
+        <td>{{houseInfo.houseId}}</td>
+      </tr>
+      <tr>
+        <td>省份：</td>
+        <td>{{houseInfo.province}}</td>
+      </tr>
+      <tr>
+        <td>城市：</td>
+        <td>{{houseInfo.city}}</td>
+      </tr>
+      <tr>
+        <td>地区：</td>
+        <td>{{houseInfo.area}}</td>
+      </tr>
+      <tr>
+        <td>地址：</td>
+        <td>{{houseInfo.address}}</td>
+      </tr>
+      <tr>
+        <td>租房形式：</td>
+        <td>{{houseInfo.rentType}}</td>
+      </tr>
+      <tr>
+        <td>房间类型：</td>
+        <td>{{houseInfo.houseType}}</td>
+      </tr>
+      <tr>
+        <td>介绍：</td>
+        <td>{{houseInfo.intro}}</td>
+      </tr>
+      <tr>
+        <td>户主电话：</td>
+        <td>{{houseInfo.tel}}</td>
+      </tr>
+      <tr>
+        <td>价格：</td>
+        <td>{{houseInfo.price}}</td>
+      </tr>
+      <tr>
+        <td>房源状态：</td>
+        <td>{{houseInfo.housestatus}}</td>
+      </tr>
+    </table>
+    <!--<p>房源编号：{{houseInfo.houseId}}</p>
     <p>省份：{{houseInfo.province}}</p>
     <p>城市：{{houseInfo.city}}</p>
     <p>地区：{{houseInfo.area}}</p>
@@ -12,7 +58,7 @@
     <p>介绍：{{houseInfo.intro}}</p>
     <p>户主电话：{{houseInfo.tel}}</p>
     <p>价格：{{houseInfo.price}}</p>
-    <p>房源状态：{{houseInfo.housestatus}}</p>
+    <p>房源状态：{{houseInfo.housestatus}}</p>-->
     <div class="image">
       <!-- <el-image v-for="url in pic" :key="url" :src="url" fit="scale-down" lazy></el-image> -->
       <el-carousel v-if="pic!=[]" :interval="5000" arrow="always" :width="500">
