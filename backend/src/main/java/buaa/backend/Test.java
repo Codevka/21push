@@ -57,7 +57,7 @@ public class Test {
 
     @RequestMapping("/fff")
     public int tt() {
-        return HouseRentCount.count(1);
+        return HouseRentCount.count(1, jdbcTemplate);
     }
 
     @RequestMapping("/ttt")
