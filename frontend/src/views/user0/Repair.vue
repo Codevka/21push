@@ -120,7 +120,7 @@ export default {
               this.$router.push("/user0/repair");
             } else {
               this.$message.error({
-                message: "报修提交失败，请稍后再试"
+                message: "报修提交失败或房源编号错误，请检查输入"
               });
             }
           });
