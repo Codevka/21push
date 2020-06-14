@@ -54,7 +54,7 @@ public class SearchAllHouses {
             if (HouseStatus.values()[rs.getInt("houseStatus")] == HouseStatus.INT) {
                 tmp.put("housestatus", HouseStatus.INT.getText());
             } else {
-                tmp.put("housestatus", (HouseRentCount.count(rs.getInt("houseId"), jdbcTemplate) == rs.getInt("houseType") ?
+                tmp.put("housestatus", (HouseRentCount.count(rs.getInt("houseId"), jdbcTemplate) >= rs.getInt("houseType") ?
                         HouseStatus.FULL : HouseStatus.OK).getText());
             }
             res.add(tmp);

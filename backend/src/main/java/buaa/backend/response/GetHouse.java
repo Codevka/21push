@@ -55,7 +55,7 @@ public class GetHouse {
             if (HouseStatus.values()[rs.getInt("houseStatus")] == HouseStatus.INT) {
                 map.put("housestatus", HouseStatus.INT.getText());
             } else {
-                map.put("housestatus", (HouseRentCount.count(rs.getInt("houseId"),jdbcTemplate) == rs.getInt("houseType") ?
+                map.put("housestatus", (HouseRentCount.count(rs.getInt("houseId"),jdbcTemplate) >= rs.getInt("houseType") ?
                         HouseStatus.FULL : HouseStatus.OK).getText());
             }
             map.put("pic", rs.getString("pic").split(";"));
