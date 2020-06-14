@@ -36,7 +36,7 @@ public class SearchRepairers {
             return cs;
         }, this::getPCA);
         if (body.get("keyword").equals("")) {
-            jdbcTemplate.execute(con -> {
+            return jdbcTemplate.execute(con -> {
                 String storedProc = "select * from Account where userType = 2 and province = ? and city = ? and area = ?";
                 CallableStatement cs = con.prepareCall(storedProc);
                 cs.setString(1, province);
