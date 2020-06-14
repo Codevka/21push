@@ -15,11 +15,10 @@ import java.util.*;
 @Component
 public class HouseRentCount {
     private static final Logger logger = LoggerFactory.getLogger(HouseRentCount.class);
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
 
-    public static int count(int houseId) {
-        int[] i = new HouseRentCount().jdbcTemplate.execute((CallableStatementCreator) con -> {
+
+    public static int count(int houseId, JdbcTemplate jdbcTemplate) {
+        int[] i = jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "select * from House where houseId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(1, houseId);
@@ -38,7 +37,7 @@ public class HouseRentCount {
             }
             return f;
         });
-        List<Map<String, Object>> res = new HouseRentCount().jdbcTemplate.execute(con -> {
+        List<Map<String, Object>> res = jdbcTemplate.execute(con -> {
             String storedProc = "select * from Orders where houseId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(1, houseId);
