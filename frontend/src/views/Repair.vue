@@ -71,8 +71,17 @@
         <el-table-column prop="tel" label="手机号" min-width="25%" :resizable="false"></el-table-column>
         <el-table-column fixed="right" label="操作" min-width="25%" :resizable="false">
           <template slot-scope="scope">
-            <el-button v-if="!importing" @click.native.prevent="importRepairer(scope.$index)" size="small">导入</el-button>
-            <el-button v-if="importing" @click.native.prevent="deleteImportedRepairer()" type="danger" size="small">移除</el-button>
+            <el-button
+              v-if="!importing"
+              @click.native.prevent="importRepairer(scope.$index)"
+              size="small"
+            >导入</el-button>
+            <el-button
+              v-if="importing"
+              @click.native.prevent="deleteImportedRepairer()"
+              type="danger"
+              size="small"
+            >移除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -141,17 +150,19 @@ export default {
       this.$router.push("/user1/repairManage");
     },
     cWorkOrder() {
-      if (this.selectedRepairerUsername == "")
+      if (this.selectedRepairerUsername == "") {
         this.$message({
           type: "error",
           message: "未导入维修人员"
         });
+        return;
+      }
       let params = {
         repairId: this.repairInfo.repairId,
         username: this.selectedRepairerUsername
       };
       createWorkOrder(params).then(res => {
-        if (res.data.success == true) {
+        if (res.data.result == true) {
           this.$message({
             type: "success",
             message: "工单创建成功"
@@ -171,7 +182,7 @@ export default {
         repairId: this.repairInfo.repairId
       };
       refuseRepair(params).then(res => {
-        if (res.data.success == true) {
+        if (res.data.result == true) {
           this.$message({
             type: "success",
             message: "报修拒绝成功"
