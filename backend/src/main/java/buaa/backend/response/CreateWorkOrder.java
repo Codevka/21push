@@ -36,7 +36,7 @@ public class CreateWorkOrder {
         });
         jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "insert into WorkOrder (repairId, username, status)" +
-                    " values (?,?,1)";
+                    " values (?,?,0)";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(1, Integer.parseInt((String) body.get("repairId")));
             cs.setInt(2, Integer.parseInt((String) body.get("username")));
