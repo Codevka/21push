@@ -119,7 +119,7 @@ export default {
       //console.log(this.callbackForm);
       /*this.$refs.callbackForm.validate(valid =>{
                 if(valid) {*/
-      this.callbackForm.repairWorkLabel = this.repairWorkInfo.repairWorkId;
+      this.callbackForm.repairWorkId = this.repairWorkInfo.repairWorkId;
       submitRepairWorkCallback(this.callbackForm).then(res => {
         if (res.data.result == true) {
           this.$message({
