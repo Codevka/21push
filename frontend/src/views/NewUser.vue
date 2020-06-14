@@ -156,6 +156,9 @@ export default {
     };
   },
   methods: {
+    goBack() {
+      this.$router.push("user1/userManage");
+    },
     submit() {
       this.$refs.RegisterForm.validate(valid => {
         if (valid) {
@@ -208,9 +211,6 @@ export default {
     },
     onChangeArea(data) {
       this.RegisterForm.area = data.value;
-    },
-    goBack() {
-      this.$router.push("user1/userManage");
     }
   },
   mounted() {
