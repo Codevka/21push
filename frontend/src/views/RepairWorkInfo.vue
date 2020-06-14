@@ -142,9 +142,11 @@ export default {
     }
   },
   mounted() {
-    getRepairWork({ repairId: this.$route.query.repairId }).then(res => {
-      this.repairInfo = res.data;
-    });
+    getRepairWork({ repairWorkId: this.$route.query.repairWorkId }).then(
+      res => {
+        this.repairInfo = res.data;
+      }
+    );
   }
 };
 </script>
