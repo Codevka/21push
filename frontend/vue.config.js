@@ -1,4 +1,4 @@
-// // for not load lib file test
+// // // for not load lib file test
 // module.exports = {
 //   publicPath: './',
 //   productionSourceMap: false,

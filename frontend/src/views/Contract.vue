@@ -80,7 +80,7 @@
     >确认已签订合同</el-button>
     <el-button
       :loading="exporting"
-      v-if="contractInfo.contractStatus!='未审核'&&contractInfo.contractStatus!='已退租'&&contractInfo.rentType=='长租'"
+      v-if="contractInfo.contractStatus!='未审核'&&contractInfo.contractStatus!='已拒绝'&&contractInfo.contractStatus!='已退租'&&contractInfo.rentType=='长租'"
       @click.native.prevent="eContract"
     >导出合同</el-button>
     <el-dialog title="续租时间" :visible.sync="dialogFormVisible">
@@ -228,7 +228,7 @@ export default {
             message: "签订确认失败，请稍后再试"
           });
         }
-      })
+      });
     },
     dApplication() {
       let params = {
