@@ -28,7 +28,7 @@ public class HouseRentCount {
 //            logger.trace("after execute");
             int[] f = new int[2];
             ResultSet rs = cs.getResultSet();
-            logger.trace("after get rs");
+//            logger.trace("after get rs");
             while (rs.next()) {
                 f[0] = rs.getInt("rentType");
                 f[1] = rs.getInt("houseType");
@@ -71,7 +71,7 @@ public class HouseRentCount {
 //            logger.trace("after execute");
             int[] f = new int[2];
             ResultSet rs = cs.getResultSet();
-            logger.trace("after get rs");
+//            logger.trace("after get rs");
             while (rs.next()) {
                 f[0] = rs.getInt("rentType");
                 f[1] = rs.getInt("houseType");
