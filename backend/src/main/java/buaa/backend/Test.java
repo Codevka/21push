@@ -57,9 +57,10 @@ public class Test {
     }
 
     @RequestMapping("/testMail")
-    public void mail() {
+    public String mail() {
         Calendar c = Calendar.getInstance();
         mail.sendSimpleTextMail("general_use_ai@163.com", "hello", "Now is " + c.getTime());
+        return "Send Successfully";
     }
 
     @RequestMapping("/fff")
