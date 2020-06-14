@@ -7,7 +7,9 @@ module.exports = {
       'element-ui': 'ELEMENT',
       vue: 'Vue',
       axios: 'axios',
+      vuex: 'Vuex',
       'vue-router': 'VueRouter',
+      'v-distpicker': 'VDistpicker'
     };
   },
 };
