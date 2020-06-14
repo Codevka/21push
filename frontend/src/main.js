@@ -518,7 +518,7 @@ export /**
 //调试时注释掉
 router.beforeEach((to, from, next) => {
   if (to.path == '/login' || to.path == '/register') {
-    sessionStorage.removeItem('userInfo')
+    //sessionStorage.removeItem('userInfo')
     next()
   }
   else {
