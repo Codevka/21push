@@ -47,7 +47,7 @@ public class RentHouse {
             return f;
         });
         assert i != null;
-        if (i[0] == HouseRentCount.count(Integer.parseInt((String) body.get("houseId")), jdbcTemplate)) {
+        if (i[0] <= HouseRentCount.count(Integer.parseInt((String) body.get("houseId")), jdbcTemplate)) {
             result.put("result", false);
             return result;
         }

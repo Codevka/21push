@@ -24,14 +24,13 @@ public class HouseRentCount {
             cs.setInt(1, houseId);
             return cs;
         }, cs -> {
-            logger.trace("before execute");
+//            logger.trace("before execute");
             cs.execute();
-            logger.trace("after execute");
+//            logger.trace("after execute");
             int[] f = new int[2];
             ResultSet rs = cs.getResultSet();
             logger.trace("after get rs");
             while (rs.next()) {
-                logger.trace("rentType {} houseType {}", rs.getInt("rentType"), rs.getInt("houseType"));
                 f[0] = rs.getInt("rentType");
                 f[1] = rs.getInt("houseType");
             }
@@ -59,6 +58,8 @@ public class HouseRentCount {
             }
             cnt++;
         }
+        logger.trace("houseId {} rentType {} houseType {} cnt {}", houseId, i[0], i[1], cnt);
+
         return cnt;
     }
 
