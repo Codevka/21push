@@ -3,6 +3,7 @@ package buaa.backend.response;
 import buaa.backend.metadata.HouseStatus;
 import buaa.backend.metadata.HouseType;
 import buaa.backend.metadata.RentType;
+import buaa.backend.service.HouseRentCount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,12 @@ public class SearchAllHouses {
             tmp.put("address", rs.getString("address"));
             tmp.put("rentType", RentType.values()[rs.getInt("rentType")].getText());
             tmp.put("houseType", HouseType.values()[rs.getInt("houseType")].getText());
-            tmp.put("status", HouseStatus.values()[rs.getInt("houseStatus")].getText());
+            if (HouseStatus.values()[rs.getInt("houseStatus")] == HouseStatus.INT) {
+                tmp.put("housestatus", HouseStatus.INT.getText());
+            } else {
+                tmp.put("housestatus", (HouseRentCount.count(rs.getInt("houseId"), jdbcTemplate) == rs.getInt("houseType") ?
+                        HouseStatus.FULL : HouseStatus.OK).getText());
+            }
             res.add(tmp);
         }
         return res;
