@@ -174,6 +174,9 @@ export default {
     };
   },
   methods: {
+    goBack() {
+      this.$router.push("user1/houseManage");
+    },
     nHouse() {
       this.$refs.HouseForm.validate(valid => {
         if (valid) {
@@ -212,9 +215,6 @@ export default {
     },
     onChangeArea(data) {
       this.HouseForm.area = data.value;
-    },
-    goBack() {
-      this.$router.push("user1/houseManage");
     },
     beforeUpload(file) {
       const checkFileType =

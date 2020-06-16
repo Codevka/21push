@@ -176,7 +176,7 @@ export default {
               type: "success",
               message: "订单提交成功"
             });
-          this.methods.goBack();
+          this.goBack();
         });
       }
     }

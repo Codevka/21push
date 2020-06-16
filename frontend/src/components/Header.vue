@@ -1,6 +1,6 @@
 <template>
   <el-row class="header">
-    <el-col :class="logo" :span="2">
+    <el-col :span="2">
       <img src="../assets/qj.png" alt />
     </el-col>
     <el-col :span="18">
@@ -81,10 +81,5 @@ export default {
 }
 .button {
   margin: 10px 0;
-}
-.logo img {
-  width: 80px;
-  height: 50px;
-  cursor: pointer;
 }
 </style>

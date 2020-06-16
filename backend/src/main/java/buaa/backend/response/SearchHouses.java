@@ -2,6 +2,7 @@ package buaa.backend.response;
 
 import buaa.backend.metadata.HouseType;
 import buaa.backend.metadata.RentType;
+import buaa.backend.service.HouseRentCount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,9 @@ public class SearchHouses {
         while (rs.next()) {
             if (ht != 0 && ht != rs.getInt("houseType")) continue;
             if (rt != 0 && rt != rs.getInt("rentType")) continue;
-            if (rs.getInt("houseStatus") != 1) continue;
+            if (rs.getInt("houseStatus") == 0 || rs.getInt("houseType") <=
+                    HouseRentCount.count(rs.getInt("houseId"), jdbcTemplate))
+                continue;
             Map<String, Object> tmp = new HashMap<>();
             tmp.put("houseId", String.valueOf(rs.getInt("houseId")));
             tmp.put("area", rs.getString("province") + rs.getString("city") + rs.getString("area"));

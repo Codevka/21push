@@ -1,5 +1,6 @@
 package buaa.backend.response;
 
+import buaa.backend.service.HouseRentCount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,11 @@ public class SubmitComplaint {
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         logger.trace("body is {}", body);
         Map<String, Object> result = new HashMap<>();
-
+        if (!HouseRentCount.isValidRentHouse(Integer.parseInt((String) body.get("houseId")),
+                Integer.parseInt((String) body.get("username")), jdbcTemplate)) {
+            result.put("result", false);
+            return result;
+        }
         Boolean b = jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "insert into Complaint (username, houseId, dealingStatus, content, pic)" +
                     " values(?,?,0,?,?) ";

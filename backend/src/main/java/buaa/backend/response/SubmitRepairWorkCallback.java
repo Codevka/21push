@@ -28,7 +28,7 @@ public class SubmitRepairWorkCallback {
         Map<String, Object> result = new HashMap<>();
         result.put("result", true);
         jdbcTemplate.execute((CallableStatementCreator) con -> {
-            String storedProc = "update WorkOrder set callback = ? and status = ? where repairWorkId = ?";
+            String storedProc = "update WorkOrder set callback = ?,status = ? where repairWorkId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setString(1, (String) body.get("callback"));
             cs.setInt(2, WorkStatus.FINISHED.ordinal());

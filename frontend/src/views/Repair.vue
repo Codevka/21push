@@ -72,12 +72,12 @@
         <el-table-column fixed="right" label="操作" min-width="25%" :resizable="false">
           <template slot-scope="scope">
             <el-button
-              v-if="!importing"
+              v-if="!importing&&scope.$index!=importedIndex"
               @click.native.prevent="importRepairer(scope.$index)"
               size="small"
             >导入</el-button>
             <el-button
-              v-if="importing"
+              v-if="importing&&scope.$index==importedIndex"
               @click.native.prevent="deleteImportedRepairer()"
               type="danger"
               size="small"
@@ -104,6 +104,7 @@ export default {
       keyword: "",
       dialogVisible: false,
       importing: false,
+      importedIndex: null,
       repairInfo: {
         repairId: "",
         houseId: "",
@@ -213,10 +214,12 @@ export default {
     importRepairer(index) {
       this.selectedRepairerUsername = this.repairerInfo[index].username;
       this.importing = true;
+      this.importedIndex = index;
     },
     deleteImportedRepairer() {
       this.selectedRepairerUsername = "";
       this.importing = false;
+      this.importedIndex = null;
     }
   },
   mounted() {
