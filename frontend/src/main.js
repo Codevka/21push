@@ -477,6 +477,13 @@ export /**
   };
 
 export /**
+ * @param {contractId}
+ * @returns result: true为成功
+ */const signContract = (params) => {
+    return axios.post('/signContract', params);
+  };
+
+export /**
  * 导入房源
  * @param {province, city, area, address, rentType, houseType, intro, tel, price}
  *          省份,城市,地区,具体地址,租房类型,房间类型,介绍,户主手机号,价格
@@ -508,24 +515,27 @@ export /**
   };
 
 //导航守卫
-/*调试时注释掉
+//调试时注释掉
 router.beforeEach((to, from, next) => {
   if (to.path == '/login' || to.path == '/register') {
-    sessionStorage.removeItem('userInfo')
+    //sessionStorage.removeItem('userInfo')
     next()
-  }
-  let user = JSON.parse(sessionStorage.getItem('userInfo')) || { userType: '-1', username: '' }
-  if ((user.userType != '0' && /^(\/user0)/.test(to.path)) ||
-    (user.userType != '1' && /^(\/user1)/.test(to.path)) ||
-    (user.userType != '2' && /^(\/user2)/.test(to.path))) {
-    alert('请先登录')
-    next({ path: '/login' })
   }
   else {
-    next()
+    let user = JSON.parse(sessionStorage.getItem('userInfo')) || { userType: '-1', username: '' }
+    if ((user.userType != '0' && /^(\/user0)/.test(to.path)) ||
+      (user.userType != '1' && /^(\/user1)/.test(to.path)) ||
+      (user.userType != '2' && /^(\/user2)/.test(to.path)) ||
+      (user.userType == '-1' && !!to.name)) {
+      alert('请先登录')
+      next({ path: '/login' })
+    }
+    else {
+      next()
+    }
   }
 })
-*/
+
 
 Vue.use(ElementUI);
 

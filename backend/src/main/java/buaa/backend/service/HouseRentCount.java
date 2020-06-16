@@ -15,30 +15,70 @@ import java.util.*;
 @Component
 public class HouseRentCount {
     private static final Logger logger = LoggerFactory.getLogger(HouseRentCount.class);
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
 
-    public static int count(int houseId) {
-        int[] i = new HouseRentCount().jdbcTemplate.execute((CallableStatementCreator) con -> {
+    public static boolean isValidRentHouse(int houseId, int username, JdbcTemplate jdbcTemplate) {
+        int[] i = jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "select * from House where houseId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(1, houseId);
             return cs;
         }, cs -> {
-            logger.trace("before execute");
+//            logger.trace("before execute");
             cs.execute();
-            logger.trace("after execute");
+//            logger.trace("after execute");
             int[] f = new int[2];
             ResultSet rs = cs.getResultSet();
-            logger.trace("after get rs");
+//            logger.trace("after get rs");
             while (rs.next()) {
-                logger.trace("rentType {} houseType {}", rs.getInt("rentType"), rs.getInt("houseType"));
                 f[0] = rs.getInt("rentType");
                 f[1] = rs.getInt("houseType");
             }
             return f;
         });
-        List<Map<String, Object>> res = new HouseRentCount().jdbcTemplate.execute(con -> {
+        List<Map<String, Object>> res = jdbcTemplate.execute(con -> {
+            String storedProc = "select * from Orders where houseId = ? and username = ?";
+            CallableStatement cs = con.prepareCall(storedProc);
+            cs.setInt(1, houseId);
+            cs.setInt(2, username);
+            return cs;
+        }, HouseRentCount::getResult);
+        assert res != null;
+        assert i != null;
+        for (Map<String, Object> map : res) {
+            Date dt = (Date) ((Date) map.get("rentTime")).clone();
+            Calendar c = Calendar.getInstance();
+            c.setTime(dt);
+            int t = i[1] == 1 ? Calendar.DATE : Calendar.MONTH;
+            c.add(t, (Integer) map.get("contractDuration"));
+            dt = c.getTime();
+            Date now = new Date(System.currentTimeMillis());
+            if (!now.after(dt)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static int count(int houseId, JdbcTemplate jdbcTemplate) {
+        int[] i = jdbcTemplate.execute((CallableStatementCreator) con -> {
+            String storedProc = "select * from House where houseId = ?";
+            CallableStatement cs = con.prepareCall(storedProc);
+            cs.setInt(1, houseId);
+            return cs;
+        }, cs -> {
+//            logger.trace("before execute");
+            cs.execute();
+//            logger.trace("after execute");
+            int[] f = new int[2];
+            ResultSet rs = cs.getResultSet();
+//            logger.trace("after get rs");
+            while (rs.next()) {
+                f[0] = rs.getInt("rentType");
+                f[1] = rs.getInt("houseType");
+            }
+            return f;
+        });
+        List<Map<String, Object>> res = jdbcTemplate.execute(con -> {
             String storedProc = "select * from Orders where houseId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
             cs.setInt(1, houseId);
@@ -60,6 +100,8 @@ public class HouseRentCount {
             }
             cnt++;
         }
+        logger.trace("houseId {} rentType {} houseType {} cnt {}", houseId, i[0], i[1], cnt);
+
         return cnt;
     }
 

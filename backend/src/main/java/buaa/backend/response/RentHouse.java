@@ -47,10 +47,10 @@ public class RentHouse {
             return f;
         });
         assert i != null;
-//        if (i[0] == HouseRentCount.count(Integer.parseInt((String) body.get("houseId")))) {
-//            result.put("result", false);
-//            return result;
-//        }
+        if (i[0] <= HouseRentCount.count(Integer.parseInt((String) body.get("houseId")), jdbcTemplate)) {
+            result.put("result", false);
+            return result;
+        }
         jdbcTemplate.execute((CallableStatementCreator) con -> {
             String storedProc = "insert into Orders(username, houseId, rentTime, orderGenerateTime, contractDuration, status, price, comment)" +
                     " values (?,?,?,now(),?,0,?,null)";

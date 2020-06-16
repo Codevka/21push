@@ -73,6 +73,14 @@ import { getRepair } from "../main";
 import { submitRepairComment } from "../main";
 export default {
   data() {
+    let scoreCheck = (rule, value, callback) => {
+      //console.log(value);
+      if (Number.isInteger(value) && value >= 1 && value <= 5) {
+        return callback();
+      } else {
+        return callback("评分不能为空");
+      }
+    };
     return {
       dialogVisible: false,
       repairInfo: {
@@ -81,7 +89,7 @@ export default {
         tel: "",
         username: "",
         content: "",
-        status: "未处理",
+        status: "未评价",
         callback: "",
         evaluation: "",
         score: "",
@@ -117,8 +125,7 @@ export default {
         score: [
           {
             required: true,
-            range: [1, 5],
-            message: "评分不能为空",
+            validator: scoreCheck,
             trigger: "blur"
           }
         ]

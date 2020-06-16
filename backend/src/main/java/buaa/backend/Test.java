@@ -19,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.Types;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
@@ -55,9 +56,16 @@ public class Test {
         return res;
     }
 
+    @RequestMapping("/testMail")
+    public String mail() {
+        Calendar c = Calendar.getInstance();
+        mail.sendSimpleTextMail("general_use_ai@163.com", "hello", "Now is " + c.getTime());
+        return "Send Successfully";
+    }
+
     @RequestMapping("/fff")
     public int tt() {
-        return HouseRentCount.count(1);
+        return HouseRentCount.count(1, jdbcTemplate);
     }
 
     @RequestMapping("/ttt")

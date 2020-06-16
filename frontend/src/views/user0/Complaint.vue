@@ -115,13 +115,13 @@ export default {
             if (res.data.result == true) {
               this.$message({
                 type: "success",
-                message: "投诉提交成功,请等待处理"
+                message: "投诉提交成功，请等待处理"
               });
               this.dialogVisible = false;
               this.$router.push("/user0/complaint");
             } else {
               this.$message.error({
-                message: "投诉提交失败,请稍后再试"
+                message: "投诉提交失败或房源编号错误，请检查输入"
               });
             }
           });

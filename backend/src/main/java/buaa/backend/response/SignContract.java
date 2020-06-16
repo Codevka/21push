@@ -1,8 +1,6 @@
 package buaa.backend.response;
 
-import buaa.backend.metadata.HouseStatus;
-import buaa.backend.metadata.HouseType;
-import buaa.backend.metadata.RentType;
+import buaa.backend.metadata.ContractStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,31 +13,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class CreateWorkOrder {
-    private static final Logger logger = LoggerFactory.getLogger(CreateWorkOrder.class);
+public class SignContract {
+    private static final Logger logger = LoggerFactory.getLogger(SignContract.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @CrossOrigin
-    @RequestMapping(value = "/createWorkOrder", method = RequestMethod.POST,
+    @RequestMapping(value = "/signContract", method = RequestMethod.POST,
             produces = "application/json;charset=UTF-8")
     public Map<String, Object> response(@RequestBody Map<String, Object> body) {
         logger.trace("body is {}", body);
         jdbcTemplate.execute((CallableStatementCreator) con -> {
-            String storedProc = "update Repair set status = 1 where repairId = ?";
+            String storedProc = "update Orders set status = ? where contractId = ?";
             CallableStatement cs = con.prepareCall(storedProc);
-            cs.setInt(1, Integer.parseInt((String) body.get("repairId")));
-            return cs;
-        }, cs -> {
-            cs.execute();
-            return true;
-        });
-        jdbcTemplate.execute((CallableStatementCreator) con -> {
-            String storedProc = "insert into WorkOrder (repairId, username, status)" +
-                    " values (?,?,0)";
-            CallableStatement cs = con.prepareCall(storedProc);
-            cs.setInt(1, Integer.parseInt((String) body.get("repairId")));
-            cs.setInt(2, Integer.parseInt((String) body.get("username")));
+            cs.setInt(1, ContractStatus.SIGN.ordinal());
+            cs.setInt(2, Integer.parseInt((String) body.get("contractId")));
             return cs;
         }, cs -> {
             cs.execute();
