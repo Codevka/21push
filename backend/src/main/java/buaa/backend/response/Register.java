@@ -52,6 +52,8 @@ public class Register {
                     res.put("username", String.valueOf(rs.getInt(1)));
                 }
                 System.out.println(res);
+            } else {
+                res.put("result", false);
             }
             return res;
         });
