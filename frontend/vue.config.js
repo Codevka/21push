@@ -9,6 +9,7 @@ module.exports = {
       axios: 'axios',
       vuex: 'Vuex',
       'vue-router': 'VueRouter',
+      'crypto-js': 'CryptoJS'
     };
   },
 };
