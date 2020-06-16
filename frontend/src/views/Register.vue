@@ -188,9 +188,9 @@ export default {
               });
               this.$router.push("/login");
             } else {
-              console.log(res.data);
+              //console.log(res.data);
               this.$message.error({
-                message: "注册失败"
+                message: "该手机号已注册"
               });
             }
           });

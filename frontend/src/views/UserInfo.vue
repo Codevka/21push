@@ -299,7 +299,7 @@ export default {
         return;
       }
       this.payForm.amount = this.payAmount;
-      console.log(this.payForm);
+      //console.log(this.payForm);
 
       payMoney(this.payForm).then(res => {
         if (res.data.result == true) {

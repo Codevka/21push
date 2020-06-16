@@ -149,7 +149,7 @@ export default {
     },
     handleSuccess(response) {
       this.complaintForm.pic.push(this.photoUrl + response.key);
-      console.log(this.complaintForm.pic);
+      //console.log(this.complaintForm.pic);
     },
     handleRemove(file) {
       Array.prototype.remove = function(val) {

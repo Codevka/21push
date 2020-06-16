@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     toContract(index) {
-      console.log(this.contractData[index].contractId);
+      //console.log(this.contractData[index].contractId);
       this.$router.push({
         path: "/contract",
         query: {
