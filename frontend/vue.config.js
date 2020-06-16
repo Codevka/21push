@@ -1,6 +1,6 @@
 // for not load lib file test
 module.exports = {
-  publicPath: './',
+  // publicPath: './',
   productionSourceMap: false,
   configureWebpack: config => {
     config.externals = {
@@ -9,7 +9,6 @@ module.exports = {
       axios: 'axios',
       vuex: 'Vuex',
       'vue-router': 'VueRouter',
-      'v-distpicker': 'VDistpicker'
     };
   },
 };
