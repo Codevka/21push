@@ -23,6 +23,12 @@ public class GetUserContract {
             produces = "application/json;charset=UTF-8")
     public List<Map<String, Object>> response(@RequestBody Map<String, Object> body) {
         logger.trace("body is {}", body);
+        if ("".equals(body.get("username"))) {
+            return jdbcTemplate.execute(con -> {
+                String storedProc = "select * from Orders";
+                return con.prepareCall(storedProc);
+            }, this::getResult);
+        }
         return jdbcTemplate.execute(con -> {
             String storedProc = "select * from Orders where username = ?";
             CallableStatement cs = con.prepareCall(storedProc);
