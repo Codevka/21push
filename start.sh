@@ -1,5 +1,6 @@
 #!/bin/sh
 
+git pull
 cd frontend/
 npm run serve &
 cd ../backend

@@ -37,5 +37,5 @@ module.exports = {
     Object.assign(config, {
       optimization,
     });
-  },
+  }, 
 };

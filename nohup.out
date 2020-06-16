@@ -1,0 +1,77 @@
+Already up to date.
+
+> 21push@0.1.0 serve /root/21push/frontend
+> vue-cli-service serve
+
+ ERROR  Error loading vue.config.js:
+ ERROR  SyntaxError: Unexpected token ';'
+/root/21push/frontend/vue.config.js:41
+};
+ ^
+
+SyntaxError: Unexpected token ';'
+    at wrapSafe (internal/modules/cjs/loader.js:1054:16)
+    at Module._compile (internal/modules/cjs/loader.js:1102:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1158:10)
+    at Module.load (internal/modules/cjs/loader.js:986:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:879:14)
+    at Module.require (internal/modules/cjs/loader.js:1026:19)
+    at require (internal/modules/cjs/helpers.js:72:18)
+    at loadConfig (/root/21push/frontend/node_modules/@vue/cli-service/lib/Service.js:14:20)
+    at Service.loadUserOptions (/root/21push/frontend/node_modules/@vue/cli-service/lib/Service.js:329:20)
+    at Service.init (/root/21push/frontend/node_modules/@vue/cli-service/lib/Service.js:85:30)
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! 21push@0.1.0 serve: `vue-cli-service serve`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the 21push@0.1.0 serve script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2020-06-16T04_35_03_565Z-debug.log
+Exception in thread "DisconnectableInputStream source reader" org.gradle.api.UncheckedIOException: java.io.IOException: Bad file descriptor
+	at org.gradle.internal.UncheckedException.throwAsUncheckedException(UncheckedException.java:61)
+	at org.gradle.internal.UncheckedException.throwAsUncheckedException(UncheckedException.java:41)
+	at org.gradle.util.DisconnectableInputStream$1.run(DisconnectableInputStream.java:127)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.io.IOException: Bad file descriptor
+	at java.base/java.io.FileInputStream.readBytes(Native Method)
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:279)
+	at java.base/java.io.BufferedInputStream.read1(BufferedInputStream.java:290)
+	at java.base/java.io.BufferedInputStream.read(BufferedInputStream.java:351)
+	at org.gradle.util.DisconnectableInputStream$1.run(DisconnectableInputStream.java:98)
+	... 1 more
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :bootJar UP-TO-DATE
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 7.0.
+Use '--warning-mode all' to show the individual deprecation warnings.
+See https://docs.gradle.org/6.3/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 3s
+3 actionable tasks: 3 up-to-date
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.0.RELEASE)
+
+2020-06-16 12:35:08.148  INFO 23836 --- [           main] buaa.backend.BackendApplication          : Starting BackendApplication on Codevka with PID 23836 (/root/21push/backend/build/libs/backend-0.0.1-SNAPSHOT.jar started by root in /root/21push)
+2020-06-16 12:35:08.155 DEBUG 23836 --- [           main] buaa.backend.BackendApplication          : Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2020-06-16 12:35:08.156  INFO 23836 --- [           main] buaa.backend.BackendApplication          : No active profile set, falling back to default profiles: default
+2020-06-16 12:35:12.584  INFO 23836 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 18888 (http)
+2020-06-16 12:35:12.612  INFO 23836 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-16 12:35:12.615  INFO 23836 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-06-16 12:35:12.808  INFO 23836 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-06-16 12:35:12.808  INFO 23836 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4499 ms
+2020-06-16 12:35:14.462  INFO 23836 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-16 12:35:15.175  INFO 23836 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-06-16 12:35:15.212  INFO 23836 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-06-16 12:35:15.327  INFO 23836 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 18888 (http) with context path ''
+2020-06-16 12:35:15.380  INFO 23836 --- [           main] buaa.backend.BackendApplication          : Started BackendApplication in 8.563 seconds (JVM running for 10.5)
