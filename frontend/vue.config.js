@@ -13,6 +13,7 @@ module.exports = {
       'crypto-js': 'CryptoJS',
       'websocket-extensions': 'Extensions',
       'websocket-driver': 'Driver',
+      'sockjs-client': 'SockJS'
     };
     let optimization = {
       runtimeChunk: 'single',
@@ -37,5 +38,5 @@ module.exports = {
     Object.assign(config, {
       optimization,
     });
-  }, 
+  },
 };
