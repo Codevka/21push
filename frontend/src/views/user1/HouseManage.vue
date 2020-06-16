@@ -19,7 +19,7 @@
       <el-table-column prop="address" label="地址" min-width="26%" :resizable="false"></el-table-column>
       <el-table-column prop="rentType" label="租房形式" min-width="11%" :resizable="false"></el-table-column>
       <el-table-column prop="houseType" label="房间类型" min-width="11%" :resizable="false"></el-table-column>
-      <el-table-column prop="status" label="房源状态" min-width="11%" :resizable="false"></el-table-column>
+      <el-table-column prop="housestatus" label="房源状态" min-width="11%" :resizable="false"></el-table-column>
       <el-table-column fixed="right" label="操作" min-width="11%" :resizable="false">
         <template slot-scope="scope">
           <el-button @click.native.prevent="toHouseInfo(scope.$index)" size="small">详细信息</el-button>

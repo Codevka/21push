@@ -258,7 +258,7 @@ export default {
               sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
               this.$store.dispatch("commitLogin");
               this.dis0 = false;
-              this.$router.push("/user2");
+              this.mt();
             } else {
               this.$message.error({
                 message: "信息修改失败,请稍后再试"
@@ -302,8 +302,7 @@ export default {
               sessionStorage.setItem("userInfo", JSON.stringify(changeParams));
               this.$store.dispatch("commitLogin");
               this.dis1 = false;
-              this.mounted();
-              this.$router.push("/user2");
+              this.mt();
             } else {
               this.$message.error({
                 message: "密码修改失败,请稍后再试"
@@ -316,20 +315,22 @@ export default {
           });
         }
       });
+    },
+    mt() {
+      this.userInfo = this.$store.state.userInfo;
+      this.changeUserInfoForm.userType = this.$store.state.userInfo.userType;
+      this.changeUserInfoForm.username = this.$store.state.userInfo.username;
+      this.changeUserInfoForm.password = this.$store.state.userInfo.password;
+      this.changeUserInfoForm.tel = parseInt(this.$store.state.userInfo.tel);
+      this.changeUserInfoForm.email = this.$store.state.userInfo.email;
+      this.changeUserInfoForm.name = this.$store.state.userInfo.name;
+      this.changeUserInfoForm.province = this.$store.state.userInfo.province;
+      this.changeUserInfoForm.city = this.$store.state.userInfo.city;
+      this.changeUserInfoForm.area = this.$store.state.userInfo.area;
     }
   },
   mounted() {
-    this.userInfo = this.$store.state.userInfo;
-    this.changeUserInfoForm.userType = this.$store.state.userInfo.userType;
-    this.changeUserInfoForm.username = this.$store.state.userInfo.username;
-    this.changeUserInfoForm.password = this.$store.state.userInfo.password;
-    this.changeUserInfoForm.tel = parseInt(this.$store.state.userInfo.tel);
-    this.changeUserInfoForm.email = this.$store.state.userInfo.email;
-    this.changeUserInfoForm.name = this.$store.state.userInfo.name;
-    this.changeUserInfoForm.province = this.$store.state.userInfo.province;
-    this.changeUserInfoForm.city = this.$store.state.userInfo.city;
-    this.changeUserInfoForm.area = this.$store.state.userInfo.area;
-    //console.log(this.changeUserInfoForm);
+    this.mt();
   }
 };
 </script>
