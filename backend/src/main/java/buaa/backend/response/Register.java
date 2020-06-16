@@ -57,7 +57,8 @@ public class Register {
         });
         if (Integer.parseInt((String) body.get("userType")) == UserType.RENTER.ordinal()) {
             assert result != null;
-            addMoneyAccount((String) body.get("username"));
+            logger.trace("result is {}", result);
+            addMoneyAccount((String) result.get("username"));
         }
         logger.trace("res is {}", result);
         return result;
