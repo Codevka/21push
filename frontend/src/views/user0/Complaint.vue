@@ -181,10 +181,10 @@ export default {
     // var bucketName = "21push";
     // var AK = "K96MCAU7eCnSWz4XUbxIBe9Q9PUm_gBHfacmsAEf";
     // var SK = "g0eagx-yjztmAo0iVi-Nj8QrsCRGrKhdGKIjpVr9";
-    var bucketName = "push21";
+    var bucketName = "domaint";
     var AK = "slnMazKaSrCowN_nA5Y4i0QwFo62AaZKZQ8h2xOj";
     var SK = "wh8pr5uMd8_SNCxdGZvEh8-Hzy11swN6UaXwhlCF";
-    var deadline = 1594028031; // 2020-07-06
+    var deadline = 1599840000; // 2020-07-06
     policy.scope = bucketName;
     policy.deadline = deadline;
     token = genToken(AK, SK, policy);
